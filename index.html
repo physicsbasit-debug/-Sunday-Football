@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>Sunday Football v0.1.4</title>
+<title>Sunday Football v0.1.5</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -26,7 +26,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 </style>
 </head>
 <body>
-<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.1.4</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.1.5</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -54,7 +54,10 @@ const seed=[
 ].map((x,i)=>({id:Date.now()+i,name:x[0],pos:x[1],second:x[2],rating:x[3],exempt:false,active:true,balance:0}));
 let S=JSON.parse(localStorage.getItem("sf_v1")||"null")||{players:seed,cycle:1,days:[],payments:[],lastAttendees:[]}; if(!S.pendingAttendees)S.pendingAttendees=[]; S.players.forEach(p=>{if(p.joinCycle==null)p.joinCycle=S.cycle;if(p.joinDay==null)p.joinDay=1}); let currentTeams={A:[],B:[]};
 function save(){localStorage.setItem("sf_v1",JSON.stringify(S));render()}
-function cleanAttendanceName(s){return String(s||"").trim().replace(/^\s*[\d٠-٩۰-۹]+\s*[-–—.)،:]\s*/,"").trim()}\nfunction namesFromInput(){return attendanceInput.value.split(/[\n،,]+/).map(cleanAttendanceName).filter(Boolean)}\nfunction playerByInputName(n){let key=normalizeName(cleanAttendanceName(n));return S.players.find(p=>normalizeName(p.name)===key)}\nfunction showTab(id,b){document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}
+function cleanAttendanceName(s){return String(s||"").trim().replace(/^\s*[\d٠-٩۰-۹]+\s*[-–—.)،:]\s*/,"").trim()}
+function namesFromInput(){return attendanceInput.value.split(/[\n،,]+/).map(cleanAttendanceName).filter(Boolean)}
+function playerByInputName(n){let key=normalizeName(cleanAttendanceName(n));return S.players.find(p=>normalizeName(p.name)===key)}
+function showTab(id,b){document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}
 function previewAttendance(){let list=namesFromInput(),u=list.filter(n=>!playerByInputName(n));unknown.textContent=u.length?"غير مسجل: "+u.join("، "):"جميع الأسماء مسجلة ✓"}\nfunction prepareSunday(){if(S.days.length>=5)return alert("اكتملت الدورة. ابدأ دورة جديدة أولًا.");let list=namesFromInput();if(!list.length)return alert("ألصق أسماء المسجلين أولًا.");let u=list.filter(n=>!playerByInputName(n));if(u.length)return alert("يوجد أسماء غير مسجلة: "+u.join("، "));let a=list.map(n=>playerByInputName(n).name);S.pendingAttendees=[...new Set(a)];S.lastAttendees=[...S.pendingAttendees];save();buildTeams()}\nfunction renderConfirm(){let a=S.pendingAttendees||[];if(!a.length){confirmCard.style.display="none";return}confirmCard.style.display="block";confirmList.innerHTML=a.map(n=>'<label style="display:flex;gap:8px;align-items:center;padding:9px;border-bottom:1px solid #eee"><input style="width:auto" type="checkbox" checked value="'+n+'"><b>'+n+'</b></label>').join("")}
 function confirmedNames(){return [...confirmList.querySelectorAll("input:checked")].map(x=>x.value)}
 function rebuildConfirmed(){S.lastAttendees=confirmedNames();save();buildTeams()}
