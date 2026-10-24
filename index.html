@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>Sunday Football</title>
+<title>Sunday Football v0.1.1</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -26,7 +26,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 </style>
 </head>
 <body>
-<header><h1>⚽ Sunday Football</h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.1.1</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
