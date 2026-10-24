@@ -30,7 +30,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div></div>
- <div class="card"><h2>حضور الأحد</h2><textarea id="attendanceInput" placeholder="الصق أسماء الحاضرين هنا، كل اسم في سطر&#10;مثال:&#10;محمود اليحيائي&#10;أحمد الوهيبي"></textarea><div id="unknown" class="unknown"></div><div class="actions"><button class="secondary" onclick="previewAttendance()">فحص الأسماء</button><button class="primary" onclick="recordSunday()">تسجيل الأحد</button></div><p class="note">يُسجّل الغائب تلقائيًا لكل لاعب نشط لم يرد اسمه. الحضور فقط هو الذي يكلّف 1 ر.ع.</p></div>
+ <div class="card"><h2>حضور الأحد</h2><textarea id="attendanceInput" placeholder="الصق أسماء الحاضرين هنا، كل اسم في سطر&#10;مثال:&#10;محمود اليحيائي&#10;أحمد الوهيبي"></textarea><div id="unknown" class="unknown"></div><div class="actions"><button class="secondary" onclick="previewAttendance()">فحص الأسماء</button><button class="primary" onclick="prepareSunday()">تجهيز القائمة والتوزيع</button></div><p class="note">هذه قائمة مبدئية. لا تُحسب المشاركة أو الرسوم حتى اعتماد الحضور الفعلي في الملعب.</p></div><div id="confirmCard" class="card" style="display:none"><h2>تأكيد الحضور في الملعب</h2><p class="note">أزل علامة الحضور عن أي لاعب سجّل ثم لم يحضر، وبعدها أعد موازنة الفريقين.</p><div id="confirmList"></div><div class="actions"><button class="secondary" onclick="rebuildConfirmed()">إعادة موازنة الموجودين</button><button class="primary" onclick="confirmSunday()">اعتماد الحضور الفعلي</button></div></div>
 </section>
 <section id="teams">
  <div class="card"><h2>توزيع الفريقين</h2><p class="note">التقييمات سرية وتُستخدم داخليًا فقط. لا تظهر في قائمة الفريق العامة.</p><button class="primary" style="width:100%" onclick="buildTeams()">إنشاء توزيع متوازن</button></div>
@@ -52,14 +52,16 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 const seed=[
 ["محمود اليحيائي","وسط","حارس مرمى",5],["أحمد الوهيبي","وسط","",5],["يوسف اليحمدي","دفاع","حارس مرمى",4],["سعود المبيحسي","وسط","",5],["خالد البلوشي","وسط","",3.5],["سعود المعولي","مهاجم","",3],["عبدالله الشبيبي","دفاع","",4],["نايف المبيحسي","دفاع","",4],["أحمد الريامي","وسط","",4],["حسين الحسني","وسط","",3.5],["معاذ العويسي","دفاع","",4],["محمود العويسي","وسط","",5],["سلطان الحضرمي","دفاع","مهاجم",3.5]
 ].map((x,i)=>({id:Date.now()+i,name:x[0],pos:x[1],second:x[2],rating:x[3],exempt:false,active:true,balance:0}));
-let S=JSON.parse(localStorage.getItem("sf_v1")||"null")||{players:seed,cycle:1,days:[],payments:[],lastAttendees:[]}; let currentTeams={A:[],B:[]};
+let S=JSON.parse(localStorage.getItem("sf_v1")||"null")||{players:seed,cycle:1,days:[],payments:[],lastAttendees:[]}; if(!S.pendingAttendees)S.pendingAttendees=[]; let currentTeams={A:[],B:[]};
 function save(){localStorage.setItem("sf_v1",JSON.stringify(S));render()}
 function namesFromInput(){return attendanceInput.value.split(/[\n،,]+/).map(x=>x.trim()).filter(Boolean)}
 function showTab(id,b){document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}
 function previewAttendance(){let a=namesFromInput(), known=new Set(S.players.map(p=>p.name));let u=a.filter(n=>!known.has(n));unknown.textContent=u.length?"غير مسجل: "+u.join("، "):"جميع الأسماء مسجلة ✓"}
-function recordSunday(){if(S.days.length>=5)return alert("اكتملت الدورة. ابدأ دورة جديدة أولًا.");let a=namesFromInput();if(!a.length)return alert("ألصق أسماء الحاضرين أولًا.");let map=new Map(S.players.map(p=>[p.name,p]));let u=a.filter(n=>!map.has(n));if(u.length)return alert("يوجد أسماء غير مسجلة: "+u.join("، "));
- let entries={};S.players.filter(p=>p.active).forEach(p=>{let present=a.includes(p.name);let paid=false;if(present){if(p.exempt)paid=true;else if(p.balance>=1){p.balance-=1;paid=true}else{p.balance-=1;paid=false}}entries[p.id]={present,paid};});
- S.days.push({date:new Date().toISOString(),entries});S.lastAttendees=a;attendanceInput.value="";save();alert("تم تسجيل الأحد بنجاح");}
+function prepareSunday(){if(S.days.length>=5)return alert("اكتملت الدورة. ابدأ دورة جديدة أولًا.");let a=namesFromInput();if(!a.length)return alert("ألصق أسماء المسجلين أولًا.");let known=new Set(S.players.map(p=>p.name)),u=a.filter(n=>!known.has(n));if(u.length)return alert("يوجد أسماء غير مسجلة: "+u.join("، "));S.pendingAttendees=a;S.lastAttendees=[...a];save();buildTeams()}
+function renderConfirm(){let a=S.pendingAttendees||[];if(!a.length){confirmCard.style.display="none";return}confirmCard.style.display="block";confirmList.innerHTML=a.map(n=>'<label style="display:flex;gap:8px;align-items:center;padding:9px;border-bottom:1px solid #eee"><input style="width:auto" type="checkbox" checked value="'+n+'"><b>'+n+'</b></label>').join("")}
+function confirmedNames(){return [...confirmList.querySelectorAll("input:checked")].map(x=>x.value)}
+function rebuildConfirmed(){S.lastAttendees=confirmedNames();save();buildTeams()}
+function confirmSunday(){let a=confirmedNames();if(!a.length)return alert("لا يوجد حضور فعلي لاعتماده.");if(!confirm("اعتماد الحضور الفعلي وحساب المشاركة والرسوم؟"))return;let entries={};S.players.filter(p=>p.active).forEach(p=>{let present=a.includes(p.name),paid=false;if(present){if(p.exempt)paid=true;else if(p.balance>=1){p.balance-=1;paid=true}else p.balance-=1}entries[p.id]={present,paid};});S.days.push({date:new Date().toISOString(),entries});S.lastAttendees=a;S.pendingAttendees=[];attendanceInput.value="";save();buildTeams();alert("تم اعتماد الحضور الفعلي")}
 function isGK(p){return p.pos==="حارس مرمى"||p.second==="حارس مرمى"}
 function roleCount(t,role){return t.filter(p=>p.pos===role||p.second===role).length}
 function teamCost(A,B){
@@ -85,7 +87,7 @@ function addPayment(){let p=S.players.find(x=>String(x.id)===payPlayer.value),a=
 function newCycle(){if(!confirm("بدء دورة جديدة؟ سيُصفّر عداد الأيام فقط، وسيبقى الرصيد مُرحّلًا."))return;S.cycle++;S.days=[];S.lastAttendees=[];save()}
 function addPlayer(){let name=pName.value.trim();if(!name)return;if(S.players.some(p=>p.name===name))return alert("اللاعب موجود بالفعل");S.players.push({id:Date.now(),name,pos:pPos.value,second:pSecond.value,rating:Number(pRating.value),exempt:pExempt.value==="1",active:true,balance:0});pName.value="";save()}
 function render(){
- dayNo.textContent=S.days.length+"/5";activeCount.textContent=S.players.filter(p=>p.active).length;todayCount.textContent=S.lastAttendees.length;
+ renderConfirm();dayNo.textContent=S.days.length+"/5";activeCount.textContent=S.players.filter(p=>p.active).length;todayCount.textContent=S.lastAttendees.length;
  playersList.innerHTML=S.players.map(p=>'<div class="player"><div class="player-info"><b>'+p.name+'</b><div class="meta">'+p.pos+(p.second?" • "+p.second:"")+' • <span class="stars">'+p.rating+' ★</span></div></div>'+(p.exempt?'<span class="badge">معفى</span>':'')+'</div>').join("");
  payPlayer.innerHTML=S.players.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join("");
  let head='<table><thead><tr><th>اللاعب</th>'+[1,2,3,4,5].map(i=>'<th>'+i+'</th>').join("")+'<th>الرصيد</th></tr></thead><tbody>';
