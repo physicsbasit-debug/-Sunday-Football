@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>Sunday Football v0.4.0</title>
+<title>Sunday Football v0.4.1</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.4.0 formation spacing + guaranteed 3D fallback */
+/* v0.4.1 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -74,17 +74,17 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 
-/* v0.4.0 real 3D reliability + role-aware formation */
+/* v0.4.1 real 3D reliability + role-aware formation */
 .three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
 .three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
 @keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
 .pitch-player{width:88px}.pname{max-width:86px}
 @media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
 
-/* v0.4.0 refined 3D footballers */
+/* v0.4.1 refined 3D footballers */
 .three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
 
-/* v0.4.0 finishing controls */
+/* v0.4.1 finishing controls */
 .camera-controls{margin:8px 0 10px;padding:9px;background:#f2f5f1;border:1px solid #dbe3dc;border-radius:14px}
 .camera-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.camera-row+.camera-row{margin-top:6px}
 .camera-controls button{padding:9px 5px;background:#fff;border:1px solid #d5ddd6;color:#244b36;border-radius:9px;font-size:10px;min-height:39px}.camera-controls .camera-whatsapp{background:#173f2c;color:#fff;border-color:#173f2c}
@@ -93,7 +93,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 </style>
 </head>
 <body>
-<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.4.0</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.4.1</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -107,7 +107,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 <section id="money">
  <div class="card"><h2>الحضور والدفع</h2><div id="ledger" class="ledger"></div><div class="actions"><button class="secondary full" onclick="openCorrection()">تعديل سجل الحضور</button></div></div><div id="correctionCard" class="card" style="display:none"><h2>تعديل سجل الحضور</h2><p class="note">للتصحيح فقط: اختر اللاعب وعدّل حالة أي يوم سابق. تسجيل الأموال يتم من بطاقة «تسجيل دفعة» بشكل مستقل.</p><select id="corrPlayer"></select><div id="corrDays" style="margin-top:10px"></div><div class="actions" style="margin-top:10px"><button class="primary full" onclick="applyCorrection()">حفظ تعديل الحضور</button></div></div>
  <div class="card" id="openingBalanceCard"><h2>الرصيد المُرحّل السابق — إدخال انتقالي لمرة واحدة</h2><p class="note">استخدمه فقط للأرصدة المتبقية فعليًا الآن من الدورة السابقة ولم تعرفها المنظومة. أدخل المتبقي الحالي، لا المبلغ الأصلي قبل استهلاك المشاركات.</p><div class="row"><select id="openingPlayer"></select><input id="openingAmount" type="number" min=".5" step=".5" placeholder="الرصيد المتبقي حاليًا (ر.ع)"></div><div class="actions"><button class="secondary full" onclick="addOpeningBalance()">إضافة الرصيد المُرحّل</button></div><p class="note" id="openingNote"></p></div><div class="card"><h2>تسجيل دفعة</h2><p class="note">استخدم هذه البطاقة فقط عندما تستلم مبلغًا من اللاعب، سواء دفع في أول الدورة أو آخرها.</p><div class="row"><select id="payPlayer"></select><input id="payAmount" type="number" min=".5" step=".5" value="5" placeholder="المبلغ المدفوع (ر.ع)"></div><div class="actions"><button class="primary full" onclick="addPayment()">تسجيل الدفعة</button></div><p class="note">تُسدد أقدم المشاركات غير المدفوعة تلقائيًا، ثم يُحفظ المتبقي كرصد دائن. الغياب ⭕ لا يستهلك الرصيد، والرصيد يُرحّل بين الدورات.</p></div>
- <div class="card"><h2>مشاركة قائمة الدفع</h2><p class="note">صورة مستقلة للدورة الحالية؛ الأخضر الفاتح = رصيد دائن، الأحمر الفاتح = مبلغ مستحق.</p><div class="actions"><button class="secondary" onclick="shareLedger()">مشاركة</button><button class="primary" onclick="saveLedger()">حفظ الصورة</button></div></div><div class="card"><button class="danger" style="width:100%" onclick="newCycle()">بدء دورة جديدة من 5 أيام</button></div>
+ <div class="card"><h2>مشاركة قائمة الدفع</h2><p class="note">صورة مستقلة للدورة الحالية؛ الأخضر الفاتح = رصيد دائن، الأحمر الفاتح = مبلغ مستحق.</p><div class="actions"><button class="secondary" onclick="shareLedger()">مشاركة الصورة</button><button class="primary" onclick="saveLedger()">حفظ الصورة</button><button class="secondary full" onclick="shareLedgerText()">نسخ/مشاركة ملخص واتساب النصي</button></div></div><div class="card"><button class="danger" style="width:100%" onclick="newCycle()">بدء دورة جديدة من 5 أيام</button></div>
 </section>
 <section id="players">
  <div class="card"><h2>إضافة لاعب</h2><input id="pName" placeholder="اسم اللاعب"><div class="row" style="margin-top:8px"><select id="pPos"><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select><select id="pSecond"><option value="">بدون مركز ثانوي</option><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select></div><div class="row" style="margin-top:8px"><select id="pRating"><option>5</option><option>4.5</option><option selected>4</option><option>3.5</option><option>3</option><option>2.5</option><option>2</option><option>1.5</option><option>1</option></select><select id="pExempt"><option value="0">دفع عادي</option><option value="1">معفى من الدفع</option></select></div><div class="actions"><button class="primary full" onclick="addPlayer()">إضافة اللاعب</button></div></div>
@@ -420,19 +420,52 @@ function movePlayer(id,from){
 function unpaidEntriesFor(p){let out=[];S.days.forEach((d,i)=>{let e=d.entries&&d.entries[p.id];if(e&&e.present&&!e.paid&&!p.exempt)out.push({e,day:i})});return out}
 function allocatePayment(p,amount){let left=Number(amount)||0;for(let item of unpaidEntriesFor(p)){if(left<1)break;item.e.paid=true;p.balance+=1;left-=1}p.balance+=left}
 function openCorrection(){correctionCard.style.display="block";corrPlayer.innerHTML=S.players.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join("");corrPlayer.onchange=renderCorrectionDays;renderCorrectionDays();correctionCard.scrollIntoView({behavior:"smooth",block:"start"})}
-function renderCorrectionDays(){let p=S.players.find(x=>String(x.id)===String(corrPlayer.value));if(!p)return;corrDays.innerHTML=S.days.map((d,i)=>{let e=d.entries&&d.entries[p.id],v=!e||!e.present?"absent":e.paid?"paid":"unpaid";return '<div class="row" style="align-items:center;margin:6px 0"><b>اليوم '+(i+1)+'</b><select id="corrDay_'+i+'"><option value="absent" '+(v==="absent"?"selected":"")+'>⭕ غائب</option><option value="paid" '+(v==="paid"?"selected":"")+'>حضر ومدفوع ✅</option><option value="unpaid" '+(v==="unpaid"?"selected":"")+'>حضر وغير مدفوع ❌</option></select></div>'}).join("")}
-function applyCorrection(){let p=S.players.find(x=>String(x.id)===String(corrPlayer.value));if(!p)return;S.days.forEach((d,i)=>{let sel=document.getElementById("corrDay_"+i);if(!sel)return;let old=d.entries[p.id],oldDebt=old&&old.present&&!old.paid&&!p.exempt?1:0,v=sel.value,newDebt=v==="unpaid"&&!p.exempt?1:0;p.balance+=oldDebt-newDebt;d.entries[p.id]={present:v!=="absent",paid:v==="paid"||p.exempt}});save();renderCorrectionDays();alert("تم حفظ تعديل سجل الحضور.")}
-function addOpeningBalance(){let p=S.players.find(x=>String(x.id)===String(openingPlayer.value)),a=Number(openingAmount.value);if(!p||!a||a<=0)return alert("أدخل رصيدًا صحيحًا.");if(p.openingImported)return alert("تم إدخال الرصيد المرحّل لهذا اللاعب سابقًا.");p.balance+=a;p.openingImported=true;p.openingImportedAmount=a;S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString(),note:"رصيد مرحّل سابق — إدخال انتقالي"});openingAmount.value="";save();alert("تمت إضافة الرصيد المرحّل المتبقي حاليًا. لن يُطلب إدخاله يدويًا في الدورات القادمة.")}
+function renderCorrectionDays(){let p=S.players.find(x=>String(x.id)===String(corrPlayer.value));if(!p)return;corrDays.innerHTML=S.days.map((d,i)=>{let e=d.entries&&d.entries[p.id],present=!!(e&&e.present);return '<div class="row" style="align-items:center;margin:6px 0"><b>اليوم '+(i+1)+'</b><select id="corrDay_'+i+'"><option value="absent" '+(!present?"selected":"")+'>⭕ غائب</option><option value="present" '+(present?"selected":"")+'>حضر</option></select></div>'}).join("")}
+function applyCorrection(){
+ let p=S.players.find(x=>String(x.id)===String(corrPlayer.value));if(!p)return;
+ S.days.forEach((d,i)=>{
+   let sel=document.getElementById("corrDay_"+i);if(!sel)return;
+   if(!d.entries)d.entries={};let old=d.entries[p.id]||{present:false,paid:false},oldPresent=!!old.present,newPresent=sel.value==="present";
+   if(oldPresent===newPresent)return;
+   if(p.exempt){d.entries[p.id]={present:newPresent,paid:newPresent};return}
+   if(oldPresent&&!newPresent){p.balance+=1;d.entries[p.id]={present:false,paid:false};return}
+   if(!oldPresent&&newPresent){let hadCredit=p.balance>=1;p.balance-=1;d.entries[p.id]={present:true,paid:hadCredit}}
+ });
+ save();renderCorrectionDays();alert("تم حفظ تعديل الحضور وإعادة احتساب أثر المشاركة على الرصيد.")
+}
+function addOpeningBalance(){let p=S.players.find(x=>String(x.id)===String(openingPlayer.value)),a=Number(openingAmount.value);if(!p||!a||a<=0)return alert("أدخل رصيدًا صحيحًا.");if(p.openingImported)return alert("تم إدخال الرصيد المرحّل لهذا اللاعب سابقًا.");p.balance+=a;p.openingImported=true;p.openingImportedAmount=a;S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString(),cycle:S.cycle,note:"رصيد مرحّل سابق — إدخال انتقالي"});openingAmount.value="";save();alert("تمت إضافة الرصيد المرحّل المتبقي حاليًا. لن يُطلب إدخاله يدويًا في الدورات القادمة.")}
 function ledgerCanvas(){let players=S.players.filter(p=>p.active),rowH=66,w=1180,h=180+players.length*rowH,cv=document.createElement("canvas");cv.width=w;cv.height=h;let x=cv.getContext("2d");x.direction="rtl";x.fillStyle="#f4f1e8";x.fillRect(0,0,w,h);x.fillStyle="#173f2c";x.fillRect(0,0,w,110);x.fillStyle="white";x.textAlign="center";x.font="bold 36px Arial";x.fillText("Sunday Football — قائمة الدفع للدورة "+S.cycle,w/2,48);x.font="22px Arial";x.fillText("الحضور والدفع • "+S.days.length+"/5 أيام",w/2,82);let cols=[220,130,130,130,130,130,180],labels=["اللاعب","1","2","3","4","5","الرصيد"],start=20,y=125,cx=start;x.font="bold 20px Arial";labels.forEach((l,i)=>{x.fillStyle="#e9eee9";x.fillRect(cx,y,cols[i],45);x.fillStyle="#17211c";x.fillText(l,cx+cols[i]/2,y+29);cx+=cols[i]});players.forEach((p,ri)=>{y=170+ri*rowH;x.fillStyle=p.balance>0?"#e5f6e9":p.balance<0?"#fde8e7":"#ffffff";x.fillRect(start,y,w-40,rowH-4);let attendNo=0,vals=[p.name];for(let i=0;i<5;i++){let d=S.days[i];if(!d||(p.joinCycle===S.cycle&&i+1<p.joinDay)){vals.push("—");continue}let e=d.entries&&d.entries[p.id];if(!e||!e.present){vals.push("⭕");continue}attendNo++;let keys=["","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"];vals.push((keys[attendNo]||String(attendNo))+(e.paid?"✅":"❌"))}vals.push(p.exempt?"معفى":p.balance.toFixed(1)+" ر.ع");cx=start;x.font="19px Arial";vals.forEach((v,i)=>{x.fillStyle="#17211c";x.fillText(v,cx+cols[i]/2,y+39);cx+=cols[i]})});return cv}
 function saveLedger(){let a=document.createElement("a");a.download="sunday-football-payments-cycle-"+S.cycle+".png";a.href=ledgerCanvas().toDataURL("image/png");a.click()}
 async function shareLedger(){let cv=ledgerCanvas();cv.toBlob(async blob=>{let file=new File([blob],"sunday-football-payments.png",{type:"image/png"});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"قائمة دفع Sunday Football"});return}catch(e){}}saveLedger()},"image/png")}
-function addPayment(){let p=S.players.find(x=>String(x.id)===payPlayer.value),a=Number(payAmount.value);if(!p||!a||a<=0)return;allocatePayment(p,a);S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString()});save();alert("تم تسجيل الدفعة. سُددت أقدم المشاركات غير المدفوعة أولًا، وحُفظ المتبقي كرصد دائن.")}
-function newCycle(){if(!confirm("بدء دورة جديدة؟ سيُصفّر عداد الأيام فقط، وستُرحّل الأرصدة الدائنة والمستحقات تلقائيًا."))return;S.players.forEach(p=>{p.carriedFromCycle=S.cycle;p.carriedBalance=p.balance});S.cycle++;S.days=[];S.lastAttendees=[];S.pendingAttendees=[];S.players.forEach(p=>{if(p.active){p.joinCycle=S.cycle;p.joinDay=1}});save()}
+function ledgerText(){
+ let lines=["⚽ Sunday Football","الدورة "+S.cycle+" • "+S.days.length+"/5 أيام",""];
+ S.players.filter(p=>p.active).forEach(p=>{
+   let state=p.exempt?"✅ معفى":p.balance>0?"🟢 له رصيد "+p.balance.toFixed(1)+" ر.ع":p.balance<0?"🔴 عليه "+Math.abs(p.balance).toFixed(1)+" ر.ع":"✅ متوازن";
+   lines.push(p.name+" — "+state)
+ });
+ return lines.join("\n")
+}
+async function shareLedgerText(){
+ let txt=ledgerText();
+ if(navigator.share){try{await navigator.share({title:"Sunday Football — قائمة الدفع",text:txt});return}catch(e){}}
+ try{await navigator.clipboard.writeText(txt);alert("تم نسخ ملخص الدفع. الصقه مباشرة في واتساب.")}catch(e){prompt("انسخ النص التالي:",txt)}
+}
+function addPayment(){let p=S.players.find(x=>String(x.id)===payPlayer.value),a=Number(payAmount.value);if(!p||!a||a<=0)return;allocatePayment(p,a);S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString(),cycle:S.cycle});save();alert("تم تسجيل الدفعة. سُددت أقدم المشاركات غير المدفوعة أولًا، وحُفظ المتبقي كرصد دائن.")}
+function newCycle(){
+ let msg=S.days.length<5?"الدورة الحالية لم تصل إلى 5 أيام بعد. هل تريد إغلاقها مبكرًا وبدء دورة جديدة؟":"إغلاق الدورة الحالية وبدء دورة جديدة؟ ستُرحّل الأرصدة والمستحقات تلقائيًا.";
+ if(!confirm(msg))return;
+ if(!Array.isArray(S.cycleHistory))S.cycleHistory=[];
+ S.cycleHistory.push({cycle:S.cycle,closedAt:new Date().toISOString(),days:JSON.parse(JSON.stringify(S.days)),players:S.players.map(p=>({id:p.id,name:p.name,balance:p.balance,active:p.active,exempt:p.exempt})),payments:S.payments.filter(x=>x.cycle==null||x.cycle===S.cycle).map(x=>({...x}))});
+ if(S.cycleHistory.length>24)S.cycleHistory=S.cycleHistory.slice(-24);
+ S.players.forEach(p=>{p.carriedFromCycle=S.cycle;p.carriedBalance=p.balance});
+ S.cycle++;S.days=[];S.lastAttendees=[];S.pendingAttendees=[];S.players.forEach(p=>{if(p.active){p.joinCycle=S.cycle;p.joinDay=1}});
+ save()
+}
 function exportBackup(){
  let payload={app:"Sunday Football",schema:1,exportedAt:new Date().toISOString(),data:S};
  let blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
  a.href=url;a.download="sunday-football-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
- if(typeof backupStatus!=="undefined")backupStatus.textContent="تم إنشاء نسخة احتياطية من اللاعبين والحضور والدفع والأرصدة والتشكيلة."
+ let st=document.getElementById("backupStatus");if(st)st.textContent="تم إنشاء نسخة احتياطية من اللاعبين والحضور والدفع والأرصدة والتشكيلة."
 }
 function importBackup(ev){
  let file=ev.target.files&&ev.target.files[0];if(!file)return;
