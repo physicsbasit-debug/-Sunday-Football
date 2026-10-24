@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>Sunday Football v0.3.4</title>
+<title>Sunday Football v0.3.5</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.3.4 formation spacing + guaranteed 3D fallback */
+/* v0.3.5 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -74,16 +74,19 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 
-/* v0.3.4 real 3D reliability + role-aware formation */
+/* v0.3.5 real 3D reliability + role-aware formation */
 .three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
 .three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
 @keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
 .pitch-player{width:88px}.pname{max-width:86px}
 @media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
+
+/* v0.3.5 refined 3D footballers */
+.three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
 </style>
 </head>
 <body>
-<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.3.4</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.3.5</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -141,7 +144,7 @@ function buildTeams(){let ps=S.players.filter(p=>S.lastAttendees.includes(p.name
 function renderTeams(){let A=currentTeams.A,B=currentTeams.B;if(!A.length&&!B.length)return;let box=(t,key,n,cls)=>{let strength=t.reduce((s,p)=>s+p.rating,0);return '<div class="team '+cls+'"><h3>الفريق '+n+'</h3><div class="team-summary"><span>'+t.length+' لاعبين</span><span>'+(t.some(isGK)?'حارس متوفر':'يحتاج حارس')+'</span></div>'+t.map(p=>'<div class="team-player"><span>'+p.name+' <small>('+p.pos+')</small></span><button class="move" onclick="movePlayer(\''+p.id+'\',\''+key+'\')">↔</button></div>').join("")+'</div>'};teamsOut.innerHTML=box(A,"A","أ","red")+box(B,"B","ب","yellow");teamActions.style.display="block";renderPitch()}
 let tacticalLayout=S.tacticalLayout||{},pitch3d=false,threeMoveMode=false;
 let threeScene=null,threeCamera=null,threeRenderer=null,threePlayersRoot=null,threeAnim=null,threePlayerGroups={},threeHitMeshes=[],threeRay=null,threeGround=null;
-let camYaw=0,camElev=.72,camDist=43,orbitState=null,drag3DId=null;
+let camYaw=0,camElev=.88,camDist=49,orbitState=null,drag3DId=null;
 function persistTacticalLayout(){S.tacticalLayout=tacticalLayout;localStorage.setItem("sf_v1",JSON.stringify(S))}
 function splitRoleRows(arr){
  if(arr.length<=4)return [arr];
@@ -249,8 +252,11 @@ function roundedRect(ctx,x,y,w,h,r){
  ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()
 }
 function labelSprite(text){
- let cv=document.createElement("canvas");cv.width=768;cv.height=160;let x=cv.getContext("2d");x.clearRect(0,0,cv.width,cv.height);x.fillStyle="rgba(3,12,8,.88)";roundedRect(x,10,18,748,124,34);x.fill();x.strokeStyle="rgba(255,255,255,.38)";x.lineWidth=3;roundedRect(x,10,18,748,124,34);x.stroke();x.direction="rtl";x.textAlign="center";x.textBaseline="middle";x.fillStyle="#fff";x.font="bold 50px Arial";x.fillText(text,384,80);
- let tx=new THREE.CanvasTexture(cv);tx.minFilter=THREE.LinearFilter;let s=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,depthTest:false}));s.scale.set(4.6,.96,1);return s
+ let cv=document.createElement("canvas");cv.width=640;cv.height=128;let x=cv.getContext("2d");x.clearRect(0,0,cv.width,cv.height);
+ x.fillStyle="rgba(3,12,8,.90)";roundedRect(x,12,18,616,92,26);x.fill();x.strokeStyle="rgba(255,255,255,.30)";x.lineWidth=2;roundedRect(x,12,18,616,92,26);x.stroke();
+ x.direction="rtl";x.textAlign="center";x.textBaseline="middle";x.fillStyle="#fff";x.font="bold 42px Arial";x.fillText(text,320,64);
+ let tx=new THREE.CanvasTexture(cv);tx.minFilter=THREE.LinearFilter;
+ let s=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,depthTest:false}));s.scale.set(3.15,.63,1);return s
 }
 function numberSprite(n,dark){
  let cv=document.createElement("canvas");cv.width=128;cv.height=128;let x=cv.getContext("2d");x.clearRect(0,0,128,128);x.fillStyle=dark?"#111":"#fff";x.font="900 72px Arial";x.textAlign="center";x.textBaseline="middle";x.fillText(String(n),64,66);let tx=new THREE.CanvasTexture(cv);let s=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,depthTest:false}));s.scale.set(.62,.62,1);return s
@@ -283,20 +289,66 @@ function initThree(){
  let loop=()=>{threeAnim=requestAnimationFrame(loop);if(threeRenderer&&pitch3d)threeRenderer.render(threeScene,threeCamera)};loop()
 }
 function mkMesh(geo,mat,id){let m=new THREE.Mesh(geo,mat);m.castShadow=true;m.userData.playerId=String(id);threeHitMeshes.push(m);return m}
+function playerMaterial(hex,rough=.62,metal=.02){return new THREE.MeshStandardMaterial({color:hex,roughness:rough,metalness:metal})}
+function partMesh(geo,mat,id){let m=mkMesh(geo,mat,id);m.castShadow=true;m.receiveShadow=false;return m}
 function create3DPlayer(p,color,num){
- let g=new THREE.Group(),skin=new THREE.MeshStandardMaterial({color:0xc99570,roughness:.75}),shirt=new THREE.MeshStandardMaterial({color,roughness:.52}),shorts=new THREE.MeshStandardMaterial({color:0xf0f1ed,roughness:.7}),sock=new THREE.MeshStandardMaterial({color:0xf2f2ef}),shoe=new THREE.MeshStandardMaterial({color:0x111311});
- let head=mkMesh(new THREE.SphereGeometry(.28,20,16),skin,p.id);head.position.y=2.28;g.add(head);
- let body=mkMesh(new THREE.CylinderGeometry(.46,.34,1.05,8),shirt,p.id);body.position.y=1.55;g.add(body);
- let sh=mkMesh(new THREE.BoxGeometry(.72,.38,.42),shorts,p.id);sh.position.y=.92;g.add(sh);
- [-.22,.22].forEach((xx,i)=>{let leg=mkMesh(new THREE.CylinderGeometry(.1,.09,.72,10),skin,p.id);leg.position.set(xx,.43,0);g.add(leg);let foot=mkMesh(new THREE.BoxGeometry(.23,.12,.42),shoe,p.id);foot.position.set(xx,.08,.12);g.add(foot);let arm=mkMesh(new THREE.CylinderGeometry(.085,.075,.83,10),skin,p.id);arm.position.set(i?-.52:.52,1.58,0);arm.rotation.z=i?-.34:.34;g.add(arm)});
- if(isGK(p)){[-.68,.68].forEach(xx=>{let glove=mkMesh(new THREE.SphereGeometry(.13,12,10),new THREE.MeshStandardMaterial({color:0xffffff}),p.id);glove.position.set(xx,1.28,0);g.add(glove)})}
- let ns=numberSprite(num,color===0xe3b313&&!isGK(p));ns.position.set(0,1.62,.47);g.add(ns);let label=labelSprite(num+"  "+p.name);label.position.set(0,3.05,0);g.add(label);g.userData.playerId=String(p.id);return g
+ let id=p.id,g=new THREE.Group(),gk=isGK(p);
+ let skin=playerMaterial(0xc98f68,.72),skinDark=playerMaterial(0xad7655,.78),hair=playerMaterial(0x171513,.86),eye=playerMaterial(0x161616,.7);
+ let jersey=playerMaterial(gk?0x202523:color,.46),jerseyDark=playerMaterial(gk?0x111412:(color===0xe3b313?0xb98700:0x8d1812),.56);
+ let shorts=playerMaterial(gk?0x171b19:0xf1f2ed,.65),sock=playerMaterial(gk?0x2a2d2b:0xf3f3ef,.67),boot=playerMaterial(0x101211,.5),glove=playerMaterial(0xf4f4ef,.44);
+
+ // legs, socks, boots
+ [-.205,.205].forEach((xx,i)=>{
+   let thigh=partMesh(new THREE.CylinderGeometry(.14,.125,.52,12),skin,id);thigh.position.set(xx,.69,0);g.add(thigh);
+   let sockLeg=partMesh(new THREE.CylinderGeometry(.115,.095,.47,12),sock,id);sockLeg.position.set(xx,.30,0);g.add(sockLeg);
+   let bootM=partMesh(new THREE.BoxGeometry(.25,.14,.43),boot,id);bootM.position.set(xx,.07,.10);bootM.rotation.x=-.05;g.add(bootM)
+ });
+
+ // split football shorts instead of one rectangular block
+ [-.205,.205].forEach(xx=>{let sh=partMesh(new THREE.BoxGeometry(.36,.38,.46),shorts,id);sh.position.set(xx,.95,0);sh.rotation.z=xx<0?.04:-.04;g.add(sh)});
+
+ // athletic tapered shirt
+ let torso=partMesh(new THREE.CylinderGeometry(.43,.34,.88,14),jersey,id);torso.position.y=1.48;torso.scale.z=.78;g.add(torso);
+ let chest=partMesh(new THREE.BoxGeometry(.78,.30,.48),jersey,id);chest.position.set(0,1.77,0);chest.scale.z=.86;g.add(chest);
+
+ // neck
+ let neck=partMesh(new THREE.CylinderGeometry(.115,.13,.20,12),skin,id);neck.position.y=2.04;g.add(neck);
+
+ // shoulders, sleeves, articulated arms and hands
+ [-1,1].forEach(side=>{
+   let sx=side*.48;
+   let sleeve=partMesh(new THREE.CylinderGeometry(.16,.135,.34,12),jerseyDark,id);sleeve.position.set(sx,1.72,0);sleeve.rotation.z=side*.78;g.add(sleeve);
+   let upper=partMesh(new THREE.CylinderGeometry(.105,.09,.49,12),gk?jersey:skin,id);upper.position.set(side*.61,1.43,0);upper.rotation.z=side*.25;g.add(upper);
+   let fore=partMesh(new THREE.CylinderGeometry(.09,.075,.42,12),skin,id);fore.position.set(side*.67,1.07,.02);fore.rotation.z=side*.04;g.add(fore);
+   let hand=partMesh(new THREE.SphereGeometry(gk?.145:.105,14,12),gk?glove:skin,id);hand.position.set(side*.68,.84,.03);g.add(hand)
+ });
+
+ // shaped head
+ let head=partMesh(new THREE.SphereGeometry(.28,22,18),skin,id);head.position.set(0,2.33,0);head.scale.set(.86,1.03,.91);g.add(head);
+ // ears
+ [-1,1].forEach(side=>{let ear=partMesh(new THREE.SphereGeometry(.065,12,10),skinDark,id);ear.position.set(side*.245,2.34,0);ear.scale.set(.65,1,1);g.add(ear)});
+ // hair cap and fringe
+ let cap=partMesh(new THREE.SphereGeometry(.286,22,16,0,Math.PI*2,0,Math.PI*.48),hair,id);cap.position.set(0,2.40,0);cap.scale.set(.87,.95,.92);g.add(cap);
+ let fringe=partMesh(new THREE.BoxGeometry(.31,.055,.06),hair,id);fringe.position.set(0,2.49,.238);fringe.rotation.z=.04;g.add(fringe);
+ // simple face, deliberately subtle rather than cartoon dots the size of headlights
+ [-.083,.083].forEach(xx=>{let e=partMesh(new THREE.SphereGeometry(.024,10,8),eye,id);e.position.set(xx,2.38,.247);g.add(e)});
+ let nose=partMesh(new THREE.ConeGeometry(.028,.09,10),skinDark,id);nose.position.set(0,2.31,.274);nose.rotation.x=Math.PI/2;g.add(nose);
+ let mouth=partMesh(new THREE.BoxGeometry(.10,.018,.018),playerMaterial(0x6f3b31,.8),id);mouth.position.set(0,2.245,.255);g.add(mouth);
+
+ // shirt number on the chest
+ let ns=numberSprite(num,color===0xe3b313&&!gk);ns.position.set(0,1.55,.43);ns.scale.set(.55,.55,1);g.add(ns);
+
+ // player name above the head only; number already appears on shirt
+ let label=labelSprite(p.name);label.position.set(0,2.92,0);g.add(label);
+
+ g.userData.playerId=String(id);
+ return g
 }
 function syncThreePlayers(){
  if(!threeRenderer)return;while(threePlayersRoot.children.length)threePlayersRoot.remove(threePlayersRoot.children[0]);threeHitMeshes=[];threePlayerGroups={};
  [{t:currentTeams.A,color:0xc82f25},{t:currentTeams.B,color:0xe3b313}].forEach(team=>team.t.forEach((p,i)=>{let q=tacticalLayout[String(p.id)]||{x:50,y:50},g=create3DPlayer(p,isGK(p)?0x202321:team.color,i+1);g.position.set((q.x-50)*.22,0,(q.y-50)*.36);g.rotation.y=q.side==="A"?0:Math.PI;threePlayersRoot.add(g);threePlayerGroups[String(p.id)]=g}))
 }
-function updateThreeCamera(){if(!threeCamera)return;let h=camDist*Math.cos(camElev),y=camDist*Math.sin(camElev);threeCamera.position.set(Math.sin(camYaw)*h,y,Math.cos(camYaw)*h);threeCamera.lookAt(0,0,0)}
+function updateThreeCamera(){if(!threeCamera)return;let h=camDist*Math.cos(camElev),y=camDist*Math.sin(camElev);threeCamera.position.set(Math.sin(camYaw)*h,y,Math.cos(camYaw)*h);threeCamera.lookAt(0,.75,0)}
 function threePointerXY(e){let r=threeRenderer.domElement.getBoundingClientRect();return{x:(e.clientX-r.left)/r.width*2-1,y:-(e.clientY-r.top)/r.height*2+1}}
 function pick3DPlayer(e){let p=threePointerXY(e);threeRay.setFromCamera(p,threeCamera);let hits=threeRay.intersectObjects(threeHitMeshes,false);return hits.length?hits[0].object.userData.playerId:null}
 function threePointerDown(e){e.preventDefault();threeRenderer.domElement.setPointerCapture(e.pointerId);if(threeMoveMode){let id=pick3DPlayer(e);if(id){drag3DId=id;return}}orbitState={x:e.clientX,y:e.clientY}}
