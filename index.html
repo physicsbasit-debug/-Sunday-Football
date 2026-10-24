@@ -56,6 +56,23 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .three-hud b{direction:ltr;background:#2b8d50;border-radius:999px;padding:3px 6px;font-size:9px}
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
+
+/* v0.3.3 formation spacing + guaranteed 3D fallback */
+.pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
+.fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
+.fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
+.fallback-field{position:absolute;left:6%;right:6%;top:18%;bottom:-7%;background:repeating-linear-gradient(90deg,#237b45 0 48px,#2b8750 48px 96px);border:3px solid #fff;transform:rotateX(54deg);transform-origin:50% 100%;box-shadow:0 25px 45px #0008,inset 0 0 55px #0004;overflow:visible}
+.fallback-field:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px solid #ffffffd9}.fallback-field:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px #ffffff33;pointer-events:none}
+.fb-circle{position:absolute;width:22%;aspect-ratio:1;border:2px solid #ffffffd9;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
+.fb-box{position:absolute;left:24%;width:52%;height:15%;border:2px solid #ffffffd9}.fb-top{top:-2%;border-top:0}.fb-bottom{bottom:-2%;border-bottom:0}
+.fb-player{position:absolute;transform:translate(-50%,-50%) rotateX(-54deg);transform-origin:50% 100%;width:92px;text-align:center;z-index:3}
+.fb-person{position:relative;margin:auto;width:38px;height:54px;filter:drop-shadow(0 6px 4px #0009)}
+.fb-person:before{content:"";position:absolute;left:10px;top:-12px;width:18px;height:18px;border-radius:50%;background:#c99570}
+.fb-person:after{content:"";position:absolute;inset:7px 0 0;clip-path:polygon(24% 0,38% 8%,62% 8%,76% 0,100% 20%,83% 38%,76% 30%,72% 100%,28% 100%,24% 30%,17% 38%,0 20%);border-radius:5px}
+.fb-person.red:after{background:linear-gradient(100deg,#7d1610,#df3a2f,#8d1711)}.fb-person.yellow:after{background:linear-gradient(100deg,#9d7600,#ffd632,#ad8300)}.fb-person.gk:after{background:linear-gradient(100deg,#111,#4d514f,#111)}
+.fb-person span{position:absolute;z-index:2;left:0;right:0;top:19px;color:#fff;font-size:13px;font-weight:900}.fb-person.yellow span{color:#171717}
+.fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
+@media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 </style>
 </head>
 <body>
@@ -119,11 +136,16 @@ let tacticalLayout=S.tacticalLayout||{},pitch3d=false,threeMoveMode=false;
 let threeScene=null,threeCamera=null,threeRenderer=null,threePlayersRoot=null,threeAnim=null,threePlayerGroups={},threeHitMeshes=[],threeRay=null,threeGround=null;
 let camYaw=0,camElev=.72,camDist=43,orbitState=null,drag3DId=null;
 function persistTacticalLayout(){S.tacticalLayout=tacticalLayout;localStorage.setItem("sf_v1",JSON.stringify(S))}
+function formationBandSizes(n){
+ const map={1:[1],2:[2],3:[3],4:[2,2],5:[2,3],6:[2,2,2],7:[2,3,2],8:[3,3,2],9:[3,3,3],10:[3,4,3],11:[4,3,4]};
+ return map[n]||[Math.ceil(n/3),Math.ceil((n-Math.ceil(n/3))/2),Math.floor((n-Math.ceil(n/3))/2)].filter(Boolean)
+}
 function formationPoints(t,side){
- let gk=t.find(isGK),field=t.filter(p=>p!==gk),out=[],bands=field.length<=5?[2,3]:[2,2,3],idx=0;
- if(gk)out.push([gk,50,side==="A"?92:8]);
- bands.forEach((count,ri)=>{let row=field.slice(idx,idx+count);idx+=count;row.forEach((p,j)=>out.push([p,16+68*(j+1)/(row.length+1),side==="A"?76-ri*17:24+ri*17]))});
- field.slice(idx).forEach((p,j,a)=>out.push([p,18+64*(j+1)/(a.length+1),side==="A"?42:58]));
+ let gk=t.find(isGK),field=t.filter(p=>p!==gk),out=[],sizes=formationBandSizes(field.length),idx=0;
+ // الفريق الأصفر في النصف العلوي، والأحمر في النصف السفلي. لا أحد يبدأ فوق خط المنتصف الخاص بفريقه.
+ if(gk)out.push([gk,50,side==="A"?94:6]);
+ const ys=side==="A"?[81,69,57]:[19,31,43];
+ sizes.forEach((count,ri)=>{let row=field.slice(idx,idx+count);idx+=count;row.forEach((p,j)=>out.push([p,10+80*(j+1)/(row.length+1),ys[Math.min(ri,2)]]))});
  return out
 }
 function ensureLayout(force=false){
@@ -135,63 +157,63 @@ function ensureLayout(force=false){
  S.tacticalLayout=tacticalLayout
 }
 function resetLayout(){ensureLayout(true);persistTacticalLayout();renderPitch()}
-let threeLoadPromise=null;
+let threeLoadPromise=null,threeFallback=false;
 function ensureThreeLibrary(){
  if(window.THREE)return Promise.resolve(true);
  if(threeLoadPromise)return threeLoadPromise;
  threeLoadPromise=new Promise(resolve=>{
-   let s=document.createElement("script");
-   s.src="./three.min.js?v=r128";
-   s.async=true;
-   s.onload=()=>resolve(true);
-   s.onerror=()=>{threeLoadPromise=null;resolve(false)};
-   document.head.appendChild(s)
+   let settled=false,finish=v=>{if(settled)return;settled=true;resolve(v)};
+   let s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js";s.async=true;
+   s.onload=()=>finish(!!window.THREE);s.onerror=()=>finish(false);document.head.appendChild(s);
+   setTimeout(()=>finish(!!window.THREE),2500)
  });
  return threeLoadPromise
 }
+function renderFallback3D(){
+ threeFallback=true;
+ let stage=document.getElementById("threeStage");
+ let hud='<div class="three-hud"><b>3D</b><span id="threeHint">منظور ملعب ثلاثي الأبعاد — حرّك اللاعبين بدقة من وضع 2D</span></div>';
+ let field='<div class="fallback-stadium"><div class="fallback-crowd"></div><div class="fallback-field" id="fallbackField"><div class="fb-half"></div><div class="fb-circle"></div><div class="fb-box fb-top"></div><div class="fb-box fb-bottom"></div>';
+ [{t:currentTeams.A,color:"red"},{t:currentTeams.B,color:"yellow"}].forEach(g=>g.t.forEach((p,i)=>{
+   let q=tacticalLayout[String(p.id)]||{x:50,y:50};
+   field+='<div class="fb-player" style="left:'+q.x+'%;top:'+q.y+'%"><div class="fb-person '+(isGK(p)?'gk':g.color)+'"><span>'+(i+1)+'</span></div><div class="fb-name">'+p.name+'</div></div>'
+ }));
+ field+='</div></div>';
+ stage.innerHTML=hud+field
+}
 async function setPitchView(v){
- if(v){
-   let hint=document.getElementById("threeHint");
-   hint.textContent="جارٍ تجهيز العرض ثلاثي الأبعاد…";
-   let ok=await ensureThreeLibrary();
-   if(!ok||!window.THREE){pitch3d=false;hint.textContent="تعذر تحميل 3D";alert("تعذر تحميل محرك 3D على هذا المتصفح الآن. وضع 2D سيبقى يعمل طبيعيًا.");return setPitchView(false)}
- }
  pitch3d=!!v;
  document.getElementById("pitch").style.display=pitch3d?"none":"block";
  document.getElementById("threeStage").style.display=pitch3d?"block":"none";
  document.getElementById("v2d").classList.toggle("on",!pitch3d);
  document.getElementById("v3d").classList.toggle("on",pitch3d);
  document.getElementById("threeMoveBtn").style.display=pitch3d?"block":"none";
- if(pitch3d){
-   try{
-     initThree();
-     if(!threeRenderer)throw new Error("WebGL renderer unavailable");
-     syncThreePlayers();resizeThree();
-     document.getElementById("threeHint").textContent=threeMoveMode?"المس لاعبًا واسحبه داخل الملعب":"اسحب لتدوير الكاميرا";
-     requestAnimationFrame(()=>resizeThree())
-   }catch(err){
-     console.error("3D init failed",err);
-     pitch3d=false;
-     document.getElementById("pitch").style.display="block";
-     document.getElementById("threeStage").style.display="none";
-     document.getElementById("v2d").classList.add("on");
-     document.getElementById("v3d").classList.remove("on");
-     document.getElementById("threeMoveBtn").style.display="none";
-     alert("تعذر تشغيل 3D على هذه الصفحة. تم الرجوع تلقائيًا إلى 2D.")
-   }
+ if(!pitch3d)return;
+ // أظهر منظورًا ثلاثي الأبعاد فورًا بدل زر يبدو ميتًا أثناء تحميل المكتبة.
+ renderFallback3D();
+ let ok=await ensureThreeLibrary();
+ if(!pitch3d||!ok)return;
+ try{
+   // إذا كان WebGL متاحًا نستبدل المنظور الاحتياطي بالمشهد الحقيقي.
+   let stage=document.getElementById("threeStage");stage.innerHTML='<div class="three-hud"><b>3D</b><span id="threeHint">اسحب لتدوير الكاميرا</span></div>';
+   threeRenderer=null;threeScene=null;threeCamera=null;threePlayersRoot=null;threePlayerGroups={};threeHitMeshes=[];
+   initThree();syncThreePlayers();resizeThree();threeFallback=false;requestAnimationFrame(()=>resizeThree())
+ }catch(err){
+   console.warn("3D fallback:",err);renderFallback3D()
  }
 }
 function toggle3DMove(){
+ if(threeFallback){alert("على هذا المتصفح يعمل منظور 3D الاحتياطي للعرض. حرّك اللاعبين من 2D وستتحدث مواقعهم في 3D تلقائيًا.");return}
  threeMoveMode=!threeMoveMode;
  let b=document.getElementById("threeMoveBtn"),h=document.getElementById("threeHint");
  b.classList.toggle("on",threeMoveMode);
  b.textContent=threeMoveMode?"تحريك 3D: مفعّل":"تحريك لاعب 3D";
- h.textContent=threeMoveMode?"المس لاعبًا واسحبه داخل الملعب":"اسحب لتدوير الكاميرا"
+ if(h)h.textContent=threeMoveMode?"المس لاعبًا واسحبه داخل الملعب":"اسحب لتدوير الكاميرا"
 }
 function dragTactical(ev,id){
  ev.preventDefault();let el=ev.currentTarget,rect=pitch.getBoundingClientRect();el.setPointerCapture(ev.pointerId);el.classList.add("dragging");
  let move=e=>{let x=(e.clientX-rect.left)/rect.width*100,y=(e.clientY-rect.top)/rect.height*100;x=Math.max(7,Math.min(93,x));y=Math.max(5,Math.min(95,y));tacticalLayout[String(id)]={...tacticalLayout[String(id)],x,y};el.style.left=x+"%";el.style.top=y+"%"};
- let up=()=>{el.classList.remove("dragging");el.removeEventListener("pointermove",move);el.removeEventListener("pointerup",up);el.removeEventListener("pointercancel",up);persistTacticalLayout();syncThreePlayers()};
+ let up=()=>{el.classList.remove("dragging");el.removeEventListener("pointermove",move);el.removeEventListener("pointerup",up);el.removeEventListener("pointercancel",up);persistTacticalLayout();if(pitch3d&&threeFallback)renderFallback3D();else syncThreePlayers()};
  el.addEventListener("pointermove",move);el.addEventListener("pointerup",up);el.addEventListener("pointercancel",up)
 }
 function renderPitch(){
