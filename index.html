@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>Sunday Football v0.4.1</title>
+<title>Sunday Football v0.4.2</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.4.1 formation spacing + guaranteed 3D fallback */
+/* v0.4.2 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -74,26 +74,37 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 
-/* v0.4.1 real 3D reliability + role-aware formation */
+/* v0.4.2 real 3D reliability + role-aware formation */
 .three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
 .three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
 @keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
 .pitch-player{width:88px}.pname{max-width:86px}
 @media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
 
-/* v0.4.1 refined 3D footballers */
+/* v0.4.2 refined 3D footballers */
 .three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
 
-/* v0.4.1 finishing controls */
+/* v0.4.2 finishing controls */
 .camera-controls{margin:8px 0 10px;padding:9px;background:#f2f5f1;border:1px solid #dbe3dc;border-radius:14px}
 .camera-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.camera-row+.camera-row{margin-top:6px}
 .camera-controls button{padding:9px 5px;background:#fff;border:1px solid #d5ddd6;color:#244b36;border-radius:9px;font-size:10px;min-height:39px}.camera-controls .camera-whatsapp{background:#173f2c;color:#fff;border-color:#173f2c}
 .team-player.swap-selected{background:#fff3bf;border-radius:8px;padding-inline:6px}.team-player .move.swap-ready{background:#173f2c;color:#fff}
 @media(max-width:430px){.camera-controls button{font-size:9px;padding:8px 3px}.camera-row{gap:4px}}
+
+/* v0.4.2 visual polish */
+.camera-row-wide{grid-template-columns:1fr 1fr}.camera-row-wide button{font-size:10px}
+#formationCard.studio-fullscreen{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;padding:14px 14px calc(22px + env(safe-area-inset-bottom));background:#f4f1e8}
+#formationCard.studio-fullscreen .three-stage{height:calc(100vh - 235px)!important;min-height:520px}
+#formationCard.studio-fullscreen .pitch{min-height:calc(100vh - 235px)}
+#formationCard.studio-fullscreen .poster-actions,#formationCard.studio-fullscreen .public-note{display:none}
+.three-stage{box-shadow:inset 0 0 70px #0005}
+.three-hud{box-shadow:0 6px 18px #0004}
+.pitch-shell{border:1px solid #d9dfda}
+@media(max-width:430px){#formationCard.studio-fullscreen{padding-top:calc(8px + env(safe-area-inset-top))}.camera-row-wide button{font-size:9px}}
 </style>
 </head>
 <body>
-<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.4.1</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.4.2</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -102,7 +113,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 <section id="teams">
  <div class="card"><h2>توزيع الفريقين</h2><p class="note">التقييمات سرية وتُستخدم داخليًا فقط. لا تظهر في قائمة الفريق العامة.</p><button class="primary" style="width:100%" onclick="buildTeams()">إنشاء توزيع متوازن</button></div>
  <div id="teamsOut" class="teamgrid"></div><div id="teamActions" class="card" style="display:none"><button class="secondary" style="width:100%" onclick="buildTeams()">إعادة التوزيع تلقائيًا</button><p class="note">استخدم زر ↔ بجانب أي لاعب لتبديله للفريق الآخر. التقييم يبقى سريًا ولا يظهر في المخرجات العامة.</p></div>
-<div id="formationCard" class="card pitch-wrap" style="display:none"><div class="formation-head"><div><h2 class="formation-title">اللوحة التكتيكية</h2><p>رتّب اللاعبين كما تريد، ثم اختر العرض المناسب للمشاركة.</p></div><span class="live-badge">LIVE FORMATION</span></div><div class="tactical-toolbar"><button id="v2d" class="view-btn on" onclick="setPitchView(false)">2D تكتيكي</button><button id="v3d" class="view-btn" onclick="setPitchView(true)">3D ملعب</button><button id="threeMoveBtn" class="view-btn" onclick="toggle3DMove()" style="display:none">تحريك لاعب 3D</button><button class="view-btn" onclick="resetLayout()">إعادة ترتيب</button></div><div id="camControls" class="camera-controls" style="display:none"><div class="camera-row"><button onclick="cameraPreset('broadcast')">بث تلفزيوني</button><button onclick="cameraPreset('top')">علوي</button><button onclick="cameraPreset('goal')">خلف المرمى</button><button onclick="cameraPreset('side')">جانبي</button></div><div class="camera-row"><button onclick="cameraZoom(-4)">＋ تقريب</button><button onclick="cameraZoom(4)">− إبعاد</button><button onclick="cameraPreset('fit')">احتواء الكل</button><button class="camera-whatsapp" onclick="cameraPreset('whatsapp')">واتساب</button></div></div><div id="pitchShell" class="pitch-shell"><div id="pitch" class="pitch"><div class="center-circle"></div></div><div id="threeStage" class="three-stage" style="display:none"><div class="three-hud"><b>3D</b><span id="threeHint">اسحب لتدوير الكاميرا</span></div></div></div><div class="drag-tip">في 2D اسحب اللاعب مباشرة. في 3D: حرّك الكاميرا بحرية، أو استخدم الزوايا الجاهزة. فعّل «تحريك لاعب 3D» فقط عند تعديل مكان لاعب.</div><div class="poster-actions"><button class="secondary" onclick="sharePoster()">مشاركة التشكيلة</button><button class="primary" onclick="savePoster()">حفظ الصورة</button></div><p class="public-note">عند المشاركة من وضع 3D تستخدم المنظومة لقطة واتساب محسّنة تلقائيًا ثم تعيد الكاميرا إلى وضعك الحالي.</p></div>
+<div id="formationCard" class="card pitch-wrap" style="display:none"><div class="formation-head"><div><h2 class="formation-title">اللوحة التكتيكية</h2><p>رتّب اللاعبين كما تريد، ثم اختر العرض المناسب للمشاركة.</p></div><span class="live-badge">LIVE FORMATION</span></div><div class="tactical-toolbar"><button id="v2d" class="view-btn on" onclick="setPitchView(false)">2D تكتيكي</button><button id="v3d" class="view-btn" onclick="setPitchView(true)">3D ملعب</button><button id="threeMoveBtn" class="view-btn" onclick="toggle3DMove()" style="display:none">تحريك لاعب 3D</button><button class="view-btn" onclick="resetLayout()">إعادة ترتيب</button></div><div id="camControls" class="camera-controls" style="display:none"><div class="camera-row"><button onclick="cameraPreset('broadcast')">بث تلفزيوني</button><button onclick="cameraPreset('top')">علوي</button><button onclick="cameraPreset('goal')">خلف المرمى</button><button onclick="cameraPreset('side')">جانبي</button></div><div class="camera-row"><button onclick="cameraZoom(-4)">＋ تقريب</button><button onclick="cameraZoom(4)">− إبعاد</button><button onclick="cameraPreset('fit')">احتواء الكل</button><button class="camera-whatsapp" onclick="cameraPreset('whatsapp')">واتساب</button></div><div class="camera-row camera-row-wide"><button id="labels3DBtn" onclick="toggle3DLabels()">الأسماء: ظاهرة</button><button id="fullscreen3DBtn" onclick="toggle3DFullscreen()">ملء الشاشة</button></div></div><div id="pitchShell" class="pitch-shell"><div id="pitch" class="pitch"><div class="center-circle"></div></div><div id="threeStage" class="three-stage" style="display:none"><div class="three-hud"><b>3D</b><span id="threeHint">اسحب لتدوير الكاميرا</span></div></div></div><div class="drag-tip">في 2D اسحب اللاعب مباشرة. في 3D: حرّك الكاميرا بحرية، أو استخدم الزوايا الجاهزة. فعّل «تحريك لاعب 3D» فقط عند تعديل مكان لاعب.</div><div class="poster-actions"><button class="secondary" onclick="sharePoster()">مشاركة التشكيلة</button><button class="primary" onclick="savePoster()">حفظ الصورة</button></div><p class="public-note">عند المشاركة من وضع 3D تستخدم المنظومة لقطة واتساب محسّنة تلقائيًا ثم تعيد الكاميرا إلى وضعك الحالي.</p></div>
 </section>
 <section id="money">
  <div class="card"><h2>الحضور والدفع</h2><div id="ledger" class="ledger"></div><div class="actions"><button class="secondary full" onclick="openCorrection()">تعديل سجل الحضور</button></div></div><div id="correctionCard" class="card" style="display:none"><h2>تعديل سجل الحضور</h2><p class="note">للتصحيح فقط: اختر اللاعب وعدّل حالة أي يوم سابق. تسجيل الأموال يتم من بطاقة «تسجيل دفعة» بشكل مستقل.</p><select id="corrPlayer"></select><div id="corrDays" style="margin-top:10px"></div><div class="actions" style="margin-top:10px"><button class="primary full" onclick="applyCorrection()">حفظ تعديل الحضور</button></div></div>
@@ -261,11 +272,15 @@ function roundedRect(ctx,x,y,w,h,r){
  ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()
 }
 function labelSprite(text){
- let cv=document.createElement("canvas");cv.width=640;cv.height=128;let x=cv.getContext("2d");x.clearRect(0,0,cv.width,cv.height);
- x.fillStyle="rgba(3,12,8,.90)";roundedRect(x,12,18,616,92,26);x.fill();x.strokeStyle="rgba(255,255,255,.30)";x.lineWidth=2;roundedRect(x,12,18,616,92,26);x.stroke();
- x.direction="rtl";x.textAlign="center";x.textBaseline="middle";x.fillStyle="#fff";x.font="bold 42px Arial";x.fillText(text,320,64);
- let tx=new THREE.CanvasTexture(cv);tx.minFilter=THREE.LinearFilter;
- let s=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,depthTest:false}));s.scale.set(3.15,.63,1);return s
+ let probe=document.createElement("canvas").getContext("2d");probe.font="bold 42px Arial";let measured=Math.ceil(probe.measureText(text).width);
+ let cw=Math.max(260,Math.min(720,measured+82)),cv=document.createElement("canvas");cv.width=cw;cv.height=116;let x=cv.getContext("2d");
+ x.clearRect(0,0,cw,116);x.fillStyle="rgba(3,12,8,.91)";roundedRect(x,8,14,cw-16,88,24);x.fill();
+ x.strokeStyle="rgba(255,255,255,.34)";x.lineWidth=2;roundedRect(x,8,14,cw-16,88,24);x.stroke();
+ x.direction="rtl";x.textAlign="center";x.textBaseline="middle";x.fillStyle="#fff";x.font="bold 42px Arial";x.fillText(text,cw/2,58);
+ let tx=new THREE.CanvasTexture(cv);tx.minFilter=THREE.LinearFilter;tx.magFilter=THREE.LinearFilter;
+ let s=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,depthTest:false,depthWrite:false}));
+ let baseX=Math.max(1.65,Math.min(3.25,cw/205));s.scale.set(baseX,.56,1);
+ s.userData={text,baseScaleX:baseX,pixelWidth:Math.max(78,Math.min(175,measured*.28+34))};return s
 }
 function numberSprite(n,dark){
  let cv=document.createElement("canvas");cv.width=128;cv.height=128;let x=cv.getContext("2d");x.clearRect(0,0,128,128);x.fillStyle=dark?"#111":"#fff";x.font="900 72px Arial";x.textAlign="center";x.textBaseline="middle";x.fillText(String(n),64,66);let tx=new THREE.CanvasTexture(cv);let s=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,depthTest:false}));s.scale.set(.62,.62,1);return s
@@ -295,7 +310,7 @@ function initThree(){
  threeRenderer.domElement.addEventListener("pointerdown",threePointerDown);threeRenderer.domElement.addEventListener("pointermove",threePointerMove);threeRenderer.domElement.addEventListener("pointerup",threePointerUp);threeRenderer.domElement.addEventListener("pointercancel",threePointerUp);
  threeRenderer.domElement.addEventListener("wheel",e=>{e.preventDefault();camDist=Math.max(28,Math.min(58,camDist+e.deltaY*.025));updateThreeCamera()},{passive:false});
  window.addEventListener("resize",resizeThree);updateThreeCamera();
- let loop=()=>{threeAnim=requestAnimationFrame(loop);if(threeRenderer&&pitch3d)threeRenderer.render(threeScene,threeCamera)};loop()
+ let loop=()=>{threeAnim=requestAnimationFrame(loop);if(threeRenderer&&pitch3d){update3DLabels();threeRenderer.render(threeScene,threeCamera)}};loop()
 }
 function mkMesh(geo,mat,id){let m=new THREE.Mesh(geo,mat);m.castShadow=true;m.userData.playerId=String(id);threeHitMeshes.push(m);return m}
 function playerMaterial(hex,rough=.62,metal=.02){return new THREE.MeshStandardMaterial({color:hex,roughness:rough,metalness:metal})}
@@ -350,55 +365,149 @@ function create3DPlayer(p,color,num){
  // player name above the head only; number already appears on shirt
  let label=labelSprite(p.name);label.position.set(0,2.92,0);g.add(label);
 
- g.userData.playerId=String(id);
+ g.userData.playerId=String(id);g.userData.nameLabel=label;
  return g
 }
 function syncThreePlayers(){
  if(!threeRenderer)return;while(threePlayersRoot.children.length)threePlayersRoot.remove(threePlayersRoot.children[0]);threeHitMeshes=[];threePlayerGroups={};
  [{t:currentTeams.A,color:0xc82f25},{t:currentTeams.B,color:0xe3b313}].forEach(team=>team.t.forEach((p,i)=>{let q=tacticalLayout[String(p.id)]||{x:50,y:50},g=create3DPlayer(p,isGK(p)?0x202321:team.color,i+1);g.position.set((q.x-50)*.22,0,(q.y-50)*.36);g.rotation.y=q.side==="A"?0:Math.PI;threePlayersRoot.add(g);threePlayerGroups[String(p.id)]=g}))
 }
-function updateThreeCamera(){if(!threeCamera)return;let h=camDist*Math.cos(camElev),y=camDist*Math.sin(camElev);threeCamera.position.set(Math.sin(camYaw)*h,y,Math.cos(camYaw)*h);threeCamera.lookAt(0,.75,0)}
+let threeLabelsVisible=true,threePointers=new Map(),pinchStartDist=0,pinchStartCam=0;
+function updateThreeCamera(){if(!threeCamera)return;let h=camDist*Math.cos(camElev),y=camDist*Math.sin(camElev);threeCamera.position.set(Math.sin(camYaw)*h,y,Math.cos(camYaw)*h);threeCamera.lookAt(0,.55,0)}
 function cameraZoom(delta){camDist=Math.max(27,Math.min(62,camDist+delta));updateThreeCamera()}
 function cameraPreset(name){
  if(!threeCamera)return;
  const p={
-   broadcast:{yaw:0,elev:.88,dist:49},
-   top:{yaw:0,elev:1.42,dist:46},
-   goal:{yaw:0,elev:.54,dist:40},
-   side:{yaw:Math.PI/2,elev:.72,dist:46},
-   fit:{yaw:0,elev:1.02,dist:54},
-   whatsapp:{yaw:.02,elev:1.02,dist:50}
- }[name]||{yaw:0,elev:.88,dist:49};
+   broadcast:{yaw:0,elev:.94,dist:49},
+   top:{yaw:0,elev:1.43,dist:47},
+   goal:{yaw:0,elev:.61,dist:43},
+   side:{yaw:Math.PI/2,elev:.78,dist:48},
+   fit:{yaw:0,elev:1.09,dist:54},
+   whatsapp:{yaw:0,elev:1.16,dist:51}
+ }[name]||{yaw:0,elev:.94,dist:49};
  camYaw=p.yaw;camElev=p.elev;camDist=p.dist;updateThreeCamera()
+}
+function toggle3DLabels(){
+ threeLabelsVisible=!threeLabelsVisible;let b=document.getElementById("labels3DBtn");if(b)b.textContent="الأسماء: "+(threeLabelsVisible?"ظاهرة":"مخفية");
+ Object.values(threePlayerGroups).forEach(g=>{if(g.userData.nameLabel)g.userData.nameLabel.visible=threeLabelsVisible})
+}
+function toggle3DFullscreen(){
+ let card=document.getElementById("formationCard"),b=document.getElementById("fullscreen3DBtn"),on=!card.classList.contains("studio-fullscreen");
+ card.classList.toggle("studio-fullscreen",on);document.body.style.overflow=on?"hidden":"";
+ if(b)b.textContent=on?"خروج من ملء الشاشة":"ملء الشاشة";setTimeout(resizeThree,80)
+}
+function projectToStage(world,w,h){
+ let v=world.clone().project(threeCamera);return{x:(v.x*.5+.5)*w,y:(-v.y*.5+.5)*h,z:v.z}
+}
+function boxesOverlap(a,b,m=5){return !(a.r+m<b.l||a.l>b.r+m||a.b+m<b.t||a.t>b.b+m)}
+function update3DLabels(){
+ if(!threeCamera||!threeRenderer)return;
+ let el=threeRenderer.domElement,w=el.clientWidth||el.width,h=el.clientHeight||el.height,items=[];
+ Object.values(threePlayerGroups).forEach(g=>{
+   let label=g.userData.nameLabel;if(!label)return;label.visible=threeLabelsVisible;if(!threeLabelsVisible)return;
+   label.position.y=2.92;label.material.opacity=1;
+   let world=new THREE.Vector3(g.position.x,2.92,g.position.z),pr=projectToStage(world,w,h),dist=threeCamera.position.distanceTo(world),factor=Math.max(.86,Math.min(1.16,dist/48));
+   label.scale.set(label.userData.baseScaleX*factor,.56*factor,1);
+   items.push({g,label,base:pr,dist})
+ });
+ items.sort((a,b)=>a.base.y-b.base.y);
+ let occupied=[];
+ items.forEach(item=>{
+   let label=item.label,chosen=null;
+   for(let k=0;k<5;k++){
+     let ly=2.92+k*.34;label.position.y=ly;
+     let pr=projectToStage(new THREE.Vector3(item.g.position.x,ly,item.g.position.z),w,h),bw=label.userData.pixelWidth,bh=24;
+     let box={l:pr.x-bw/2,r:pr.x+bw/2,t:pr.y-bh/2,b:pr.y+bh/2};
+     if(!occupied.some(o=>boxesOverlap(box,o))){chosen={ly,box};break}
+     chosen={ly,box}
+   }
+   label.position.y=chosen.ly;occupied.push(chosen.box)
+ })
 }
 function threePointerXY(e){let r=threeRenderer.domElement.getBoundingClientRect();return{x:(e.clientX-r.left)/r.width*2-1,y:-(e.clientY-r.top)/r.height*2+1}}
 function pick3DPlayer(e){let p=threePointerXY(e);threeRay.setFromCamera(p,threeCamera);let hits=threeRay.intersectObjects(threeHitMeshes,false);return hits.length?hits[0].object.userData.playerId:null}
-function threePointerDown(e){e.preventDefault();threeRenderer.domElement.setPointerCapture(e.pointerId);if(threeMoveMode){let id=pick3DPlayer(e);if(id){drag3DId=id;return}}orbitState={x:e.clientX,y:e.clientY}}
-function threePointerMove(e){
- if(drag3DId){let p=threePointerXY(e);threeRay.setFromCamera(p,threeCamera);let hit=new THREE.Vector3();if(threeRay.ray.intersectPlane(threeGround,hit)){hit.x=Math.max(-10.4,Math.min(10.4,hit.x));hit.z=Math.max(-17.1,Math.min(17.1,hit.z));let q=tacticalLayout[String(drag3DId)]||{};q.x=50+hit.x/.22;q.y=50+hit.z/.36;tacticalLayout[String(drag3DId)]=q;let g=threePlayerGroups[String(drag3DId)];if(g)g.position.set(hit.x,0,hit.z);let el=document.querySelector('.pitch-player[data-pid="'+drag3DId+'"]');if(el){el.style.left=q.x+"%";el.style.top=q.y+"%"}}return}
- if(orbitState){let dx=e.clientX-orbitState.x,dy=e.clientY-orbitState.y;orbitState={x:e.clientX,y:e.clientY};camYaw-=dx*.008;camElev=Math.max(.28,Math.min(1.18,camElev+dy*.006));updateThreeCamera()}
+function pointerDistance(){let a=[...threePointers.values()];if(a.length<2)return 0;return Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)}
+function threePointerDown(e){
+ e.preventDefault();threeRenderer.domElement.setPointerCapture(e.pointerId);threePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(!threeMoveMode&&threePointers.size===2){pinchStartDist=pointerDistance();pinchStartCam=camDist;orbitState=null;return}
+ if(threeMoveMode){let id=pick3DPlayer(e);if(id){drag3DId=id;return}}
+ if(threePointers.size===1)orbitState={x:e.clientX,y:e.clientY}
 }
-function threePointerUp(){if(drag3DId){persistTacticalLayout();drag3DId=null}orbitState=null}
+function threePointerMove(e){
+ if(threePointers.has(e.pointerId))threePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(!threeMoveMode&&threePointers.size>=2){
+   let d=pointerDistance();if(pinchStartDist>10&&d>10){camDist=Math.max(27,Math.min(62,pinchStartCam*(pinchStartDist/d)));updateThreeCamera()}return
+ }
+ if(drag3DId){let p=threePointerXY(e);threeRay.setFromCamera(p,threeCamera);let hit=new THREE.Vector3();if(threeRay.ray.intersectPlane(threeGround,hit)){hit.x=Math.max(-10.4,Math.min(10.4,hit.x));hit.z=Math.max(-17.1,Math.min(17.1,hit.z));let q=tacticalLayout[String(drag3DId)]||{};q.x=50+hit.x/.22;q.y=50+hit.z/.36;tacticalLayout[String(drag3DId)]=q;let g=threePlayerGroups[String(drag3DId)];if(g)g.position.set(hit.x,0,hit.z);let el=document.querySelector('.pitch-player[data-pid="'+drag3DId+'"]');if(el){el.style.left=q.x+"%";el.style.top=q.y+"%"}}return}
+ if(orbitState&&threePointers.size===1){let dx=e.clientX-orbitState.x,dy=e.clientY-orbitState.y;orbitState={x:e.clientX,y:e.clientY};camYaw-=dx*.008;camElev=Math.max(.34,Math.min(1.43,camElev+dy*.006));updateThreeCamera()}
+}
+function threePointerUp(e){
+ threePointers.delete(e.pointerId);
+ if(drag3DId){persistTacticalLayout();drag3DId=null}
+ if(threePointers.size<2){pinchStartDist=0;pinchStartCam=0}
+ if(threePointers.size===1){let p=[...threePointers.values()][0];orbitState={x:p.x,y:p.y}}else orbitState=null
+}
 function resizeThree(){if(!threeRenderer)return;let stage=document.getElementById("threeStage"),w=Math.max(280,stage.clientWidth),h=Math.max(420,stage.clientHeight);threeRenderer.setSize(w,h,false);threeCamera.aspect=w/h;threeCamera.updateProjectionMatrix()}
 function draw2DPoster(cv){
- let x=cv.getContext("2d"),w=cv.width,h=cv.height;x.fillStyle="#07120d";x.fillRect(0,0,w,h);x.fillStyle="#fff";x.textAlign="center";x.font="900 48px Arial";x.fillText("SUNDAY FOOTBALL",w/2,68);x.font="22px Arial";x.fillStyle="#b8c7bf";x.fillText("التشكيلة الرسمية • الدورة "+S.cycle,w/2,102);
- let L=65,T=140,W=950,H=1135;for(let i=0;i<10;i++){x.fillStyle=i%2?"#287f49":"#207440";x.fillRect(L+i*W/10,T,W/10,H)}x.strokeStyle="#fff";x.lineWidth=5;x.strokeRect(L+22,T+22,W-44,H-44);x.beginPath();x.moveTo(L+22,T+H/2);x.lineTo(L+W-22,T+H/2);x.stroke();x.beginPath();x.arc(L+W/2,T+H/2,104,0,Math.PI*2);x.stroke();[[L+W/2,T+22],[L+W/2,T+H-22]].forEach(a=>{});
- [{t:currentTeams.A,color:"#c82f25"},{t:currentTeams.B,color:"#e3b313"}].forEach(g=>g.t.forEach((p,i)=>{let q=tacticalLayout[String(p.id)]||{x:50,y:50},px=L+q.x/100*W,py=T+q.y/100*H,num=i+1;x.save();x.shadowColor="#0008";x.shadowBlur=12;x.shadowOffsetY=7;x.fillStyle=isGK(p)?"#202321":g.color;x.beginPath();x.moveTo(px-38,py-24);x.lineTo(px-18,py-39);x.lineTo(px-8,py-31);x.lineTo(px+8,py-31);x.lineTo(px+18,py-39);x.lineTo(px+38,py-24);x.lineTo(px+28,py-5);x.lineTo(px+20,py-12);x.lineTo(px+24,py+35);x.lineTo(px-24,py+35);x.lineTo(px-20,py-12);x.lineTo(px-28,py-5);x.closePath();x.fill();x.restore();x.fillStyle=(g.color==="#e3b313"&&!isGK(p))?"#161616":"#fff";x.font="900 25px Arial";x.fillText(String(num),px,py+9);x.font="bold 20px Arial";let tw=Math.min(220,x.measureText(p.name).width+34);x.fillStyle="#06100cec";roundedRect(x,px-tw/2,py+48,tw,39,11);x.fill();x.strokeStyle="#ffffff55";x.lineWidth=1;x.stroke();x.fillStyle="#fff";x.fillText(p.name,px,py+75)}))
+ let x=cv.getContext("2d"),w=cv.width,h=cv.height;x.fillStyle="#06110c";x.fillRect(0,0,w,h);
+ x.fillStyle="#fff";x.textAlign="center";x.font="900 62px Arial";x.fillText("SUNDAY FOOTBALL",w/2,70);x.font="26px Arial";x.fillStyle="#c4d1ca";x.fillText("التشكيلة الرسمية • الدورة "+S.cycle+" • "+(currentTeams.A.length+currentTeams.B.length)+" لاعبًا",w/2,112);
+ let L=80,T=155,W=w-160,H=h-245;for(let i=0;i<10;i++){x.fillStyle=i%2?"#287f49":"#207440";x.fillRect(L+i*W/10,T,W/10,H)}
+ x.strokeStyle="#fff";x.lineWidth=5;x.strokeRect(L+24,T+24,W-48,H-48);x.beginPath();x.moveTo(L+24,T+H/2);x.lineTo(L+W-24,T+H/2);x.stroke();
+ x.beginPath();x.arc(L+W/2,T+H/2,125,0,Math.PI*2);x.stroke();x.fillStyle="#fff";x.beginPath();x.arc(L+W/2,T+H/2,6,0,Math.PI*2);x.fill();
+ x.strokeRect(L+W*.23,T+24,W*.54,H*.145);x.strokeRect(L+W*.23,T+H*.831,W*.54,H*.145);
+ x.strokeRect(L+W*.36,T+24,W*.28,H*.065);x.strokeRect(L+W*.36,T+H*.911,W*.28,H*.065);
+ [{t:currentTeams.A,color:"#c82f25"},{t:currentTeams.B,color:"#e3b313"}].forEach(g=>g.t.forEach((p,i)=>{
+   let q=tacticalLayout[String(p.id)]||{x:50,y:50},px=L+q.x/100*W,py=T+q.y/100*H,num=i+1;
+   x.save();x.shadowColor="#0009";x.shadowBlur=14;x.shadowOffsetY=8;x.fillStyle=isGK(p)?"#202321":g.color;x.beginPath();
+   x.moveTo(px-42,py-27);x.lineTo(px-20,py-44);x.lineTo(px-8,py-35);x.lineTo(px+8,py-35);x.lineTo(px+20,py-44);x.lineTo(px+42,py-27);x.lineTo(px+31,py-6);x.lineTo(px+22,py-14);x.lineTo(px+27,py+39);x.lineTo(px-27,py+39);x.lineTo(px-22,py-14);x.lineTo(px-31,py-6);x.closePath();x.fill();x.restore();
+   x.fillStyle=(g.color==="#e3b313"&&!isGK(p))?"#161616":"#fff";x.font="900 27px Arial";x.fillText(String(num),px,py+9);
+   x.font="bold 24px Arial";let tw=Math.min(250,x.measureText(p.name).width+38);x.fillStyle="#06100cef";roundedRect(x,px-tw/2,py+51,tw,44,12);x.fill();x.strokeStyle="#ffffff55";x.lineWidth=1.5;x.stroke();x.fillStyle="#fff";x.fillText(p.name,px,py+81)
+ }));
+ x.font="bold 25px Arial";x.fillStyle="#c82f25";roundedRect(x,330,h-66,250,48,16);x.fill();x.fillStyle="#fff";x.fillText("الفريق الأحمر",455,h-34);
+ x.fillStyle="#e3b313";roundedRect(x,860,h-66,250,48,16);x.fill();x.fillStyle="#151515";x.fillText("الفريق الأصفر",985,h-34)
+}
+function drawShareNameBadges(ctx,offsetY,renderW,renderH,canvasW){
+ let items=[],all=[...currentTeams.A,...currentTeams.B];
+ ctx.font="bold 28px Arial";ctx.textAlign="center";ctx.textBaseline="middle";ctx.direction="rtl";
+ all.forEach(p=>{
+   let g=threePlayerGroups[String(p.id)];if(!g)return;
+   let v=new THREE.Vector3(g.position.x,2.85,g.position.z).project(threeCamera),x=(v.x*.5+.5)*renderW,y=offsetY+(-v.y*.5+.5)*renderH;
+   let tw=Math.min(260,Math.max(110,ctx.measureText(p.name).width+38));items.push({p,x,y,w:tw,h:42})
+ });
+ items.sort((a,b)=>a.y-b.y);let boxes=[];
+ items.forEach(it=>{
+   let candidates=[[0,-54],[0,-88],[-70,-58],[70,-58],[-90,-92],[90,-92]],chosen=null;
+   for(let [dx,dy] of candidates){let x=Math.max(it.w/2+16,Math.min(canvasW-it.w/2-16,it.x+dx)),y=it.y+dy,box={l:x-it.w/2,r:x+it.w/2,t:y-it.h/2,b:y+it.h/2};if(!boxes.some(b=>boxesOverlap(box,b,8))){chosen={x,y,box};break}chosen={x,y,box}}
+   boxes.push(chosen.box);ctx.fillStyle="rgba(4,14,9,.92)";roundedRect(ctx,chosen.x-it.w/2,chosen.y-it.h/2,it.w,it.h,13);ctx.fill();ctx.strokeStyle="rgba(255,255,255,.34)";ctx.lineWidth=2;ctx.stroke();ctx.fillStyle="#fff";ctx.fillText(it.p.name,chosen.x,chosen.y+1)
+ })
+}
+function fitExportCamera(aspect){
+ camYaw=0;camElev=1.18;camDist=46;threeCamera.aspect=aspect;threeCamera.fov=38;threeCamera.updateProjectionMatrix();updateThreeCamera();
+ for(let n=0;n<6;n++){
+   let pts=[[-11.5,0,-18.8],[11.5,0,-18.8],[-11.5,0,18.8],[11.5,0,18.8],[-10.5,3.2,-17],[10.5,3.2,17]],mx=0,my=0;
+   pts.forEach(a=>{let v=new THREE.Vector3(a[0],a[1],a[2]).project(threeCamera);mx=Math.max(mx,Math.abs(v.x));my=Math.max(my,Math.abs(v.y))});
+   let scale=Math.max(mx/.90,my/.88);if(scale<=1.01)break;camDist*=scale*1.035;updateThreeCamera()
+ }
 }
 function posterCanvas(){
- ensureLayout();let cv=document.createElement("canvas");cv.width=1080;cv.height=1350;
+ ensureLayout();let cv=document.createElement("canvas");cv.width=1440;cv.height=1800;
  if(pitch3d&&threeRenderer){
-   let x=cv.getContext("2d");x.fillStyle="#06110c";x.fillRect(0,0,1080,1350);
-   x.fillStyle="#fff";x.textAlign="center";x.font="900 50px Arial";x.fillText("SUNDAY FOOTBALL",540,62);
-   x.font="20px Arial";x.fillStyle="#c4d1ca";x.fillText("التشكيلة الرسمية • الدورة "+S.cycle,540,96);
-   let state={yaw:camYaw,elev:camElev,dist:camDist,aspect:threeCamera.aspect};
-   let stage=document.getElementById("threeStage"),oldW=stage.clientWidth,oldH=stage.clientHeight;
-   camYaw=.02;camElev=1.04;camDist=50;updateThreeCamera();
-   threeRenderer.setSize(1080,1215,false);threeCamera.aspect=1080/1215;threeCamera.updateProjectionMatrix();threeRenderer.render(threeScene,threeCamera);
-   x.drawImage(threeRenderer.domElement,0,120,1080,1215);
-   camYaw=state.yaw;camElev=state.elev;camDist=state.dist;threeCamera.aspect=state.aspect;threeCamera.updateProjectionMatrix();updateThreeCamera();
-   requestAnimationFrame(()=>{threeRenderer.setSize(Math.max(280,oldW),Math.max(420,oldH),false);resizeThree()});
-   return cv
+   let x=cv.getContext("2d"),top=154,rw=1440,rh=1550;
+   x.fillStyle="#06110c";x.fillRect(0,0,cv.width,cv.height);
+   x.fillStyle="#fff";x.textAlign="center";x.font="900 62px Arial";x.fillText("SUNDAY FOOTBALL",720,66);
+   x.font="26px Arial";x.fillStyle="#c4d1ca";x.fillText("التشكيلة الرسمية • الدورة "+S.cycle+" • "+(currentTeams.A.length+currentTeams.B.length)+" لاعبًا",720,108);
+   let state={yaw:camYaw,elev:camElev,dist:camDist,aspect:threeCamera.aspect,fov:threeCamera.fov};
+   let stage=document.getElementById("threeStage"),oldW=stage.clientWidth,oldH=stage.clientHeight,labels=[];
+   Object.values(threePlayerGroups).forEach(g=>{if(g.userData.nameLabel){labels.push([g.userData.nameLabel,g.userData.nameLabel.visible]);g.userData.nameLabel.visible=false}});
+   threeRenderer.setSize(rw,rh,false);fitExportCamera(rw/rh);threeRenderer.render(threeScene,threeCamera);
+   x.drawImage(threeRenderer.domElement,0,top,rw,rh);
+   x.strokeStyle="#ffffff55";x.lineWidth=3;x.strokeRect(20,top+2,rw-40,rh-4);
+   labels.forEach(a=>a[0].visible=a[1]);drawShareNameBadges(x,top,rw,rh,cv.width);
+   x.font="bold 25px Arial";x.textBaseline="middle";
+   x.fillStyle="#c82f25";roundedRect(x,330,1723,250,52,18);x.fill();x.fillStyle="#fff";x.fillText("الفريق الأحمر",455,1749);
+   x.fillStyle="#e3b313";roundedRect(x,860,1723,250,52,18);x.fill();x.fillStyle="#151515";x.fillText("الفريق الأصفر",985,1749);
+   camYaw=state.yaw;camElev=state.elev;camDist=state.dist;threeCamera.aspect=state.aspect;threeCamera.fov=state.fov;threeCamera.updateProjectionMatrix();updateThreeCamera();
+   requestAnimationFrame(()=>{threeRenderer.setSize(Math.max(280,oldW),Math.max(420,oldH),false);resizeThree()});return cv
  }
  draw2DPoster(cv);return cv
 }
