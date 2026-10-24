@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102c22">
+<title>Sunday Football</title>
+<style>
+:root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:calc(18px + env(safe-area-inset-top)) 18px 18px;background:linear-gradient(145deg,#173f2c,#245c38);color:white}
+header h1{margin:0;font-size:25px}header p{margin:6px 0 0;opacity:.82;font-size:13px}
+main{max-width:760px;margin:auto;padding:14px 14px 90px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:12px;box-shadow:0 5px 18px #0000000a}
+h2{font-size:18px;margin:0 0 12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f6f7f3;border-radius:13px;padding:11px;text-align:center}.stat b{display:block;font-size:21px;color:var(--green)}.stat small{color:var(--muted)}
+textarea,input,select{width:100%;font:inherit;border:1px solid #ccd1cc;border-radius:12px;padding:11px;background:#fff;color:var(--ink)}textarea{min-height:145px;resize:vertical}
+button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:700;cursor:pointer}.primary{background:var(--green);color:#fff}.secondary{background:#e9eee9;color:var(--green)}.danger{background:#fff0ed;color:var(--red)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.full{grid-column:1/-1}.tabs{position:fixed;z-index:5;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(12px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:7px 6px calc(7px + env(safe-area-inset-bottom))}
+.tab{background:transparent;color:#53605a;padding:8px 2px;font-size:12px}.tab.active{color:var(--green)}section{display:none}section.active{display:block}
+.player{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid #eee}.player:last-child{border:0}.player-info{flex:1}.player-info b{display:block}.meta{font-size:12px;color:var(--muted);margin-top:3px}.badge{font-size:11px;background:#edf4ee;color:var(--green);padding:4px 7px;border-radius:999px}
+.teamgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.team{border-radius:16px;padding:12px;background:#f5f6f2}.team h3{margin:0 0 8px;font-size:16px}.team ol{padding-right:22px;margin:0}.team li{padding:5px 0;font-size:13px}.score{font-weight:700;color:var(--muted);font-size:12px}
+.ledger{overflow:auto}.ledger table{border-collapse:collapse;min-width:590px;width:100%;font-size:12px}.ledger th,.ledger td{border-bottom:1px solid #eee;padding:8px 6px;text-align:center}.ledger th:first-child,.ledger td:first-child{text-align:right;position:sticky;right:0;background:#fff}.credit{color:#16794a;font-weight:700}.debt{color:#b42318;font-weight:700}.neutral{color:#666}
+.note{font-size:12px;color:var(--muted);line-height:1.6}.unknown{margin-top:8px;color:var(--red);font-size:13px}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stars{direction:ltr;color:#a76d00}
+@media(max-width:390px){.teamgrid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header><h1>⚽ Sunday Football</h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<main>
+<section id="home" class="active">
+ <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div></div>
+ <div class="card"><h2>حضور الأحد</h2><textarea id="attendanceInput" placeholder="الصق أسماء الحاضرين هنا، كل اسم في سطر&#10;مثال:&#10;محمود اليحيائي&#10;أحمد الوهيبي"></textarea><div id="unknown" class="unknown"></div><div class="actions"><button class="secondary" onclick="previewAttendance()">فحص الأسماء</button><button class="primary" onclick="recordSunday()">تسجيل الأحد</button></div><p class="note">يُسجّل الغائب تلقائيًا لكل لاعب نشط لم يرد اسمه. الحضور فقط هو الذي يكلّف 1 ر.ع.</p></div>
+</section>
+<section id="teams">
+ <div class="card"><h2>توزيع الفريقين</h2><p class="note">التقييمات سرية وتُستخدم داخليًا فقط. لا تظهر في قائمة الفريق العامة.</p><button class="primary" style="width:100%" onclick="buildTeams()">إنشاء توزيع متوازن</button></div>
+ <div id="teamsOut" class="teamgrid"></div>
+</section>
+<section id="money">
+ <div class="card"><h2>الحضور والدفع</h2><div id="ledger" class="ledger"></div></div>
+ <div class="card"><h2>تسجيل دفعة</h2><div class="row"><select id="payPlayer"></select><input id="payAmount" type="number" min=".5" step=".5" value="5"></div><div class="actions"><button class="primary full" onclick="addPayment()">إضافة الرصيد</button></div><p class="note">الرصيد يُرحّل بين الدورات. اللاعب المعفى يُعرض للعامة كمدفوع دون كشف الإعفاء.</p></div>
+ <div class="card"><button class="danger" style="width:100%" onclick="newCycle()">بدء دورة جديدة من 5 أيام</button></div>
+</section>
+<section id="players">
+ <div class="card"><h2>إضافة لاعب</h2><input id="pName" placeholder="اسم اللاعب"><div class="row" style="margin-top:8px"><select id="pPos"><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select><select id="pSecond"><option value="">بدون مركز ثانوي</option><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select></div><div class="row" style="margin-top:8px"><select id="pRating"><option>5</option><option>4.5</option><option selected>4</option><option>3.5</option><option>3</option><option>2.5</option><option>2</option><option>1.5</option><option>1</option></select><select id="pExempt"><option value="0">دفع عادي</option><option value="1">معفى من الدفع</option></select></div><div class="actions"><button class="primary full" onclick="addPlayer()">إضافة اللاعب</button></div></div>
+ <div class="card"><h2>قاعدة اللاعبين</h2><div id="playersList"></div></div>
+</section>
+</main>
+<nav class="tabs"><button class="tab active" onclick="showTab('home',this)">الرئيسية</button><button class="tab" onclick="showTab('teams',this)">الفريقان</button><button class="tab" onclick="showTab('money',this)">الدفع</button><button class="tab" onclick="showTab('players',this)">اللاعبون</button></nav>
+<script>
+const seed=[
+["محمود اليحيائي","وسط","حارس مرمى",5],["أحمد الوهيبي","وسط","",5],["يوسف اليحمدي","دفاع","حارس مرمى",4],["سعود المبيحسي","وسط","",5],["خالد البلوشي","وسط","",3.5],["سعود المعولي","مهاجم","",3],["عبدالله الشبيبي","دفاع","",4],["نايف المبيحسي","دفاع","",4],["أحمد الريامي","وسط","",4],["حسين الحسني","وسط","",3.5],["معاذ العويسي","دفاع","",4],["محمود العويسي","وسط","",5],["سلطان الحضرمي","دفاع","مهاجم",3.5]
+].map((x,i)=>({id:Date.now()+i,name:x[0],pos:x[1],second:x[2],rating:x[3],exempt:false,active:true,balance:0}));
+let S=JSON.parse(localStorage.getItem("sf_v1")||"null")||{players:seed,cycle:1,days:[],payments:[],lastAttendees:[]};
+function save(){localStorage.setItem("sf_v1",JSON.stringify(S));render()}
+function namesFromInput(){return attendanceInput.value.split(/[\n،,]+/).map(x=>x.trim()).filter(Boolean)}
+function showTab(id,b){document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}
+function previewAttendance(){let a=namesFromInput(), known=new Set(S.players.map(p=>p.name));let u=a.filter(n=>!known.has(n));unknown.textContent=u.length?"غير مسجل: "+u.join("، "):"جميع الأسماء مسجلة ✓"}
+function recordSunday(){if(S.days.length>=5)return alert("اكتملت الدورة. ابدأ دورة جديدة أولًا.");let a=namesFromInput();if(!a.length)return alert("ألصق أسماء الحاضرين أولًا.");let map=new Map(S.players.map(p=>[p.name,p]));let u=a.filter(n=>!map.has(n));if(u.length)return alert("يوجد أسماء غير مسجلة: "+u.join("، "));
+ let entries={};S.players.filter(p=>p.active).forEach(p=>{let present=a.includes(p.name);let paid=false;if(present){if(p.exempt)paid=true;else if(p.balance>=1){p.balance-=1;paid=true}else{p.balance-=1;paid=false}}entries[p.id]={present,paid};});
+ S.days.push({date:new Date().toISOString(),entries});S.lastAttendees=a;attendanceInput.value="";save();alert("تم تسجيل الأحد بنجاح");}
+function buildTeams(){let ps=S.players.filter(p=>S.lastAttendees.includes(p.name));if(ps.length<2){teamsOut.innerHTML='<div class="card">سجّل حضور الأحد أولًا.</div>';return}
+ ps=[...ps].sort((a,b)=>b.rating-a.rating);let A=[],B=[],sa=0,sb=0;ps.forEach(p=>{if(sa<=sb){A.push(p);sa+=p.rating}else{B.push(p);sb+=p.rating}});
+ function hasGK(t){return t.some(p=>p.pos==="حارس مرمى"||p.second==="حارس مرمى")}if(!hasGK(A)&&hasGK(B)){let g=B.find(p=>p.second==="حارس مرمى"||p.pos==="حارس مرمى"),x=A.find(p=>p.pos===g.pos)||A[0];if(g&&x){B=B.filter(p=>p!==g);A=A.filter(p=>p!==x);A.push(g);B.push(x)}}
+ const box=(t,n,s)=>'<div class="team"><h3>الفريق '+n+'</h3><div class="score">القوة الداخلية: '+s.toFixed(1)+'</div><ol>'+t.map(p=>'<li>'+p.name+' <small>('+p.pos+')</small></li>').join("")+'</ol></div>';teamsOut.innerHTML=box(A,"أ",A.reduce((s,p)=>s+p.rating,0))+box(B,"ب",B.reduce((s,p)=>s+p.rating,0))}
+function addPayment(){let p=S.players.find(x=>String(x.id)===payPlayer.value),a=Number(payAmount.value);if(!p||!a||a<=0)return;p.balance+=a;S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString()});save()}
+function newCycle(){if(!confirm("بدء دورة جديدة؟ سيُصفّر عداد الأيام فقط، وسيبقى الرصيد مُرحّلًا."))return;S.cycle++;S.days=[];S.lastAttendees=[];save()}
+function addPlayer(){let name=pName.value.trim();if(!name)return;if(S.players.some(p=>p.name===name))return alert("اللاعب موجود بالفعل");S.players.push({id:Date.now(),name,pos:pPos.value,second:pSecond.value,rating:Number(pRating.value),exempt:pExempt.value==="1",active:true,balance:0});pName.value="";save()}
+function render(){
+ dayNo.textContent=S.days.length+"/5";activeCount.textContent=S.players.filter(p=>p.active).length;todayCount.textContent=S.lastAttendees.length;
+ playersList.innerHTML=S.players.map(p=>'<div class="player"><div class="player-info"><b>'+p.name+'</b><div class="meta">'+p.pos+(p.second?" • "+p.second:"")+' • <span class="stars">'+p.rating+' ★</span></div></div>'+(p.exempt?'<span class="badge">معفى</span>':'')+'</div>').join("");
+ payPlayer.innerHTML=S.players.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join("");
+ let head='<table><thead><tr><th>اللاعب</th>'+[1,2,3,4,5].map(i=>'<th>'+i+'</th>').join("")+'<th>الرصيد</th></tr></thead><tbody>';
+ let rows=S.players.filter(p=>p.active).map(p=>{let attendNo=0,cells=[0,1,2,3,4].map(i=>{let d=S.days[i];if(!d)return '<td>—</td>';let e=d.entries[p.id];if(!e||!e.present)return '<td>⭕</td>';attendNo++;return '<td>'+attendNo+(e.paid?'✅':'❌')+'</td>'}).join("");let cls=p.balance>0?"credit":p.balance<0?"debt":"neutral";return '<tr><td>'+p.name+'</td>'+cells+'<td class="'+cls+'">'+(p.exempt?"معفى":p.balance.toFixed(1))+'</td></tr>'}).join("");ledger.innerHTML=head+rows+'</tbody></table>';
+}
+render();
+</script></body></html>
