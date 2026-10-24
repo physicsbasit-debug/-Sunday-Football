@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>Sunday Football v0.3.2</title>
+<title>Sunday Football v0.3.3</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -59,7 +59,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 </style>
 </head>
 <body>
-<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.3.2</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.3.3</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -141,7 +141,7 @@ function ensureThreeLibrary(){
  if(threeLoadPromise)return threeLoadPromise;
  threeLoadPromise=new Promise(resolve=>{
    let s=document.createElement("script");
-   s.src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js";
+   s.src="./three.min.js?v=r128";
    s.async=true;
    s.onload=()=>resolve(true);
    s.onerror=()=>{threeLoadPromise=null;resolve(false)};
@@ -151,9 +151,10 @@ function ensureThreeLibrary(){
 }
 async function setPitchView(v){
  if(v){
-   document.getElementById("threeHint").textContent="جارٍ تجهيز العرض ثلاثي الأبعاد…";
+   let hint=document.getElementById("threeHint");
+   hint.textContent="جارٍ تجهيز العرض ثلاثي الأبعاد…";
    let ok=await ensureThreeLibrary();
-   if(!ok){pitch3d=false;document.getElementById("threeHint").textContent="تعذر تحميل 3D";alert("تعذر تحميل محرك 3D الآن. وضع 2D ما زال يعمل بشكل طبيعي.");return setPitchView(false)}
+   if(!ok||!window.THREE){pitch3d=false;hint.textContent="تعذر تحميل 3D";alert("تعذر تحميل محرك 3D على هذا المتصفح الآن. وضع 2D سيبقى يعمل طبيعيًا.");return setPitchView(false)}
  }
  pitch3d=!!v;
  document.getElementById("pitch").style.display=pitch3d?"none":"block";
@@ -161,7 +162,24 @@ async function setPitchView(v){
  document.getElementById("v2d").classList.toggle("on",!pitch3d);
  document.getElementById("v3d").classList.toggle("on",pitch3d);
  document.getElementById("threeMoveBtn").style.display=pitch3d?"block":"none";
- if(pitch3d){initThree();syncThreePlayers();resizeThree();document.getElementById("threeHint").textContent=threeMoveMode?"المس لاعبًا واسحبه داخل الملعب":"اسحب لتدوير الكاميرا";requestAnimationFrame(()=>resizeThree())}
+ if(pitch3d){
+   try{
+     initThree();
+     if(!threeRenderer)throw new Error("WebGL renderer unavailable");
+     syncThreePlayers();resizeThree();
+     document.getElementById("threeHint").textContent=threeMoveMode?"المس لاعبًا واسحبه داخل الملعب":"اسحب لتدوير الكاميرا";
+     requestAnimationFrame(()=>resizeThree())
+   }catch(err){
+     console.error("3D init failed",err);
+     pitch3d=false;
+     document.getElementById("pitch").style.display="block";
+     document.getElementById("threeStage").style.display="none";
+     document.getElementById("v2d").classList.add("on");
+     document.getElementById("v3d").classList.remove("on");
+     document.getElementById("threeMoveBtn").style.display="none";
+     alert("تعذر تشغيل 3D على هذه الصفحة. تم الرجوع تلقائيًا إلى 2D.")
+   }
+ }
 }
 function toggle3DMove(){
  threeMoveMode=!threeMoveMode;
