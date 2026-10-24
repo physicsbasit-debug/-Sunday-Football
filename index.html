@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>Sunday Football v0.3.3</title>
+<title>Sunday Football v0.3.4</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.3.3 formation spacing + guaranteed 3D fallback */
+/* v0.3.4 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -73,10 +73,17 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-person span{position:absolute;z-index:2;left:0;right:0;top:19px;color:#fff;font-size:13px;font-weight:900}.fb-person.yellow span{color:#171717}
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
+
+/* v0.3.4 real 3D reliability + role-aware formation */
+.three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
+.three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
+@keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
+.pitch-player{width:88px}.pname{max-width:86px}
+@media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
 </style>
 </head>
 <body>
-<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.3.3</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.3.4</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -136,19 +143,27 @@ let tacticalLayout=S.tacticalLayout||{},pitch3d=false,threeMoveMode=false;
 let threeScene=null,threeCamera=null,threeRenderer=null,threePlayersRoot=null,threeAnim=null,threePlayerGroups={},threeHitMeshes=[],threeRay=null,threeGround=null;
 let camYaw=0,camElev=.72,camDist=43,orbitState=null,drag3DId=null;
 function persistTacticalLayout(){S.tacticalLayout=tacticalLayout;localStorage.setItem("sf_v1",JSON.stringify(S))}
-function formationBandSizes(n){
- const map={1:[1],2:[2],3:[3],4:[2,2],5:[2,3],6:[2,2,2],7:[2,3,2],8:[3,3,2],9:[3,3,3],10:[3,4,3],11:[4,3,4]};
- return map[n]||[Math.ceil(n/3),Math.ceil((n-Math.ceil(n/3))/2),Math.floor((n-Math.ceil(n/3))/2)].filter(Boolean)
+function splitRoleRows(arr){
+ if(arr.length<=4)return [arr];
+ let cut=Math.ceil(arr.length/2);return [arr.slice(0,cut),arr.slice(cut)]
+}
+function spreadRow(row,y,out){
+ row.forEach((p,j)=>out.push([p,8+84*(j+1)/(row.length+1),y]))
 }
 function formationPoints(t,side){
- let gk=t.find(isGK),field=t.filter(p=>p!==gk),out=[],sizes=formationBandSizes(field.length),idx=0;
- // الفريق الأصفر في النصف العلوي، والأحمر في النصف السفلي. لا أحد يبدأ فوق خط المنتصف الخاص بفريقه.
+ let gk=t.find(isGK),field=t.filter(p=>p!==gk),out=[];
+ let defenders=field.filter(p=>p.pos==="دفاع"),mids=field.filter(p=>p.pos==="وسط"),attackers=field.filter(p=>p.pos==="مهاجم");
+ let used=new Set([...defenders,...mids,...attackers].map(p=>String(p.id))),other=field.filter(p=>!used.has(String(p.id)));
+ mids.push(...other);
  if(gk)out.push([gk,50,side==="A"?94:6]);
- const ys=side==="A"?[81,69,57]:[19,31,43];
- sizes.forEach((count,ri)=>{let row=field.slice(idx,idx+count);idx+=count;row.forEach((p,j)=>out.push([p,10+80*(j+1)/(row.length+1),ys[Math.min(ri,2)]]))});
+ let base=side==="A"?{def:82,mid:69,att:56}:{def:18,mid:31,att:44},dir=side==="A"?-1:1;
+ [[defenders,base.def],[mids,base.mid],[attackers,base.att]].forEach(([group,y])=>{
+   splitRoleRows(group).forEach((row,ri)=>spreadRow(row,y+ri*6*dir,out))
+ });
  return out
 }
 function ensureLayout(force=false){
+ if(S.tacticalLayoutVersion!==2){tacticalLayout={};S.tacticalLayout={};S.tacticalLayoutVersion=2;localStorage.setItem("sf_v1",JSON.stringify(S))}
  if(force)tacticalLayout={};
  [{t:currentTeams.A,side:"A"},{t:currentTeams.B,side:"B"}].forEach(g=>formationPoints(g.t,g.side).forEach(([p,x,y])=>{
    let k=String(p.id),q=tacticalLayout[k];
@@ -163,7 +178,7 @@ function ensureThreeLibrary(){
  if(threeLoadPromise)return threeLoadPromise;
  threeLoadPromise=new Promise(resolve=>{
    let settled=false,finish=v=>{if(settled)return;settled=true;resolve(v)};
-   let s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js";s.async=true;
+   let s=document.createElement("script");s.src="./three.min.js?v=r128";s.async=true;
    s.onload=()=>finish(!!window.THREE);s.onerror=()=>finish(false);document.head.appendChild(s);
    setTimeout(()=>finish(!!window.THREE),2500)
  });
@@ -189,13 +204,18 @@ async function setPitchView(v){
  document.getElementById("v3d").classList.toggle("on",pitch3d);
  document.getElementById("threeMoveBtn").style.display=pitch3d?"block":"none";
  if(!pitch3d)return;
- // أظهر منظورًا ثلاثي الأبعاد فورًا بدل زر يبدو ميتًا أثناء تحميل المكتبة.
- renderFallback3D();
+ let stage=document.getElementById("threeStage");
+ stage.innerHTML='<div class="three-loading"><div class="three-ball">⚽</div><b>جاري تجهيز الملعب ثلاثي الأبعاد</b><span>تحميل المحرك المحلي…</span></div>';
  let ok=await ensureThreeLibrary();
- if(!pitch3d||!ok)return;
+ if(!pitch3d)return;
+ if(!ok){renderFallback3D();return}
  try{
-   // إذا كان WebGL متاحًا نستبدل المنظور الاحتياطي بالمشهد الحقيقي.
-   let stage=document.getElementById("threeStage");stage.innerHTML='<div class="three-hud"><b>3D</b><span id="threeHint">اسحب لتدوير الكاميرا</span></div>';
+   let probe=document.createElement("canvas");
+   let gl=probe.getContext("webgl")||probe.getContext("experimental-webgl");
+   if(!gl)throw new Error("WebGL unavailable");
+   stage.innerHTML='<div class="three-hud"><b>3D</b><span id="threeHint">اسحب لتدوير الكاميرا</span></div>';
+   if(threeAnim){cancelAnimationFrame(threeAnim);threeAnim=null}
+   if(threeRenderer){try{threeRenderer.dispose()}catch(e){}}
    threeRenderer=null;threeScene=null;threeCamera=null;threePlayersRoot=null;threePlayerGroups={};threeHitMeshes=[];
    initThree();syncThreePlayers();resizeThree();threeFallback=false;requestAnimationFrame(()=>resizeThree())
  }catch(err){
