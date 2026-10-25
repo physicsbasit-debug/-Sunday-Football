@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>ركلة الأحد الترجيحية v0.4.4</title>
+<title>ركلة الأحد الترجيحية v0.4.5</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.4.4 formation spacing + guaranteed 3D fallback */
+/* v0.4.5 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -74,24 +74,24 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 
-/* v0.4.4 real 3D reliability + role-aware formation */
+/* v0.4.5 real 3D reliability + role-aware formation */
 .three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
 .three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
 @keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
 .pitch-player{width:88px}.pname{max-width:86px}
 @media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
 
-/* v0.4.4 refined 3D footballers */
+/* v0.4.5 refined 3D footballers */
 .three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
 
-/* v0.4.4 finishing controls */
+/* v0.4.5 finishing controls */
 .camera-controls{margin:8px 0 10px;padding:9px;background:#f2f5f1;border:1px solid #dbe3dc;border-radius:14px}
 .camera-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.camera-row+.camera-row{margin-top:6px}
 .camera-controls button{padding:9px 5px;background:#fff;border:1px solid #d5ddd6;color:#244b36;border-radius:9px;font-size:10px;min-height:39px}.camera-controls .camera-whatsapp{background:#173f2c;color:#fff;border-color:#173f2c}
 .team-player.swap-selected{background:#fff3bf;border-radius:8px;padding-inline:6px}.team-player .move.swap-ready{background:#173f2c;color:#fff}
 @media(max-width:430px){.camera-controls button{font-size:9px;padding:8px 3px}.camera-row{gap:4px}}
 
-/* v0.4.4 visual polish */
+/* v0.4.5 visual polish */
 .camera-row-wide{grid-template-columns:1fr 1fr}.camera-row-wide button{font-size:10px}
 #formationCard.studio-fullscreen{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;padding:14px 14px calc(22px + env(safe-area-inset-bottom));background:#f4f1e8}
 #formationCard.studio-fullscreen .three-stage{height:calc(100vh - 235px)!important;min-height:520px}
@@ -102,7 +102,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .pitch-shell{border:1px solid #d9dfda}
 @media(max-width:430px){#formationCard.studio-fullscreen{padding-top:calc(8px + env(safe-area-inset-top))}.camera-row-wide button{font-size:9px}}
 
-/* v0.4.4 mobile dock + payment day-3 clarity */
+/* v0.4.5 mobile dock + payment day-3 clarity */
 main{padding-bottom:126px}
 .tabs{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:560px;margin:auto;border:1px solid #d9dfda;border-radius:24px;padding:6px;background:#fffffff2;box-shadow:0 12px 38px #102c2226;backdrop-filter:blur(18px);overflow:hidden}
 .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:58px;border-radius:18px;padding:5px 3px;color:#69756f;transition:transform .18s ease,background .18s ease,color .18s ease}
@@ -116,7 +116,7 @@ main{padding-bottom:126px}
 </style>
 </head>
 <body>
-<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.4</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.5</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -581,7 +581,26 @@ function applyCorrection(){
  save();renderCorrectionDays();alert("تم حفظ تعديل الحضور وإعادة احتساب أثر المشاركة على الرصيد.")
 }
 function addOpeningBalance(){let p=S.players.find(x=>String(x.id)===String(openingPlayer.value)),a=Number(openingAmount.value);if(!p||!a||a<=0)return alert("أدخل رصيدًا صحيحًا.");if(p.openingImported)return alert("تم إدخال الرصيد المرحّل لهذا اللاعب سابقًا.");p.balance+=a;p.openingImported=true;p.openingImportedAmount=a;S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString(),cycle:S.cycle,note:"رصيد مرحّل سابق — إدخال انتقالي"});openingAmount.value="";save();alert("تمت إضافة الرصيد المرحّل المتبقي حاليًا. لن يُطلب إدخاله يدويًا في الدورات القادمة.")}
-function ledgerCanvas(){let players=S.players.filter(p=>p.active),rowH=66,w=1180,h=180+players.length*rowH,cv=document.createElement("canvas");cv.width=w;cv.height=h;let x=cv.getContext("2d");x.direction="rtl";x.fillStyle="#f4f1e8";x.fillRect(0,0,w,h);x.fillStyle="#173f2c";x.fillRect(0,0,w,110);x.fillStyle="white";x.textAlign="center";x.font="bold 36px Arial";x.fillText("ركلة الأحد الترجيحية — قائمة الدفع للدورة "+S.cycle,w/2,48);x.font="22px Arial";let nextDay=S.days.length<5?S.days.length+1:null;x.fillText("الحضور والدفع • "+S.days.length+"/5 أيام"+(nextDay?" • الأحد القادم: اليوم "+nextDay:""),w/2,82);let cols=[220,130,130,130,130,130,180],labels=["اللاعب","1","2",nextDay===3?"3 الأحد":"3","4","5","الرصيد"],start=20,y=125,cx=start;x.font="bold 20px Arial";labels.forEach((l,i)=>{x.fillStyle="#e9eee9";x.fillRect(cx,y,cols[i],45);x.fillStyle="#17211c";x.fillText(l,cx+cols[i]/2,y+29);cx+=cols[i]});players.forEach((p,ri)=>{y=170+ri*rowH;x.fillStyle=p.balance>0?"#e5f6e9":p.balance<0?"#fde8e7":"#ffffff";x.fillRect(start,y,w-40,rowH-4);let attendNo=0,vals=[p.name];for(let i=0;i<5;i++){let d=S.days[i];if(!d||(p.joinCycle===S.cycle&&i+1<p.joinDay)){vals.push("—");continue}let e=d.entries&&d.entries[p.id];if(!e||!e.present){vals.push("⭕");continue}attendNo++;let keys=["","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"];vals.push((keys[attendNo]||String(attendNo))+(e.paid?"✅":"❌"))}vals.push(p.exempt?"معفى":p.balance.toFixed(1)+" ر.ع");cx=start;x.font="19px Arial";vals.forEach((v,i)=>{x.fillStyle="#17211c";x.fillText(v,cx+cols[i]/2,y+39);cx+=cols[i]})});return cv}
+function ledgerCanvas(){
+ let players=S.players.filter(p=>p.active),rowH=66,w=1180,h=180+players.length*rowH,cv=document.createElement("canvas");cv.width=w;cv.height=h;
+ let x=cv.getContext("2d");x.direction="rtl";x.fillStyle="#f4f1e8";x.fillRect(0,0,w,h);
+ x.fillStyle="#173f2c";x.fillRect(0,0,w,110);x.fillStyle="white";x.textAlign="center";x.font="bold 36px Arial";x.fillText("ركلة الأحد الترجيحية — قائمة الدفع للدورة "+S.cycle,w/2,48);
+ x.font="22px Arial";let nextDay=S.days.length<5?S.days.length+1:null;x.fillText("الحضور والدفع • "+S.days.length+"/5 أيام"+(nextDay?" • الأحد القادم: اليوم "+nextDay:""),w/2,82);
+ // RTL حقيقي: أول عمود في المصفوفة يُرسم من أقصى اليمين.
+ let cols=[220,130,130,130,130,130,180],labels=["اللاعب","1","2",nextDay===3?"3 الأحد":"3","4","5","الرصيد"],tableW=cols.reduce((a,b)=>a+b,0),tableX=(w-tableW)/2,tableRight=tableX+tableW,y=125;
+ function cellX(i){let right=tableRight;for(let k=0;k<=i;k++)right-=cols[k];return right}
+ x.font="bold 20px Arial";
+ labels.forEach((l,i)=>{let px=cellX(i);x.fillStyle=(nextDay&&i===nextDay)?"#fff2ad":"#e9eee9";x.fillRect(px,y,cols[i],45);x.strokeStyle="#dfe4df";x.lineWidth=1;x.strokeRect(px,y,cols[i],45);x.fillStyle="#17211c";x.textAlign="center";x.fillText(l,px+cols[i]/2,y+29)});
+ players.forEach((p,ri)=>{
+   y=170+ri*rowH;let rowBg=p.balance>0?"#e5f6e9":p.balance<0?"#fde8e7":"#ffffff";
+   x.fillStyle=rowBg;x.fillRect(tableX,y,tableW,rowH-4);
+   let attendNo=0,vals=[p.name];
+   for(let i=0;i<5;i++){let d=S.days[i];if(!d||(p.joinCycle===S.cycle&&i+1<p.joinDay)){vals.push("—");continue}let e=d.entries&&d.entries[p.id];if(!e||!e.present){vals.push("⭕");continue}attendNo++;let keys=["","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"];vals.push((keys[attendNo]||String(attendNo))+(e.paid?"✅":"❌"))}
+   vals.push(p.exempt?"معفى":p.balance.toFixed(1)+" ر.ع");
+   vals.forEach((v,i)=>{let px=cellX(i);if(nextDay&&i===nextDay&&S.days.length<nextDay){x.fillStyle="rgba(255,242,173,.55)";x.fillRect(px,y,cols[i],rowH-4)}x.strokeStyle="#ecefec";x.strokeRect(px,y,cols[i],rowH-4);x.fillStyle="#17211c";x.font=i===0?"bold 19px Arial":"19px Arial";if(i===0){x.textAlign="right";x.fillText(v,px+cols[i]-14,y+39)}else{x.textAlign="center";x.fillText(v,px+cols[i]/2,y+39)}});
+ });
+ return cv
+}
 function saveLedger(){let a=document.createElement("a");a.download="raklat-al-ahad-payments-cycle-"+S.cycle+".png";a.href=ledgerCanvas().toDataURL("image/png");a.click()}
 async function shareLedger(){let cv=ledgerCanvas();cv.toBlob(async blob=>{let file=new File([blob],"raklat-al-ahad-payments.png",{type:"image/png"});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"قائمة دفع ركلة الأحد الترجيحية"});return}catch(e){}}saveLedger()},"image/png")}
 function ledgerText(){
