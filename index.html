@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>ركلة الأحد الترجيحية v0.4.6</title>
+<title>ركلة الأحد الترجيحية v0.4.7</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.4.6 formation spacing + guaranteed 3D fallback */
+/* v0.4.7 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -74,24 +74,24 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 
-/* v0.4.6 real 3D reliability + role-aware formation */
+/* v0.4.7 real 3D reliability + role-aware formation */
 .three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
 .three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
 @keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
 .pitch-player{width:88px}.pname{max-width:86px}
 @media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
 
-/* v0.4.6 refined 3D footballers */
+/* v0.4.7 refined 3D footballers */
 .three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
 
-/* v0.4.6 finishing controls */
+/* v0.4.7 finishing controls */
 .camera-controls{margin:8px 0 10px;padding:9px;background:#f2f5f1;border:1px solid #dbe3dc;border-radius:14px}
 .camera-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.camera-row+.camera-row{margin-top:6px}
 .camera-controls button{padding:9px 5px;background:#fff;border:1px solid #d5ddd6;color:#244b36;border-radius:9px;font-size:10px;min-height:39px}.camera-controls .camera-whatsapp{background:#173f2c;color:#fff;border-color:#173f2c}
 .team-player.swap-selected{background:#fff3bf;border-radius:8px;padding-inline:6px}.team-player .move.swap-ready{background:#173f2c;color:#fff}
 @media(max-width:430px){.camera-controls button{font-size:9px;padding:8px 3px}.camera-row{gap:4px}}
 
-/* v0.4.6 visual polish */
+/* v0.4.7 visual polish */
 .camera-row-wide{grid-template-columns:1fr 1fr}.camera-row-wide button{font-size:10px}
 #formationCard.studio-fullscreen{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;padding:14px 14px calc(22px + env(safe-area-inset-bottom));background:#f4f1e8}
 #formationCard.studio-fullscreen .three-stage{height:calc(100vh - 235px)!important;min-height:520px}
@@ -102,7 +102,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .pitch-shell{border:1px solid #d9dfda}
 @media(max-width:430px){#formationCard.studio-fullscreen{padding-top:calc(8px + env(safe-area-inset-top))}.camera-row-wide button{font-size:9px}}
 
-/* v0.4.6 mobile dock + payment day-3 clarity */
+/* v0.4.7 mobile dock + payment day-3 clarity */
 main{padding-bottom:126px}
 .tabs{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:560px;margin:auto;border:1px solid #d9dfda;border-radius:24px;padding:6px;background:#fffffff2;box-shadow:0 12px 38px #102c2226;backdrop-filter:blur(18px);overflow:hidden}
 .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:58px;border-radius:18px;padding:5px 3px;color:#69756f;transition:transform .18s ease,background .18s ease,color .18s ease}
@@ -113,10 +113,13 @@ main{padding-bottom:126px}
 .money-cycle-card small{display:block;opacity:.72;font-size:11px}.money-cycle-card b{display:block;margin-top:4px;font-size:18px}.next-sunday-badge{background:#ffffff1f;border:1px solid #ffffff38;border-radius:999px;padding:8px 11px;font-size:11px;font-weight:900;white-space:nowrap}
 .ledger th.next-day-col,.ledger td.next-day-col{background:#fff7cf!important;box-shadow:inset 0 0 0 1px #e4c84d66}.ledger th.next-day-col{color:#765f00}.ledger th small{display:block;font-size:8px;font-weight:800;margin-top:2px}.upcoming-day{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:24px;padding:0 6px;border-radius:999px;background:#f1d75a;color:#4f4200;font-size:10px;font-weight:900}
 @media(max-width:390px){.tabs{left:8px;right:8px}.tab{min-height:55px}.tab-icon{width:26px;height:26px}.tab-label{font-size:9px}}
+
+.storage-ok{margin:10px 0 2px;padding:9px 11px;border-radius:11px;background:#edf5ef;color:#245c38;font-size:12px;font-weight:800}
+.storage-ok.warn{background:#fff4df;color:#8a5a00}
 </style>
 </head>
 <body>
-<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.6</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.7</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -136,7 +139,7 @@ main{padding-bottom:126px}
 <section id="players">
  <div class="card"><h2>إضافة لاعب</h2><input id="pName" placeholder="اسم اللاعب"><div class="row" style="margin-top:8px"><select id="pPos"><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select><select id="pSecond"><option value="">بدون مركز ثانوي</option><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select></div><div class="row" style="margin-top:8px"><select id="pRating"><option>5</option><option>4.5</option><option selected>4</option><option>3.5</option><option>3</option><option>2.5</option><option>2</option><option>1.5</option><option>1</option></select><select id="pExempt"><option value="0">دفع عادي</option><option value="1">معفى من الدفع</option></select></div><div class="actions"><button class="primary full" onclick="addPlayer()">إضافة اللاعب</button></div></div>
  <div class="card"><h2>قاعدة اللاعبين</h2><div id="playersList"></div><div id="editPlayerPanel" class="edit-panel" style="display:none"><h3>تعديل بيانات اللاعب</h3><input id="editName" placeholder="اسم اللاعب"><div class="row" style="margin-top:8px"><select id="editPos"><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select><select id="editSecond"><option value="">بدون مركز ثانوي</option><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select></div><div class="row" style="margin-top:8px"><select id="editRating"><option>5</option><option>4.5</option><option>4</option><option>3.5</option><option>3</option><option>2.5</option><option>2</option><option>1.5</option><option>1</option></select><select id="editExempt"><option value="0">دفع عادي</option><option value="1">معفى من الدفع</option></select></div><div class="row" style="margin-top:8px"><select id="editActive"><option value="1">نشط</option><option value="0">متوقف مؤقتًا</option></select><button class="primary" onclick="savePlayerEdit()">حفظ التعديل</button></div><input type="hidden" id="editId"></div></div>
- <div class="card"><h2>حماية البيانات</h2><p class="note">بيانات ركلة الأحد الترجيحية محفوظة على هذا الهاتف. احتفظ بنسخة احتياطية قبل تغيير المتصفح أو حذف بيانات Safari.</p><div class="actions"><button class="secondary" onclick="exportBackup()">تصدير نسخة احتياطية</button><button class="primary" onclick="document.getElementById('backupFile').click()">استرجاع نسخة</button></div><input id="backupFile" type="file" accept="application/json,.json" style="display:none" onchange="importBackup(event)"><p class="note" id="backupStatus"></p></div>
+ <div class="card"><h2>حماية البيانات</h2><p class="note">الحفظ تلقائي داخل المتصفح بطبقتين مستقلتين. احتفظ أيضًا بنسخة ملف قبل تغيير الجهاز أو حذف بيانات الموقع.</p><p class="storage-ok" id="storageStatus">جارٍ فحص الحفظ الدائم…</p><div class="actions"><button class="secondary" onclick="exportBackup()">تصدير نسخة احتياطية</button><button class="primary" onclick="document.getElementById('backupFile').click()">استرجاع نسخة</button></div><input id="backupFile" type="file" accept="application/json,.json" style="display:none" onchange="importBackup(event)"><p class="note" id="backupStatus"></p></div>
 </section>
 </main>
 <nav class="tabs"><button class="tab active" onclick="showTab('home',this)"><span class="tab-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8v9.7a.5.5 0 0 1-.5.5h-5.7v-6.4H9.2V21H3.5a.5.5 0 0 1-.5-.5z"/></svg></span><span class="tab-label">الرئيسية</span></button><button class="tab" onclick="showTab('teams',this)"><span class="tab-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2.8 20c.2-4 2.2-6.1 5.2-6.1s5 2.1 5.2 6.1M10.8 20c.2-3.5 2-5.4 5.2-5.4 3 0 4.8 1.9 5.2 5.4"/></svg></span><span class="tab-label">الفريقان</span></button><button class="tab" onclick="showTab('money',this)"><span class="tab-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 10h5v5h-5a2.5 2.5 0 0 1 0-5Z"/><path d="M6 6V4.7A1.7 1.7 0 0 1 7.7 3h9.6A1.7 1.7 0 0 1 19 4.7V6"/></svg></span><span class="tab-label">الدفع</span></button><button class="tab" onclick="showTab('players',this)"><span class="tab-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.2" r="3.4"/><path d="M5 21c.3-5 2.8-7.6 7-7.6s6.7 2.6 7 7.6"/></svg></span><span class="tab-label">اللاعبون</span></button></nav>
@@ -144,7 +147,45 @@ main{padding-bottom:126px}
 const seed=[
 ["محمود اليحيائي","وسط","حارس مرمى",5],["أحمد الوهيبي","وسط","",5],["يوسف اليحمدي","دفاع","حارس مرمى",4],["سعود المبيحسي","وسط","",5],["خالد البلوشي","وسط","",3.5],["سعود المعولي","مهاجم","",3],["عبدالله الشبيبي","دفاع","",4],["نايف المبيحسي","دفاع","",4],["أحمد الريامي","وسط","",4],["حسين الحسني","وسط","",3.5],["معاذ العويسي","دفاع","",4],["محمود العويسي","وسط","",5],["سلطان الحضرمي","دفاع","مهاجم",3.5]
 ].map((x,i)=>({id:Date.now()+i,name:x[0],pos:x[1],second:x[2],rating:x[3],exempt:false,active:true,balance:0}));
-let S=JSON.parse(localStorage.getItem("sf_v1")||"null")||{players:seed,cycle:1,days:[],payments:[],lastAttendees:[]}; if(!S.pendingAttendees)S.pendingAttendees=[]; S.players.forEach(p=>{if(p.joinCycle==null)p.joinCycle=S.cycle;if(p.joinDay==null)p.joinDay=1}); let currentTeams={A:[],B:[]};
+const STATE_KEY="sf_v1",STATE_DB="raklat_al_ahad_state",STATE_STORE="app_state";
+function readLocalState(){try{return JSON.parse(localStorage.getItem(STATE_KEY)||"null")}catch(e){return null}}
+function persistLocalSnapshot(){try{localStorage.setItem(STATE_KEY,JSON.stringify(S));return true}catch(e){return false}}
+function openStateDB(){
+ return new Promise((resolve,reject)=>{
+   if(!("indexedDB" in window))return reject(new Error("indexeddb-unavailable"));
+   let q=indexedDB.open(STATE_DB,1);
+   q.onupgradeneeded=()=>{let db=q.result;if(!db.objectStoreNames.contains(STATE_STORE))db.createObjectStore(STATE_STORE)};
+   q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error||new Error("indexeddb-open-failed"))
+ })
+}
+async function readStateIDB(){
+ let db=await openStateDB();
+ try{return await new Promise((resolve,reject)=>{let tx=db.transaction(STATE_STORE,"readonly"),q=tx.objectStore(STATE_STORE).get(STATE_KEY);q.onsuccess=()=>resolve(q.result||null);q.onerror=()=>reject(q.error)})}
+ finally{db.close()}
+}
+async function writeStateIDB(state){
+ let snapshot=JSON.parse(JSON.stringify(state)),db=await openStateDB();
+ try{await new Promise((resolve,reject)=>{let tx=db.transaction(STATE_STORE,"readwrite");tx.objectStore(STATE_STORE).put(snapshot,STATE_KEY);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error("indexeddb-write-aborted"))})}
+ finally{db.close()}
+}
+function validState(v){return !!(v&&Array.isArray(v.players)&&Array.isArray(v.days)&&Array.isArray(v.payments))}
+function stateScore(v){if(!validState(v))return -1;return v.players.length*100+v.days.length*10000+v.payments.length*10+Number(v.cycle||0)}
+function seedLike(v){return validState(v)&&v.players.length===13&&v.days.length===0&&v.payments.length===0}
+function normalizeState(v){
+ if(!validState(v))return v;
+ if(!v.pendingAttendees)v.pendingAttendees=[];
+ if(!v.lastAttendees)v.lastAttendees=[];
+ if(!v.cycle)v.cycle=1;
+ v.players.forEach(p=>{if(p.joinCycle==null)p.joinCycle=v.cycle;if(p.joinDay==null)p.joinDay=1});
+ return v
+}
+function persistState(touch=true){
+ if(touch)S._savedAt=Date.now();
+ let localOK=persistLocalSnapshot();
+ writeStateIDB(S).then(()=>setStorageStatus(localOK?"الحفظ المزدوج نشط ✓":"الحفظ الدائم نشط ✓")).catch(()=>setStorageStatus(localOK?"الحفظ المحلي نشط، وتعذر فتح طبقة الحفظ الثانية.":"تعذر الحفظ داخل المتصفح.",true));
+}
+function setStorageStatus(msg,warn=false){let el=document.getElementById("storageStatus");if(el){el.textContent=msg;el.classList.toggle("warn",!!warn)}}
+let S=normalizeState(readLocalState())||{players:seed,cycle:1,days:[],payments:[],lastAttendees:[],pendingAttendees:[]}; let currentTeams={A:[],B:[]};
 function ensureSundayDay3Baseline(){
  if(S.day3BaselineFixed_v044)return;
  if(Array.isArray(S.days)&&S.days.length>2){
@@ -152,7 +193,7 @@ function ensureSundayDay3Baseline(){
    extras.forEach(d=>S.players.forEach(p=>{let e=d&&d.entries&&d.entries[p.id];if(e&&e.present&&!p.exempt)p.balance=(Number(p.balance)||0)+1}));
    S.days=S.days.slice(0,2);S.pendingAttendees=[];S.lastAttendees=[];
  }
- S.day3BaselineFixed_v044=true;localStorage.setItem("sf_v1",JSON.stringify(S))
+ S.day3BaselineFixed_v044=true;persistLocalSnapshot()
 }
 ensureSundayDay3Baseline();
 function ensureCurrentCycle14(){
@@ -161,10 +202,10 @@ function ensureCurrentCycle14(){
  if(Number(S.cycle)!==14)S.cycle=14;
  S.players.forEach(p=>{if(p.joinCycle==null||Number(p.joinCycle)<14)p.joinCycle=14});
  if(Array.isArray(S.payments))S.payments.forEach(x=>{if(x.cycle==null||Number(x.cycle)<14)x.cycle=14});
- S.cycle14Fixed_v046=true;localStorage.setItem("sf_v1",JSON.stringify(S))
+ S.cycle14Fixed_v046=true;persistLocalSnapshot()
 }
 ensureCurrentCycle14();
-function save(){localStorage.setItem("sf_v1",JSON.stringify(S));render()}
+function save(){persistState(true);render()}
 function cleanAttendanceName(s){return String(s||"").trim().replace(/^\s*[\d٠-٩۰-۹]+\s*[-–—.)،:]\s*/,"").trim()}
 function namesFromInput(){return attendanceInput.value.split(/[\n،,]+/).map(cleanAttendanceName).filter(Boolean)}
 function playerByInputName(n){let key=normalizeName(cleanAttendanceName(n));return S.players.find(p=>normalizeName(p.name)===key)}
@@ -197,7 +238,7 @@ function renderTeams(){let A=currentTeams.A,B=currentTeams.B;if(!A.length&&!B.le
 let tacticalLayout=S.tacticalLayout||{},pitch3d=false,threeMoveMode=false;
 let threeScene=null,threeCamera=null,threeRenderer=null,threePlayersRoot=null,threeAnim=null,threePlayerGroups={},threeHitMeshes=[],threeRay=null,threeGround=null;
 let camYaw=0,camElev=.88,camDist=49,orbitState=null,drag3DId=null;
-function persistTacticalLayout(){S.tacticalLayout=tacticalLayout;localStorage.setItem("sf_v1",JSON.stringify(S))}
+function persistTacticalLayout(){S.tacticalLayout=tacticalLayout;persistState(true)}
 function splitRoleRows(arr){
  if(arr.length<=4)return [arr];
  let cut=Math.ceil(arr.length/2);return [arr.slice(0,cut),arr.slice(cut)]
@@ -218,7 +259,7 @@ function formationPoints(t,side){
  return out
 }
 function ensureLayout(force=false){
- if(S.tacticalLayoutVersion!==2){tacticalLayout={};S.tacticalLayout={};S.tacticalLayoutVersion=2;localStorage.setItem("sf_v1",JSON.stringify(S))}
+ if(S.tacticalLayoutVersion!==2){tacticalLayout={};S.tacticalLayout={};S.tacticalLayoutVersion=2;persistState(true)}
  if(force)tacticalLayout={};
  [{t:currentTeams.A,side:"A"},{t:currentTeams.B,side:"B"}].forEach(g=>formationPoints(g.t,g.side).forEach(([p,x,y])=>{
    let k=String(p.id),q=tacticalLayout[k];
@@ -650,7 +691,7 @@ function importBackup(ev){
      if(!data||!Array.isArray(data.players)||!Array.isArray(data.days)||!Array.isArray(data.payments))throw new Error("invalid");
      if(!confirm("سيتم استبدال بيانات ركلة الأحد الترجيحية الحالية بالنسخة المختارة. متابعة؟")){ev.target.value="";return}
      S=data;if(!S.pendingAttendees)S.pendingAttendees=[];S.players.forEach(p=>{if(p.joinCycle==null)p.joinCycle=S.cycle||1;if(p.joinDay==null)p.joinDay=1});
-     tacticalLayout=S.tacticalLayout||{};currentTeams={A:[],B:[]};localStorage.setItem("sf_v1",JSON.stringify(S));ev.target.value="";render();alert("تم استرجاع النسخة الاحتياطية بنجاح.")
+     S=normalizeState(S);tacticalLayout=S.tacticalLayout||{};currentTeams={A:[],B:[]};persistState(true);ev.target.value="";render();alert("تم استرجاع النسخة الاحتياطية وحفظها في طبقتي التخزين بنجاح.")
    }catch(e){ev.target.value="";alert("الملف ليس نسخة احتياطية صالحة لـ ركلة الأحد الترجيحية.")}
  };rd.readAsText(file)
 }
@@ -667,5 +708,24 @@ function render(){
  let head='<table><thead><tr><th>اللاعب</th>'+[1,2,3,4,5].map(i=>'<th class="'+(i===nextDay?'next-day-col':'')+'">'+i+(i===nextDay?'<small>الأحد القادم</small>':'')+'</th>').join("")+'<th>الرصيد</th></tr></thead><tbody>';
  let rows=S.players.filter(p=>p.active).map(p=>{let attendNo=0,cells=[0,1,2,3,4].map(i=>{let day=i+1,d=S.days[i];if(!d){return '<td class="'+(day===nextDay?'next-day-col':'')+'">'+(day===nextDay?'<span class="upcoming-day">⏳</span>':'—')+'</td>'}if(p.joinCycle===S.cycle&&day<p.joinDay)return '<td>—</td>';let e=d.entries[p.id];if(!e||!e.present)return '<td>⭕</td>';attendNo++;let keycaps=['','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];let mark=keycaps[attendNo]||String(attendNo);return '<td>'+mark+(e.paid?'✅':'❌')+'</td>'}).join("");let cls=p.balance>0?"credit":p.balance<0?"debt":"neutral",rowcls=p.balance>0?"credit-row":p.balance<0?"debt-row":"";return '<tr class="'+rowcls+'"><td>'+p.name+'</td>'+cells+'<td class="'+cls+'">'+(p.exempt?"معفى":p.balance.toFixed(1))+'</td></tr>'}).join("");ledger.innerHTML=head+rows+'</tbody></table>';
 }
-render();
+async function bootstrapPersistentState(){
+ let localState=S,durable=null,usedDurable=false;
+ try{durable=normalizeState(await readStateIDB())}catch(e){}
+ if(validState(durable)){
+   let lt=Number(localState&&localState._savedAt||0),dt=Number(durable._savedAt||0);
+   if(dt>lt||(seedLike(localState)&&!seedLike(durable))||(!lt&&!dt&&stateScore(durable)>stateScore(localState))){
+     S=durable;usedDurable=true
+   }
+ }
+ S=normalizeState(S);
+ // Re-run one-time migrations on whichever state won reconciliation.
+ ensureSundayDay3Baseline();ensureCurrentCycle14();
+ if(typeof tacticalLayout!=="undefined")tacticalLayout=S.tacticalLayout||{};
+ if(!S._savedAt)S._savedAt=Date.now();
+ let localOK=persistLocalSnapshot();
+ try{await writeStateIDB(S);setStorageStatus(usedDurable?"تم استعادة أحدث نسخة من الحفظ الدائم ✓":(localOK?"الحفظ المزدوج نشط ✓":"الحفظ الدائم نشط ✓"))}
+ catch(e){setStorageStatus(localOK?"الحفظ المحلي نشط، وتعذر فتح طبقة الحفظ الثانية.":"تعذر الحفظ داخل المتصفح.",true)}
+ render()
+}
+bootstrapPersistentState();
 </script></body></html>
