@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>Sunday Football v0.4.2</title>
+<title>ركلة الأحد الترجيحية v0.4.3</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -19,7 +19,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .teamgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.team{border-radius:16px;padding:12px;background:#f5f6f2}.team h3{margin:0 0 8px;font-size:16px}.team ol{padding-right:22px;margin:0}.team li{padding:5px 0;font-size:13px}.score{font-weight:700;color:var(--muted);font-size:12px}.team.red{border-top:5px solid #b42318}.team.yellow{border-top:5px solid #d7a900}.team-player{display:flex;align-items:center;gap:6px;padding:7px 0;border-bottom:1px solid #e4e7e2}.team-player:last-child{border:0}.team-player span{flex:1;font-size:13px}.move{padding:6px 8px;border-radius:8px;background:#fff;border:1px solid #d9ddd8;color:var(--green);font-size:12px}.team-summary{display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px;font-size:11px;color:var(--muted)}
 .pitch-wrap{margin-top:12px}.pitch{position:relative;min-height:520px;border-radius:22px;overflow:hidden;background:linear-gradient(90deg,#176b3a 0 10%,#1b7540 10% 20%,#176b3a 20% 30%,#1b7540 30% 40%,#176b3a 40% 50%,#1b7540 50% 60%,#176b3a 60% 70%,#1b7540 70% 80%,#176b3a 80% 90%,#1b7540 90%);border:5px solid #f5f1d8;box-shadow:inset 0 0 0 2px #ffffff99,0 8px 22px #0002}
 .pitch:before{content:"";position:absolute;inset:5%;border:2px solid #ffffffaa;border-radius:2px}.pitch:after{content:"";position:absolute;left:50%;top:5%;bottom:5%;border-left:2px solid #ffffffaa}
-.center-circle{position:absolute;width:92px;height:92px;border:2px solid #ffffffaa;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}.formation-title{text-align:center;margin:4px 0 10px}.pitch-player{position:absolute;transform:translate(-50%,-50%);width:76px;text-align:center;z-index:2}.shirt{margin:auto;width:38px;height:42px;border-radius:9px 9px 13px 13px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;border:2px solid #ffffffcc;box-shadow:0 3px 7px #0005}.shirt.yellow{background:#e0b400;color:#1d1d1d}.shirt.red{background:#b42318}.shirt.gk{background:#151515;color:white}.pname{margin-top:3px;background:#0b1b14d9;color:white;border-radius:8px;padding:3px 4px;font-size:10px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.public-note{text-align:center;font-size:11px;color:var(--muted);margin-top:8px}.pro-poster{position:relative;min-height:620px;border-radius:24px;overflow:hidden;background:linear-gradient(#0c1511 0 14%,#26342e 14% 22%,#176b3a 22%);box-shadow:0 14px 32px #0004}.pro-poster:before{content:"SUNDAY FOOTBALL";position:absolute;top:22px;left:0;right:0;text-align:center;color:#fff;font-weight:900;font-size:20px;letter-spacing:2px}.crowd{position:absolute;top:75px;left:0;right:0;height:70px;background:repeating-linear-gradient(100deg,#161b19 0 4px,#68716d 4px 6px,#222 6px 10px);opacity:.85}.profield{position:absolute;left:5%;right:5%;top:125px;bottom:25px;background:repeating-linear-gradient(90deg,#19743e 0 38px,#207f46 38px 76px);border:3px solid #fff;border-radius:5px;box-shadow:inset 0 0 40px #0005}.profield:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px solid #ffffffaa}.profield:after{content:"";position:absolute;width:92px;height:92px;border:2px solid #ffffffaa;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}.human{position:absolute;transform:translate(-50%,-50%);width:78px;text-align:center}.figure{position:relative;margin:auto;width:40px;height:55px;filter:drop-shadow(0 5px 3px #0008)}.figure .head{position:absolute;top:0;left:12px;width:17px;height:17px;border-radius:50%;background:#c89269}.figure .torso{position:absolute;top:15px;left:5px;width:31px;height:30px;clip-path:polygon(18% 0,82% 0,100% 30%,78% 45%,75% 100%,25% 100%,22% 45%,0 30%);border-radius:5px}.torso.red{background:linear-gradient(100deg,#74120d,#d63b30,#76140f)}.torso.yellow{background:linear-gradient(100deg,#846600,#ffd633,#8c6c00)}.torso.gk{background:linear-gradient(100deg,#111,#555,#111)}.figure .legs{position:absolute;top:43px;left:11px;width:20px;height:12px;border-left:6px solid #eee;border-right:6px solid #eee}.num{position:absolute;top:21px;left:0;right:0;color:white;font-size:10px;font-weight:900}.hname{margin-top:2px;background:#07100cdd;color:#fff;border:1px solid #ffffff55;border-radius:8px;padding:3px;font-size:9px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.poster-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.center-circle{position:absolute;width:92px;height:92px;border:2px solid #ffffffaa;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}.formation-title{text-align:center;margin:4px 0 10px}.pitch-player{position:absolute;transform:translate(-50%,-50%);width:76px;text-align:center;z-index:2}.shirt{margin:auto;width:38px;height:42px;border-radius:9px 9px 13px 13px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;border:2px solid #ffffffcc;box-shadow:0 3px 7px #0005}.shirt.yellow{background:#e0b400;color:#1d1d1d}.shirt.red{background:#b42318}.shirt.gk{background:#151515;color:white}.pname{margin-top:3px;background:#0b1b14d9;color:white;border-radius:8px;padding:3px 4px;font-size:10px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.public-note{text-align:center;font-size:11px;color:var(--muted);margin-top:8px}.pro-poster{position:relative;min-height:620px;border-radius:24px;overflow:hidden;background:linear-gradient(#0c1511 0 14%,#26342e 14% 22%,#176b3a 22%);box-shadow:0 14px 32px #0004}.pro-poster:before{content:"ركلة الأحد الترجيحية";position:absolute;top:22px;left:0;right:0;text-align:center;color:#fff;font-weight:900;font-size:20px;letter-spacing:2px}.crowd{position:absolute;top:75px;left:0;right:0;height:70px;background:repeating-linear-gradient(100deg,#161b19 0 4px,#68716d 4px 6px,#222 6px 10px);opacity:.85}.profield{position:absolute;left:5%;right:5%;top:125px;bottom:25px;background:repeating-linear-gradient(90deg,#19743e 0 38px,#207f46 38px 76px);border:3px solid #fff;border-radius:5px;box-shadow:inset 0 0 40px #0005}.profield:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px solid #ffffffaa}.profield:after{content:"";position:absolute;width:92px;height:92px;border:2px solid #ffffffaa;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}.human{position:absolute;transform:translate(-50%,-50%);width:78px;text-align:center}.figure{position:relative;margin:auto;width:40px;height:55px;filter:drop-shadow(0 5px 3px #0008)}.figure .head{position:absolute;top:0;left:12px;width:17px;height:17px;border-radius:50%;background:#c89269}.figure .torso{position:absolute;top:15px;left:5px;width:31px;height:30px;clip-path:polygon(18% 0,82% 0,100% 30%,78% 45%,75% 100%,25% 100%,22% 45%,0 30%);border-radius:5px}.torso.red{background:linear-gradient(100deg,#74120d,#d63b30,#76140f)}.torso.yellow{background:linear-gradient(100deg,#846600,#ffd633,#8c6c00)}.torso.gk{background:linear-gradient(100deg,#111,#555,#111)}.figure .legs{position:absolute;top:43px;left:11px;width:20px;height:12px;border-left:6px solid #eee;border-right:6px solid #eee}.num{position:absolute;top:21px;left:0;right:0;color:white;font-size:10px;font-weight:900}.hname{margin-top:2px;background:#07100cdd;color:#fff;border:1px solid #ffffff55;border-radius:8px;padding:3px;font-size:9px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.poster-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .ledger{overflow:auto}.ledger table{border-collapse:collapse;min-width:590px;width:100%;font-size:12px}.ledger th,.ledger td{border-bottom:1px solid #eee;padding:8px 6px;text-align:center}.ledger th:first-child,.ledger td:first-child{text-align:right;position:sticky;right:0;background:#fff}.credit{color:#16794a;font-weight:700}.debt{color:#b42318;font-weight:700}.neutral{color:#666}.ledger tr.credit-row td{background:#e5f6e9!important}.ledger tr.debt-row td{background:#fde8e7!important}.ledger tr.credit-row td:first-child{background:#e5f6e9!important}.ledger tr.debt-row td:first-child{background:#fde8e7!important}
 .note{font-size:12px;color:var(--muted);line-height:1.6}.unknown{margin-top:8px;color:var(--red);font-size:13px}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stars{direction:ltr;color:#a76d00}.edit-btn{padding:7px 10px;border:1px solid #d9ddd8;background:#fff;color:var(--green);font-size:12px}.edit-panel{margin-top:10px;padding:12px;background:#f6f7f3;border-radius:14px}.edit-panel h3{margin:0 0 10px;font-size:15px}.money-adjust{margin-top:8px;padding-top:8px;border-top:1px solid #ddd}
 @media(max-width:390px){.teamgrid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.4.2 formation spacing + guaranteed 3D fallback */
+/* v0.4.3 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -74,24 +74,24 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 
-/* v0.4.2 real 3D reliability + role-aware formation */
+/* v0.4.3 real 3D reliability + role-aware formation */
 .three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
 .three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
 @keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
 .pitch-player{width:88px}.pname{max-width:86px}
 @media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
 
-/* v0.4.2 refined 3D footballers */
+/* v0.4.3 refined 3D footballers */
 .three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
 
-/* v0.4.2 finishing controls */
+/* v0.4.3 finishing controls */
 .camera-controls{margin:8px 0 10px;padding:9px;background:#f2f5f1;border:1px solid #dbe3dc;border-radius:14px}
 .camera-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.camera-row+.camera-row{margin-top:6px}
 .camera-controls button{padding:9px 5px;background:#fff;border:1px solid #d5ddd6;color:#244b36;border-radius:9px;font-size:10px;min-height:39px}.camera-controls .camera-whatsapp{background:#173f2c;color:#fff;border-color:#173f2c}
 .team-player.swap-selected{background:#fff3bf;border-radius:8px;padding-inline:6px}.team-player .move.swap-ready{background:#173f2c;color:#fff}
 @media(max-width:430px){.camera-controls button{font-size:9px;padding:8px 3px}.camera-row{gap:4px}}
 
-/* v0.4.2 visual polish */
+/* v0.4.3 visual polish */
 .camera-row-wide{grid-template-columns:1fr 1fr}.camera-row-wide button{font-size:10px}
 #formationCard.studio-fullscreen{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;padding:14px 14px calc(22px + env(safe-area-inset-bottom));background:#f4f1e8}
 #formationCard.studio-fullscreen .three-stage{height:calc(100vh - 235px)!important;min-height:520px}
@@ -104,7 +104,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 </style>
 </head>
 <body>
-<header><h1>⚽ Sunday Football <small style="font-size:11px;opacity:.7">v0.4.2</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.3</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -113,7 +113,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 <section id="teams">
  <div class="card"><h2>توزيع الفريقين</h2><p class="note">التقييمات سرية وتُستخدم داخليًا فقط. لا تظهر في قائمة الفريق العامة.</p><button class="primary" style="width:100%" onclick="buildTeams()">إنشاء توزيع متوازن</button></div>
  <div id="teamsOut" class="teamgrid"></div><div id="teamActions" class="card" style="display:none"><button class="secondary" style="width:100%" onclick="buildTeams()">إعادة التوزيع تلقائيًا</button><p class="note">استخدم زر ↔ بجانب أي لاعب لتبديله للفريق الآخر. التقييم يبقى سريًا ولا يظهر في المخرجات العامة.</p></div>
-<div id="formationCard" class="card pitch-wrap" style="display:none"><div class="formation-head"><div><h2 class="formation-title">اللوحة التكتيكية</h2><p>رتّب اللاعبين كما تريد، ثم اختر العرض المناسب للمشاركة.</p></div><span class="live-badge">LIVE FORMATION</span></div><div class="tactical-toolbar"><button id="v2d" class="view-btn on" onclick="setPitchView(false)">2D تكتيكي</button><button id="v3d" class="view-btn" onclick="setPitchView(true)">3D ملعب</button><button id="threeMoveBtn" class="view-btn" onclick="toggle3DMove()" style="display:none">تحريك لاعب 3D</button><button class="view-btn" onclick="resetLayout()">إعادة ترتيب</button></div><div id="camControls" class="camera-controls" style="display:none"><div class="camera-row"><button onclick="cameraPreset('broadcast')">بث تلفزيوني</button><button onclick="cameraPreset('top')">علوي</button><button onclick="cameraPreset('goal')">خلف المرمى</button><button onclick="cameraPreset('side')">جانبي</button></div><div class="camera-row"><button onclick="cameraZoom(-4)">＋ تقريب</button><button onclick="cameraZoom(4)">− إبعاد</button><button onclick="cameraPreset('fit')">احتواء الكل</button><button class="camera-whatsapp" onclick="cameraPreset('whatsapp')">واتساب</button></div><div class="camera-row camera-row-wide"><button id="labels3DBtn" onclick="toggle3DLabels()">الأسماء: ظاهرة</button><button id="fullscreen3DBtn" onclick="toggle3DFullscreen()">ملء الشاشة</button></div></div><div id="pitchShell" class="pitch-shell"><div id="pitch" class="pitch"><div class="center-circle"></div></div><div id="threeStage" class="three-stage" style="display:none"><div class="three-hud"><b>3D</b><span id="threeHint">اسحب لتدوير الكاميرا</span></div></div></div><div class="drag-tip">في 2D اسحب اللاعب مباشرة. في 3D: حرّك الكاميرا بحرية، أو استخدم الزوايا الجاهزة. فعّل «تحريك لاعب 3D» فقط عند تعديل مكان لاعب.</div><div class="poster-actions"><button class="secondary" onclick="sharePoster()">مشاركة التشكيلة</button><button class="primary" onclick="savePoster()">حفظ الصورة</button></div><p class="public-note">عند المشاركة من وضع 3D تستخدم المنظومة لقطة واتساب محسّنة تلقائيًا ثم تعيد الكاميرا إلى وضعك الحالي.</p></div>
+<div id="formationCard" class="card pitch-wrap" style="display:none"><div class="formation-head"><div><h2 class="formation-title">اللوحة التكتيكية</h2><p>رتّب اللاعبين كما تريد، ثم اختر العرض المناسب للمشاركة.</p></div><span class="live-badge">LIVE FORMATION</span></div><div class="tactical-toolbar"><button id="v2d" class="view-btn on" onclick="setPitchView(false)">2D تكتيكي</button><button id="v3d" class="view-btn" onclick="setPitchView(true)">3D ملعب</button><button id="threeMoveBtn" class="view-btn" onclick="toggle3DMove()" style="display:none">تحريك لاعب 3D</button><button class="view-btn" onclick="resetLayout()">إعادة ترتيب</button></div><div id="camControls" class="camera-controls" style="display:none"><div class="camera-row"><button onclick="cameraPreset('broadcast')">بث تلفزيوني</button><button onclick="cameraPreset('top')">علوي</button><button onclick="cameraPreset('goal')">خلف المرمى</button><button onclick="cameraPreset('side')">جانبي</button></div><div class="camera-row"><button onclick="cameraZoom(-4)">＋ تقريب</button><button onclick="cameraZoom(4)">− إبعاد</button><button onclick="cameraPreset('fit')">احتواء الكل</button><button class="camera-whatsapp" onclick="cameraPreset('whatsapp')">واتساب</button></div><div class="camera-row camera-row-wide"><button id="labels3DBtn" onclick="toggle3DLabels()">الأسماء: ظاهرة</button><button id="fullscreen3DBtn" onclick="toggle3DFullscreen()">ملء الشاشة</button></div></div><div id="pitchShell" class="pitch-shell"><div id="pitch" class="pitch"><div class="center-circle"></div></div><div id="threeStage" class="three-stage" style="display:none"><div class="three-hud"><b>3D</b><span id="threeHint">اسحب لتدوير الكاميرا</span></div></div></div><div class="drag-tip">في 2D اسحب اللاعب مباشرة. في 3D: حرّك الكاميرا بحرية، أو استخدم الزوايا الجاهزة. فعّل «تحريك لاعب 3D» فقط عند تعديل مكان لاعب.</div><div class="poster-actions"><button class="secondary" onclick="sharePoster()">مشاركة التشكيلة</button><button class="primary" onclick="savePoster()">حفظ الصورة</button></div><p class="public-note">مشاركة 3D تنشئ ملصقًا مستقلًا عالي الدقة للواتساب، فلا تعتمد على لقطة الشاشة أو نسخ WebGL في Safari.</p></div>
 </section>
 <section id="money">
  <div class="card"><h2>الحضور والدفع</h2><div id="ledger" class="ledger"></div><div class="actions"><button class="secondary full" onclick="openCorrection()">تعديل سجل الحضور</button></div></div><div id="correctionCard" class="card" style="display:none"><h2>تعديل سجل الحضور</h2><p class="note">للتصحيح فقط: اختر اللاعب وعدّل حالة أي يوم سابق. تسجيل الأموال يتم من بطاقة «تسجيل دفعة» بشكل مستقل.</p><select id="corrPlayer"></select><div id="corrDays" style="margin-top:10px"></div><div class="actions" style="margin-top:10px"><button class="primary full" onclick="applyCorrection()">حفظ تعديل الحضور</button></div></div>
@@ -123,7 +123,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 <section id="players">
  <div class="card"><h2>إضافة لاعب</h2><input id="pName" placeholder="اسم اللاعب"><div class="row" style="margin-top:8px"><select id="pPos"><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select><select id="pSecond"><option value="">بدون مركز ثانوي</option><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select></div><div class="row" style="margin-top:8px"><select id="pRating"><option>5</option><option>4.5</option><option selected>4</option><option>3.5</option><option>3</option><option>2.5</option><option>2</option><option>1.5</option><option>1</option></select><select id="pExempt"><option value="0">دفع عادي</option><option value="1">معفى من الدفع</option></select></div><div class="actions"><button class="primary full" onclick="addPlayer()">إضافة اللاعب</button></div></div>
  <div class="card"><h2>قاعدة اللاعبين</h2><div id="playersList"></div><div id="editPlayerPanel" class="edit-panel" style="display:none"><h3>تعديل بيانات اللاعب</h3><input id="editName" placeholder="اسم اللاعب"><div class="row" style="margin-top:8px"><select id="editPos"><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select><select id="editSecond"><option value="">بدون مركز ثانوي</option><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select></div><div class="row" style="margin-top:8px"><select id="editRating"><option>5</option><option>4.5</option><option>4</option><option>3.5</option><option>3</option><option>2.5</option><option>2</option><option>1.5</option><option>1</option></select><select id="editExempt"><option value="0">دفع عادي</option><option value="1">معفى من الدفع</option></select></div><div class="row" style="margin-top:8px"><select id="editActive"><option value="1">نشط</option><option value="0">متوقف مؤقتًا</option></select><button class="primary" onclick="savePlayerEdit()">حفظ التعديل</button></div><input type="hidden" id="editId"></div></div>
- <div class="card"><h2>حماية البيانات</h2><p class="note">بيانات Sunday Football محفوظة على هذا الهاتف. احتفظ بنسخة احتياطية قبل تغيير المتصفح أو حذف بيانات Safari.</p><div class="actions"><button class="secondary" onclick="exportBackup()">تصدير نسخة احتياطية</button><button class="primary" onclick="document.getElementById('backupFile').click()">استرجاع نسخة</button></div><input id="backupFile" type="file" accept="application/json,.json" style="display:none" onchange="importBackup(event)"><p class="note" id="backupStatus"></p></div>
+ <div class="card"><h2>حماية البيانات</h2><p class="note">بيانات ركلة الأحد الترجيحية محفوظة على هذا الهاتف. احتفظ بنسخة احتياطية قبل تغيير المتصفح أو حذف بيانات Safari.</p><div class="actions"><button class="secondary" onclick="exportBackup()">تصدير نسخة احتياطية</button><button class="primary" onclick="document.getElementById('backupFile').click()">استرجاع نسخة</button></div><input id="backupFile" type="file" accept="application/json,.json" style="display:none" onchange="importBackup(event)"><p class="note" id="backupStatus"></p></div>
 </section>
 </main>
 <nav class="tabs"><button class="tab active" onclick="showTab('home',this)">الرئيسية</button><button class="tab" onclick="showTab('teams',this)">الفريقان</button><button class="tab" onclick="showTab('money',this)">الدفع</button><button class="tab" onclick="showTab('players',this)">اللاعبون</button></nav>
@@ -450,7 +450,7 @@ function threePointerUp(e){
 function resizeThree(){if(!threeRenderer)return;let stage=document.getElementById("threeStage"),w=Math.max(280,stage.clientWidth),h=Math.max(420,stage.clientHeight);threeRenderer.setSize(w,h,false);threeCamera.aspect=w/h;threeCamera.updateProjectionMatrix()}
 function draw2DPoster(cv){
  let x=cv.getContext("2d"),w=cv.width,h=cv.height;x.fillStyle="#06110c";x.fillRect(0,0,w,h);
- x.fillStyle="#fff";x.textAlign="center";x.font="900 62px Arial";x.fillText("SUNDAY FOOTBALL",w/2,70);x.font="26px Arial";x.fillStyle="#c4d1ca";x.fillText("التشكيلة الرسمية • الدورة "+S.cycle+" • "+(currentTeams.A.length+currentTeams.B.length)+" لاعبًا",w/2,112);
+ x.fillStyle="#fff";x.textAlign="center";x.font="900 62px Arial";x.fillText("ركلة الأحد الترجيحية",w/2,70);x.font="26px Arial";x.fillStyle="#c4d1ca";x.fillText("التشكيلة الرسمية • الدورة "+S.cycle+" • "+(currentTeams.A.length+currentTeams.B.length)+" لاعبًا",w/2,112);
  let L=80,T=155,W=w-160,H=h-245;for(let i=0;i<10;i++){x.fillStyle=i%2?"#287f49":"#207440";x.fillRect(L+i*W/10,T,W/10,H)}
  x.strokeStyle="#fff";x.lineWidth=5;x.strokeRect(L+24,T+24,W-48,H-48);x.beginPath();x.moveTo(L+24,T+H/2);x.lineTo(L+W-24,T+H/2);x.stroke();
  x.beginPath();x.arc(L+W/2,T+H/2,125,0,Math.PI*2);x.stroke();x.fillStyle="#fff";x.beginPath();x.arc(L+W/2,T+H/2,6,0,Math.PI*2);x.fill();
@@ -466,53 +466,68 @@ function draw2DPoster(cv){
  x.font="bold 25px Arial";x.fillStyle="#c82f25";roundedRect(x,330,h-66,250,48,16);x.fill();x.fillStyle="#fff";x.fillText("الفريق الأحمر",455,h-34);
  x.fillStyle="#e3b313";roundedRect(x,860,h-66,250,48,16);x.fill();x.fillStyle="#151515";x.fillText("الفريق الأصفر",985,h-34)
 }
-function drawShareNameBadges(ctx,offsetY,renderW,renderH,canvasW){
- let items=[],all=[...currentTeams.A,...currentTeams.B];
- ctx.font="bold 28px Arial";ctx.textAlign="center";ctx.textBaseline="middle";ctx.direction="rtl";
- all.forEach(p=>{
-   let g=threePlayerGroups[String(p.id)];if(!g)return;
-   let v=new THREE.Vector3(g.position.x,2.85,g.position.z).project(threeCamera),x=(v.x*.5+.5)*renderW,y=offsetY+(-v.y*.5+.5)*renderH;
-   let tw=Math.min(260,Math.max(110,ctx.measureText(p.name).width+38));items.push({p,x,y,w:tw,h:42})
- });
- items.sort((a,b)=>a.y-b.y);let boxes=[];
+function perspectivePoint(qx,qy){
+ let topY=285,bottomY=1635,t=qy/100,topL=255,topR=1185,bottomL=70,bottomR=1370;
+ let left=topL+(bottomL-topL)*t,right=topR+(bottomR-topR)*t;
+ return{x:left+(right-left)*(qx/100),y:topY+(bottomY-topY)*t,t}
+}
+function drawPerspectiveSegment(ctx,a,b){
+ let p1=perspectivePoint(a[0],a[1]),p2=perspectivePoint(b[0],b[1]);ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.stroke()
+}
+function drawPerspectiveRect(ctx,x1,y1,x2,y2){
+ drawPerspectiveSegment(ctx,[x1,y1],[x2,y1]);drawPerspectiveSegment(ctx,[x2,y1],[x2,y2]);drawPerspectiveSegment(ctx,[x2,y2],[x1,y2]);drawPerspectiveSegment(ctx,[x1,y2],[x1,y1])
+}
+function drawPerspectiveCircle(ctx,cx,cy,rx,ry){
+ ctx.beginPath();for(let i=0;i<=64;i++){let a=i/64*Math.PI*2,p=perspectivePoint(cx+Math.cos(a)*rx,cy+Math.sin(a)*ry);if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)}ctx.stroke()
+}
+function drawSharePlayer(ctx,p,teamColor,num){
+ let q=tacticalLayout[String(p.id)]||{x:50,y:50},pt=perspectivePoint(q.x,q.y),s=.62+pt.t*.52,gk=isGK(p),col=gk?"#202523":teamColor;
+ ctx.save();ctx.translate(pt.x,pt.y);
+ ctx.fillStyle="rgba(0,0,0,.22)";ctx.beginPath();ctx.ellipse(0,10*s,28*s,9*s,0,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle="#c98f68";ctx.beginPath();ctx.arc(0,-58*s,15*s,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle="#171513";ctx.beginPath();ctx.arc(0,-62*s,15*s,Math.PI,Math.PI*2);ctx.fill();
+ ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(-26*s,-39*s);ctx.lineTo(-15*s,-48*s);ctx.lineTo(-7*s,-43*s);ctx.lineTo(7*s,-43*s);ctx.lineTo(15*s,-48*s);ctx.lineTo(26*s,-39*s);ctx.lineTo(20*s,-24*s);ctx.lineTo(14*s,-29*s);ctx.lineTo(15*s,5*s);ctx.lineTo(-15*s,5*s);ctx.lineTo(-14*s,-29*s);ctx.lineTo(-20*s,-24*s);ctx.closePath();ctx.fill();
+ ctx.fillStyle="#f1f2ed";ctx.fillRect(-15*s,5*s,30*s,17*s);
+ ctx.fillStyle="#c98f68";ctx.fillRect(-13*s,22*s,8*s,27*s);ctx.fillRect(5*s,22*s,8*s,27*s);
+ ctx.fillStyle="#f3f3ef";ctx.fillRect(-14*s,42*s,10*s,18*s);ctx.fillRect(4*s,42*s,10*s,18*s);
+ ctx.fillStyle="#101211";ctx.fillRect(-16*s,57*s,13*s,7*s);ctx.fillRect(3*s,57*s,13*s,7*s);
+ ctx.fillStyle="#fff";ctx.font="900 "+Math.max(14,22*s)+"px Arial";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(num),0,-17*s);
+ if(gk){ctx.fillStyle="#f4f4ef";ctx.beginPath();ctx.arc(-28*s,-18*s,6*s,0,Math.PI*2);ctx.arc(28*s,-18*s,6*s,0,Math.PI*2);ctx.fill()}
+ ctx.restore();
+ return{p,x:pt.x,y:pt.y-76*s,t:pt.t}
+}
+function placeShareNameBadges(ctx,items){
+ ctx.direction="rtl";ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="bold 25px Arial";
+ let boxes=[];items.sort((a,b)=>a.y-b.y);
  items.forEach(it=>{
-   let candidates=[[0,-54],[0,-88],[-70,-58],[70,-58],[-90,-92],[90,-92]],chosen=null;
-   for(let [dx,dy] of candidates){let x=Math.max(it.w/2+16,Math.min(canvasW-it.w/2-16,it.x+dx)),y=it.y+dy,box={l:x-it.w/2,r:x+it.w/2,t:y-it.h/2,b:y+it.h/2};if(!boxes.some(b=>boxesOverlap(box,b,8))){chosen={x,y,box};break}chosen={x,y,box}}
-   boxes.push(chosen.box);ctx.fillStyle="rgba(4,14,9,.92)";roundedRect(ctx,chosen.x-it.w/2,chosen.y-it.h/2,it.w,it.h,13);ctx.fill();ctx.strokeStyle="rgba(255,255,255,.34)";ctx.lineWidth=2;ctx.stroke();ctx.fillStyle="#fff";ctx.fillText(it.p.name,chosen.x,chosen.y+1)
+   let w=Math.min(250,Math.max(118,ctx.measureText(it.p.name).width+38)),h=40,cands=[[0,0],[0,-44],[-78,-18],[78,-18],[-92,-54],[92,-54]],chosen=null;
+   for(let [dx,dy] of cands){let x=Math.max(w/2+18,Math.min(1440-w/2-18,it.x+dx)),y=Math.max(205,Math.min(1685,it.y+dy)),box={l:x-w/2,r:x+w/2,t:y-h/2,b:y+h/2};if(!boxes.some(b=>boxesOverlap(box,b,7))){chosen={x,y,box};break}chosen={x,y,box}}
+   boxes.push(chosen.box);ctx.fillStyle="rgba(4,14,9,.94)";roundedRect(ctx,chosen.x-w/2,chosen.y-h/2,w,h,12);ctx.fill();ctx.strokeStyle="rgba(255,255,255,.38)";ctx.lineWidth=2;ctx.stroke();ctx.fillStyle="#fff";ctx.fillText(it.p.name,chosen.x,chosen.y+1)
  })
 }
-function fitExportCamera(aspect){
- camYaw=0;camElev=1.18;camDist=46;threeCamera.aspect=aspect;threeCamera.fov=38;threeCamera.updateProjectionMatrix();updateThreeCamera();
- for(let n=0;n<6;n++){
-   let pts=[[-11.5,0,-18.8],[11.5,0,-18.8],[-11.5,0,18.8],[11.5,0,18.8],[-10.5,3.2,-17],[10.5,3.2,17]],mx=0,my=0;
-   pts.forEach(a=>{let v=new THREE.Vector3(a[0],a[1],a[2]).project(threeCamera);mx=Math.max(mx,Math.abs(v.x));my=Math.max(my,Math.abs(v.y))});
-   let scale=Math.max(mx/.90,my/.88);if(scale<=1.01)break;camDist*=scale*1.035;updateThreeCamera()
- }
+function draw3DSharePoster(cv){
+ let ctx=cv.getContext("2d"),w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);
+ let grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,"#06100c");grad.addColorStop(.22,"#0c1d15");grad.addColorStop(1,"#07110c");ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);
+ ctx.fillStyle="#fff";ctx.textAlign="center";ctx.direction="rtl";ctx.font="900 62px Arial";ctx.fillText("ركلة الأحد الترجيحية",w/2,72);
+ ctx.font="25px Arial";ctx.fillStyle="#c5d2cb";ctx.fillText("التشكيلة الرسمية • الدورة "+S.cycle+" • "+(currentTeams.A.length+currentTeams.B.length)+" لاعبًا",w/2,114);
+ ctx.fillStyle="#17231d";ctx.fillRect(0,145,w,145);for(let i=0;i<520;i++){let xx=(i*73)%w,yy=155+((i*47)%115);ctx.fillStyle=["#d8ddd9","#d8b627","#b63a31","#467259"][i%4];ctx.fillRect(xx,yy,3,3)}
+ ctx.beginPath();ctx.moveTo(255,285);ctx.lineTo(1185,285);ctx.lineTo(1370,1635);ctx.lineTo(70,1635);ctx.closePath();let fg=ctx.createLinearGradient(0,285,0,1635);fg.addColorStop(0,"#1d6b3c");fg.addColorStop(1,"#2e9a59");ctx.fillStyle=fg;ctx.fill();
+ for(let i=0;i<10;i++){let xa1=255+(1185-255)*i/10,xa2=255+(1185-255)*(i+1)/10,xb1=70+(1370-70)*i/10,xb2=70+(1370-70)*(i+1)/10;ctx.beginPath();ctx.moveTo(xa1,285);ctx.lineTo(xa2,285);ctx.lineTo(xb2,1635);ctx.lineTo(xb1,1635);ctx.closePath();ctx.fillStyle=i%2?"rgba(255,255,255,.025)":"rgba(0,0,0,.045)";ctx.fill()}
+ ctx.strokeStyle="rgba(255,255,255,.92)";ctx.lineWidth=4;drawPerspectiveSegment(ctx,[0,0],[100,0]);drawPerspectiveSegment(ctx,[100,0],[100,100]);drawPerspectiveSegment(ctx,[100,100],[0,100]);drawPerspectiveSegment(ctx,[0,100],[0,0]);drawPerspectiveSegment(ctx,[0,50],[100,50]);drawPerspectiveCircle(ctx,50,50,12,8);
+ drawPerspectiveRect(ctx,23,0,77,16);drawPerspectiveRect(ctx,36,0,64,7);drawPerspectiveRect(ctx,23,84,77,100);drawPerspectiveRect(ctx,36,93,64,100);
+ ctx.strokeStyle="#fff";ctx.lineWidth=5;let gtL=perspectivePoint(40,0),gtR=perspectivePoint(60,0);ctx.strokeRect(gtL.x,246,gtR.x-gtL.x,39);let gbL=perspectivePoint(40,100),gbR=perspectivePoint(60,100);ctx.strokeRect(gbL.x,1635,gbR.x-gbL.x,46);
+ let players=[];currentTeams.B.forEach((p,i)=>players.push({p,color:"#e3b313",num:i+1,q:tacticalLayout[String(p.id)]||{y:0}}));currentTeams.A.forEach((p,i)=>players.push({p,color:"#c82f25",num:i+1,q:tacticalLayout[String(p.id)]||{y:100}}));players.sort((a,b)=>(a.q.y||0)-(b.q.y||0));
+ let badges=[];players.forEach(o=>badges.push(drawSharePlayer(ctx,o.p,o.color,o.num)));placeShareNameBadges(ctx,badges);
+ ctx.font="bold 26px Arial";ctx.textBaseline="middle";ctx.fillStyle="#c82f25";roundedRect(ctx,300,1718,270,54,18);ctx.fill();ctx.fillStyle="#fff";ctx.fillText("الفريق الأحمر",435,1745);
+ ctx.fillStyle="#e3b313";roundedRect(ctx,870,1718,270,54,18);ctx.fill();ctx.fillStyle="#171717";ctx.fillText("الفريق الأصفر",1005,1745)
 }
 function posterCanvas(){
  ensureLayout();let cv=document.createElement("canvas");cv.width=1440;cv.height=1800;
- if(pitch3d&&threeRenderer){
-   let x=cv.getContext("2d"),top=154,rw=1440,rh=1550;
-   x.fillStyle="#06110c";x.fillRect(0,0,cv.width,cv.height);
-   x.fillStyle="#fff";x.textAlign="center";x.font="900 62px Arial";x.fillText("SUNDAY FOOTBALL",720,66);
-   x.font="26px Arial";x.fillStyle="#c4d1ca";x.fillText("التشكيلة الرسمية • الدورة "+S.cycle+" • "+(currentTeams.A.length+currentTeams.B.length)+" لاعبًا",720,108);
-   let state={yaw:camYaw,elev:camElev,dist:camDist,aspect:threeCamera.aspect,fov:threeCamera.fov};
-   let stage=document.getElementById("threeStage"),oldW=stage.clientWidth,oldH=stage.clientHeight,labels=[];
-   Object.values(threePlayerGroups).forEach(g=>{if(g.userData.nameLabel){labels.push([g.userData.nameLabel,g.userData.nameLabel.visible]);g.userData.nameLabel.visible=false}});
-   threeRenderer.setSize(rw,rh,false);fitExportCamera(rw/rh);threeRenderer.render(threeScene,threeCamera);
-   x.drawImage(threeRenderer.domElement,0,top,rw,rh);
-   x.strokeStyle="#ffffff55";x.lineWidth=3;x.strokeRect(20,top+2,rw-40,rh-4);
-   labels.forEach(a=>a[0].visible=a[1]);drawShareNameBadges(x,top,rw,rh,cv.width);
-   x.font="bold 25px Arial";x.textBaseline="middle";
-   x.fillStyle="#c82f25";roundedRect(x,330,1723,250,52,18);x.fill();x.fillStyle="#fff";x.fillText("الفريق الأحمر",455,1749);
-   x.fillStyle="#e3b313";roundedRect(x,860,1723,250,52,18);x.fill();x.fillStyle="#151515";x.fillText("الفريق الأصفر",985,1749);
-   camYaw=state.yaw;camElev=state.elev;camDist=state.dist;threeCamera.aspect=state.aspect;threeCamera.fov=state.fov;threeCamera.updateProjectionMatrix();updateThreeCamera();
-   requestAnimationFrame(()=>{threeRenderer.setSize(Math.max(280,oldW),Math.max(420,oldH),false);resizeThree()});return cv
- }
+ if(pitch3d){draw3DSharePoster(cv);return cv}
  draw2DPoster(cv);return cv
 }
-function savePoster(){let a=document.createElement("a");a.download="sunday-football.png";a.href=posterCanvas().toDataURL("image/png");a.click()}
-async function sharePoster(){let canvas=posterCanvas();canvas.toBlob(async blob=>{let file=new File([blob],"sunday-football.png",{type:"image/png"});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"Sunday Football"});return}catch(e){}}savePoster()},"image/png")}
+function savePoster(){let a=document.createElement("a");a.download="raklat-al-ahad.png";a.href=posterCanvas().toDataURL("image/png");a.click()}
+async function sharePoster(){let canvas=posterCanvas();canvas.toBlob(async blob=>{let file=new File([blob],"raklat-al-ahad.png",{type:"image/png"});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"ركلة الأحد الترجيحية"});return}catch(e){}}savePoster()},"image/png")}
 
 function movePlayer(id,from){
  id=String(id);
@@ -543,11 +558,11 @@ function applyCorrection(){
  save();renderCorrectionDays();alert("تم حفظ تعديل الحضور وإعادة احتساب أثر المشاركة على الرصيد.")
 }
 function addOpeningBalance(){let p=S.players.find(x=>String(x.id)===String(openingPlayer.value)),a=Number(openingAmount.value);if(!p||!a||a<=0)return alert("أدخل رصيدًا صحيحًا.");if(p.openingImported)return alert("تم إدخال الرصيد المرحّل لهذا اللاعب سابقًا.");p.balance+=a;p.openingImported=true;p.openingImportedAmount=a;S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString(),cycle:S.cycle,note:"رصيد مرحّل سابق — إدخال انتقالي"});openingAmount.value="";save();alert("تمت إضافة الرصيد المرحّل المتبقي حاليًا. لن يُطلب إدخاله يدويًا في الدورات القادمة.")}
-function ledgerCanvas(){let players=S.players.filter(p=>p.active),rowH=66,w=1180,h=180+players.length*rowH,cv=document.createElement("canvas");cv.width=w;cv.height=h;let x=cv.getContext("2d");x.direction="rtl";x.fillStyle="#f4f1e8";x.fillRect(0,0,w,h);x.fillStyle="#173f2c";x.fillRect(0,0,w,110);x.fillStyle="white";x.textAlign="center";x.font="bold 36px Arial";x.fillText("Sunday Football — قائمة الدفع للدورة "+S.cycle,w/2,48);x.font="22px Arial";x.fillText("الحضور والدفع • "+S.days.length+"/5 أيام",w/2,82);let cols=[220,130,130,130,130,130,180],labels=["اللاعب","1","2","3","4","5","الرصيد"],start=20,y=125,cx=start;x.font="bold 20px Arial";labels.forEach((l,i)=>{x.fillStyle="#e9eee9";x.fillRect(cx,y,cols[i],45);x.fillStyle="#17211c";x.fillText(l,cx+cols[i]/2,y+29);cx+=cols[i]});players.forEach((p,ri)=>{y=170+ri*rowH;x.fillStyle=p.balance>0?"#e5f6e9":p.balance<0?"#fde8e7":"#ffffff";x.fillRect(start,y,w-40,rowH-4);let attendNo=0,vals=[p.name];for(let i=0;i<5;i++){let d=S.days[i];if(!d||(p.joinCycle===S.cycle&&i+1<p.joinDay)){vals.push("—");continue}let e=d.entries&&d.entries[p.id];if(!e||!e.present){vals.push("⭕");continue}attendNo++;let keys=["","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"];vals.push((keys[attendNo]||String(attendNo))+(e.paid?"✅":"❌"))}vals.push(p.exempt?"معفى":p.balance.toFixed(1)+" ر.ع");cx=start;x.font="19px Arial";vals.forEach((v,i)=>{x.fillStyle="#17211c";x.fillText(v,cx+cols[i]/2,y+39);cx+=cols[i]})});return cv}
-function saveLedger(){let a=document.createElement("a");a.download="sunday-football-payments-cycle-"+S.cycle+".png";a.href=ledgerCanvas().toDataURL("image/png");a.click()}
-async function shareLedger(){let cv=ledgerCanvas();cv.toBlob(async blob=>{let file=new File([blob],"sunday-football-payments.png",{type:"image/png"});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"قائمة دفع Sunday Football"});return}catch(e){}}saveLedger()},"image/png")}
+function ledgerCanvas(){let players=S.players.filter(p=>p.active),rowH=66,w=1180,h=180+players.length*rowH,cv=document.createElement("canvas");cv.width=w;cv.height=h;let x=cv.getContext("2d");x.direction="rtl";x.fillStyle="#f4f1e8";x.fillRect(0,0,w,h);x.fillStyle="#173f2c";x.fillRect(0,0,w,110);x.fillStyle="white";x.textAlign="center";x.font="bold 36px Arial";x.fillText("ركلة الأحد الترجيحية — قائمة الدفع للدورة "+S.cycle,w/2,48);x.font="22px Arial";x.fillText("الحضور والدفع • "+S.days.length+"/5 أيام",w/2,82);let cols=[220,130,130,130,130,130,180],labels=["اللاعب","1","2","3","4","5","الرصيد"],start=20,y=125,cx=start;x.font="bold 20px Arial";labels.forEach((l,i)=>{x.fillStyle="#e9eee9";x.fillRect(cx,y,cols[i],45);x.fillStyle="#17211c";x.fillText(l,cx+cols[i]/2,y+29);cx+=cols[i]});players.forEach((p,ri)=>{y=170+ri*rowH;x.fillStyle=p.balance>0?"#e5f6e9":p.balance<0?"#fde8e7":"#ffffff";x.fillRect(start,y,w-40,rowH-4);let attendNo=0,vals=[p.name];for(let i=0;i<5;i++){let d=S.days[i];if(!d||(p.joinCycle===S.cycle&&i+1<p.joinDay)){vals.push("—");continue}let e=d.entries&&d.entries[p.id];if(!e||!e.present){vals.push("⭕");continue}attendNo++;let keys=["","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"];vals.push((keys[attendNo]||String(attendNo))+(e.paid?"✅":"❌"))}vals.push(p.exempt?"معفى":p.balance.toFixed(1)+" ر.ع");cx=start;x.font="19px Arial";vals.forEach((v,i)=>{x.fillStyle="#17211c";x.fillText(v,cx+cols[i]/2,y+39);cx+=cols[i]})});return cv}
+function saveLedger(){let a=document.createElement("a");a.download="raklat-al-ahad-payments-cycle-"+S.cycle+".png";a.href=ledgerCanvas().toDataURL("image/png");a.click()}
+async function shareLedger(){let cv=ledgerCanvas();cv.toBlob(async blob=>{let file=new File([blob],"raklat-al-ahad-payments.png",{type:"image/png"});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"قائمة دفع ركلة الأحد الترجيحية"});return}catch(e){}}saveLedger()},"image/png")}
 function ledgerText(){
- let lines=["⚽ Sunday Football","الدورة "+S.cycle+" • "+S.days.length+"/5 أيام",""];
+ let lines=["⚽ ركلة الأحد الترجيحية","الدورة "+S.cycle+" • "+S.days.length+"/5 أيام",""];
  S.players.filter(p=>p.active).forEach(p=>{
    let state=p.exempt?"✅ معفى":p.balance>0?"🟢 له رصيد "+p.balance.toFixed(1)+" ر.ع":p.balance<0?"🔴 عليه "+Math.abs(p.balance).toFixed(1)+" ر.ع":"✅ متوازن";
    lines.push(p.name+" — "+state)
@@ -556,7 +571,7 @@ function ledgerText(){
 }
 async function shareLedgerText(){
  let txt=ledgerText();
- if(navigator.share){try{await navigator.share({title:"Sunday Football — قائمة الدفع",text:txt});return}catch(e){}}
+ if(navigator.share){try{await navigator.share({title:"ركلة الأحد الترجيحية — قائمة الدفع",text:txt});return}catch(e){}}
  try{await navigator.clipboard.writeText(txt);alert("تم نسخ ملخص الدفع. الصقه مباشرة في واتساب.")}catch(e){prompt("انسخ النص التالي:",txt)}
 }
 function addPayment(){let p=S.players.find(x=>String(x.id)===payPlayer.value),a=Number(payAmount.value);if(!p||!a||a<=0)return;allocatePayment(p,a);S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString(),cycle:S.cycle});save();alert("تم تسجيل الدفعة. سُددت أقدم المشاركات غير المدفوعة أولًا، وحُفظ المتبقي كرصد دائن.")}
@@ -571,9 +586,9 @@ function newCycle(){
  save()
 }
 function exportBackup(){
- let payload={app:"Sunday Football",schema:1,exportedAt:new Date().toISOString(),data:S};
+ let payload={app:"ركلة الأحد الترجيحية",schema:1,exportedAt:new Date().toISOString(),data:S};
  let blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
- a.href=url;a.download="sunday-football-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ a.href=url;a.download="raklat-al-ahad-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
  let st=document.getElementById("backupStatus");if(st)st.textContent="تم إنشاء نسخة احتياطية من اللاعبين والحضور والدفع والأرصدة والتشكيلة."
 }
 function importBackup(ev){
@@ -582,10 +597,10 @@ function importBackup(ev){
    try{
      let raw=JSON.parse(rd.result),data=raw&&raw.data?raw.data:raw;
      if(!data||!Array.isArray(data.players)||!Array.isArray(data.days)||!Array.isArray(data.payments))throw new Error("invalid");
-     if(!confirm("سيتم استبدال بيانات Sunday Football الحالية بالنسخة المختارة. متابعة؟")){ev.target.value="";return}
+     if(!confirm("سيتم استبدال بيانات ركلة الأحد الترجيحية الحالية بالنسخة المختارة. متابعة؟")){ev.target.value="";return}
      S=data;if(!S.pendingAttendees)S.pendingAttendees=[];S.players.forEach(p=>{if(p.joinCycle==null)p.joinCycle=S.cycle||1;if(p.joinDay==null)p.joinDay=1});
      tacticalLayout=S.tacticalLayout||{};currentTeams={A:[],B:[]};localStorage.setItem("sf_v1",JSON.stringify(S));ev.target.value="";render();alert("تم استرجاع النسخة الاحتياطية بنجاح.")
-   }catch(e){ev.target.value="";alert("الملف ليس نسخة احتياطية صالحة لـ Sunday Football.")}
+   }catch(e){ev.target.value="";alert("الملف ليس نسخة احتياطية صالحة لـ ركلة الأحد الترجيحية.")}
  };rd.readAsText(file)
 }
 function normalizeName(s){return String(s||"").trim().replace(/\s+/g," ").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي")}
