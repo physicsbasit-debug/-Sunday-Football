@@ -691,7 +691,7 @@ function importBackup(ev){
      if(!data||!Array.isArray(data.players)||!Array.isArray(data.days)||!Array.isArray(data.payments))throw new Error("invalid");
      if(!confirm("سيتم استبدال بيانات ركلة الأحد الترجيحية الحالية بالنسخة المختارة. متابعة؟")){ev.target.value="";return}
      S=data;if(!S.pendingAttendees)S.pendingAttendees=[];S.players.forEach(p=>{if(p.joinCycle==null)p.joinCycle=S.cycle||1;if(p.joinDay==null)p.joinDay=1});
-     S=normalizeState(S);tacticalLayout=S.tacticalLayout||{};currentTeams={A:[],B:[]};persistState(true);ev.target.value="";render();alert("تم استرجاع النسخة الاحتياطية وحفظها في طبقتي التخزين بنجاح.")
+     S=normalizeState(S);ensureSundayDay3Baseline();ensureCurrentCycle14();tacticalLayout=S.tacticalLayout||{};currentTeams={A:[],B:[]};persistState(true);ev.target.value="";render();alert("تم استرجاع النسخة الاحتياطية وحفظها في طبقتي التخزين بنجاح.")
    }catch(e){ev.target.value="";alert("الملف ليس نسخة احتياطية صالحة لـ ركلة الأحد الترجيحية.")}
  };rd.readAsText(file)
 }
