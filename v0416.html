@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102c22">
+<title>ركلة الأحد الترجيحية v0.4.16</title>
+<style>
+:root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:calc(18px + env(safe-area-inset-top)) 18px 18px;background:linear-gradient(145deg,#173f2c,#245c38);color:white}
+header h1{margin:0;font-size:25px}header p{margin:6px 0 0;opacity:.82;font-size:13px}
+main{max-width:760px;margin:auto;padding:14px 14px 90px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:12px;box-shadow:0 5px 18px #0000000a}
+h2{font-size:18px;margin:0 0 12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f6f7f3;border-radius:13px;padding:11px;text-align:center}.stat b{display:block;font-size:21px;color:var(--green)}.stat small{color:var(--muted)}
+textarea,input,select{width:100%;font:inherit;border:1px solid #ccd1cc;border-radius:12px;padding:11px;background:#fff;color:var(--ink)}textarea{min-height:145px;resize:vertical}
+button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:700;cursor:pointer}.primary{background:var(--green);color:#fff}.secondary{background:#e9eee9;color:var(--green)}.danger{background:#fff0ed;color:var(--red)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.full{grid-column:1/-1}.tabs{position:fixed;z-index:5;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(12px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:7px 6px calc(7px + env(safe-area-inset-bottom))}
+.tab{background:transparent;color:#53605a;padding:8px 2px;font-size:12px}.tab.active{color:var(--green)}section{display:none}section.active{display:block}
+.player{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid #eee}.player:last-child{border:0}.player-info{flex:1}.player-info b{display:block}.meta{font-size:12px;color:var(--muted);margin-top:3px}.badge{font-size:11px;background:#edf4ee;color:var(--green);padding:4px 7px;border-radius:999px}
+.teamgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.team{border-radius:16px;padding:12px;background:#f5f6f2}.team h3{margin:0 0 8px;font-size:16px}.team ol{padding-right:22px;margin:0}.team li{padding:5px 0;font-size:13px}.score{font-weight:700;color:var(--muted);font-size:12px}.team.red{border-top:5px solid #b42318}.team.yellow{border-top:5px solid #d7a900}.team-player{display:flex;align-items:center;gap:6px;padding:7px 0;border-bottom:1px solid #e4e7e2}.team-player:last-child{border:0}.team-player span{flex:1;font-size:13px}.move{padding:6px 8px;border-radius:8px;background:#fff;border:1px solid #d9ddd8;color:var(--green);font-size:12px}.team-summary{display:flex;justify-content:space-between;gap:8px;margin:8px 0 4px;font-size:11px;color:var(--muted)}
+.pitch-wrap{margin-top:12px}.pitch{position:relative;min-height:520px;border-radius:22px;overflow:hidden;background:linear-gradient(90deg,#176b3a 0 10%,#1b7540 10% 20%,#176b3a 20% 30%,#1b7540 30% 40%,#176b3a 40% 50%,#1b7540 50% 60%,#176b3a 60% 70%,#1b7540 70% 80%,#176b3a 80% 90%,#1b7540 90%);border:5px solid #f5f1d8;box-shadow:inset 0 0 0 2px #ffffff99,0 8px 22px #0002}
+.pitch:before{content:"";position:absolute;inset:5%;border:2px solid #ffffffaa;border-radius:2px}.pitch:after{content:"";position:absolute;left:50%;top:5%;bottom:5%;border-left:2px solid #ffffffaa}
+.center-circle{position:absolute;width:92px;height:92px;border:2px solid #ffffffaa;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}.formation-title{text-align:center;margin:4px 0 10px}.pitch-player{position:absolute;transform:translate(-50%,-50%);width:76px;text-align:center;z-index:2}.shirt{margin:auto;width:38px;height:42px;border-radius:9px 9px 13px 13px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;border:2px solid #ffffffcc;box-shadow:0 3px 7px #0005}.shirt.yellow{background:#e0b400;color:#1d1d1d}.shirt.red{background:#b42318}.shirt.gk{background:#151515;color:white}.pname{margin-top:3px;background:#0b1b14d9;color:white;border-radius:8px;padding:3px 4px;font-size:10px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.public-note{text-align:center;font-size:11px;color:var(--muted);margin-top:8px}.pro-poster{position:relative;min-height:620px;border-radius:24px;overflow:hidden;background:linear-gradient(#0c1511 0 14%,#26342e 14% 22%,#176b3a 22%);box-shadow:0 14px 32px #0004}.pro-poster:before{content:"ركلة الأحد الترجيحية";position:absolute;top:22px;left:0;right:0;text-align:center;color:#fff;font-weight:900;font-size:20px;letter-spacing:2px}.crowd{position:absolute;top:75px;left:0;right:0;height:70px;background:repeating-linear-gradient(100deg,#161b19 0 4px,#68716d 4px 6px,#222 6px 10px);opacity:.85}.profield{position:absolute;left:5%;right:5%;top:125px;bottom:25px;background:repeating-linear-gradient(90deg,#19743e 0 38px,#207f46 38px 76px);border:3px solid #fff;border-radius:5px;box-shadow:inset 0 0 40px #0005}.profield:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px solid #ffffffaa}.profield:after{content:"";position:absolute;width:92px;height:92px;border:2px solid #ffffffaa;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}.human{position:absolute;transform:translate(-50%,-50%);width:78px;text-align:center}.figure{position:relative;margin:auto;width:40px;height:55px;filter:drop-shadow(0 5px 3px #0008)}.figure .head{position:absolute;top:0;left:12px;width:17px;height:17px;border-radius:50%;background:#c89269}.figure .torso{position:absolute;top:15px;left:5px;width:31px;height:30px;clip-path:polygon(18% 0,82% 0,100% 30%,78% 45%,75% 100%,25% 100%,22% 45%,0 30%);border-radius:5px}.torso.red{background:linear-gradient(100deg,#74120d,#d63b30,#76140f)}.torso.yellow{background:linear-gradient(100deg,#846600,#ffd633,#8c6c00)}.torso.gk{background:linear-gradient(100deg,#111,#555,#111)}.figure .legs{position:absolute;top:43px;left:11px;width:20px;height:12px;border-left:6px solid #eee;border-right:6px solid #eee}.num{position:absolute;top:21px;left:0;right:0;color:white;font-size:10px;font-weight:900}.hname{margin-top:2px;background:#07100cdd;color:#fff;border:1px solid #ffffff55;border-radius:8px;padding:3px;font-size:9px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.poster-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.ledger{overflow:auto}.ledger table{border-collapse:collapse;min-width:590px;width:100%;font-size:12px}.ledger th,.ledger td{border-bottom:1px solid #eee;padding:8px 6px;text-align:center}.ledger th:first-child,.ledger td:first-child{text-align:right;position:sticky;right:0;background:#fff}.credit{color:#16794a;font-weight:700}.debt{color:#b42318;font-weight:700}.neutral{color:#666}.ledger tr.credit-row td{background:#e5f6e9!important}.ledger tr.debt-row td{background:#fde8e7!important}.ledger tr.credit-row td:first-child{background:#e5f6e9!important}.ledger tr.debt-row td:first-child{background:#fde8e7!important}
+.note{font-size:12px;color:var(--muted);line-height:1.6}.unknown{margin-top:8px;color:var(--red);font-size:13px}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stars{direction:ltr;color:#a76d00}.edit-btn{padding:7px 10px;border:1px solid #d9ddd8;background:#fff;color:var(--green);font-size:12px}.edit-panel{margin-top:10px;padding:12px;background:#f6f7f3;border-radius:14px}.edit-panel h3{margin:0 0 10px;font-size:15px}.money-adjust{margin-top:8px;padding-top:8px;border-top:1px solid #ddd}
+@media(max-width:390px){.teamgrid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}}
+
+/* Tactical board v2 */
+.tactical-toolbar{display:flex;gap:7px;align-items:center;justify-content:center;margin:10px 0}.view-btn{padding:8px 12px;border:1px solid #d7ddd8;background:#fff;color:#245c38;font-size:12px}.view-btn.on{background:#173f2c;color:#fff}
+.pitch{min-height:640px;touch-action:none;background:repeating-linear-gradient(90deg,#237c46 0 42px,#2b8950 42px 84px);border:4px solid #e8eadb}
+.pitch:before{inset:3.5%;border:2px solid #fff}.pitch:after{top:3.5%;bottom:3.5%;border-left:2px solid #fff}
+.pitch.view3d{transform:perspective(900px) rotateX(12deg);transform-origin:50% 100%;box-shadow:0 26px 35px #0005,inset 0 0 0 2px #ffffff88}
+.pitch-player{width:92px;cursor:grab;user-select:none;touch-action:none;transition:filter .15s;z-index:3}.pitch-player.dragging{filter:drop-shadow(0 8px 7px #0008);z-index:20;cursor:grabbing}
+.kit{position:relative;width:42px;height:48px;margin:auto;filter:drop-shadow(0 4px 3px #0006)}
+.kit:before{content:"";position:absolute;inset:0;clip-path:polygon(24% 0,38% 8%,62% 8%,76% 0,100% 20%,83% 38%,76% 30%,72% 100%,28% 100%,24% 30%,17% 38%,0 20%);border-radius:5px}
+.kit.red:before{background:linear-gradient(100deg,#77120e,#d8392e 48%,#8d1711)}.kit.yellow:before{background:linear-gradient(100deg,#9d7600,#ffd632 48%,#ad8300)}.kit.gk:before{background:linear-gradient(100deg,#111,#505050 48%,#111)}
+.kit-no{position:absolute;inset:13px 0 0;color:#fff;font-size:14px;font-weight:900;text-shadow:0 1px 2px #000;z-index:2}.kit.yellow .kit-no{color:#171717;text-shadow:none}
+.pname{display:inline-block;max-width:90px;margin-top:2px;background:#08140ff2;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:9px;font-weight:800;overflow:visible;text-overflow:clip}
+.team-tag{position:absolute;z-index:2;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:900;color:#fff;left:8px}.team-tag.a{bottom:8px;background:#a51f17}.team-tag.b{top:8px;background:#b88d00;color:#161616}
+.drag-tip{text-align:center;font-size:11px;color:#68736d;margin:6px 0}
+.pro-poster{min-height:650px}.profield{top:118px;bottom:18px}.human{width:96px}.hname{font-size:9px;overflow:visible;text-overflow:clip}
+@media(max-width:390px){.pitch{min-height:620px}.pitch-player{width:84px}.pname{max-width:84px;font-size:8.5px}}
+
+/* v0.3 tactical studio */
+.formation-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}.formation-head .formation-title{text-align:right;margin:0}.formation-head p{margin:4px 0 0;font-size:11px;color:var(--muted)}
+.live-badge{direction:ltr;white-space:nowrap;background:#0d2219;color:#b8f7ce;border:1px solid #3a7352;border-radius:999px;padding:6px 8px;font-size:8px;font-weight:900;letter-spacing:1px}
+.tactical-toolbar{display:flex;flex-wrap:wrap;gap:7px}.view-btn{flex:1;min-width:88px}.pitch-shell{position:relative;border-radius:24px;overflow:hidden;background:#07130e;box-shadow:0 18px 34px #0003}
+.pitch{border:0;border-radius:24px;box-shadow:none;min-height:660px;background:repeating-linear-gradient(90deg,#1c703e 0 48px,#257d47 48px 96px)}
+.pitch:before{inset:3.5%;border:2px solid #ffffffdd}.pitch:after{top:3.5%;bottom:3.5%;border-left:2px solid #ffffffdd}
+.pitch .center-circle{border-color:#ffffffdd}
+.pitch-player{width:110px}.kit{width:48px;height:54px;transition:transform .15s}.pitch-player:active .kit{transform:scale(1.08)}
+.kit:after{content:"";position:absolute;left:9px;right:9px;bottom:-5px;height:7px;background:#0b1a13aa;filter:blur(4px);border-radius:50%;z-index:-1}
+.pname{max-width:108px;background:#07130ff2;border:1px solid #ffffff66;box-shadow:0 3px 8px #0006;padding:4px 7px;font-size:10px}
+.three-stage{position:relative;height:660px;background:radial-gradient(circle at 50% 15%,#273a32,#08100c 68%);touch-action:none;overflow:hidden}
+.three-stage canvas{display:block;width:100%!important;height:100%!important}
+.three-hud{position:absolute;z-index:4;left:12px;top:12px;direction:rtl;display:flex;gap:7px;align-items:center;background:#08140ed9;color:white;border:1px solid #ffffff2b;border-radius:999px;padding:7px 10px;font-size:10px;backdrop-filter:blur(8px);pointer-events:none}
+.three-hud b{direction:ltr;background:#2b8d50;border-radius:999px;padding:3px 6px;font-size:9px}
+.poster-actions button{min-height:46px}
+@media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
+
+/* v0.4.16 formation spacing + guaranteed 3D fallback */
+.pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
+.fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
+.fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
+.fallback-field{position:absolute;left:6%;right:6%;top:18%;bottom:-7%;background:repeating-linear-gradient(90deg,#237b45 0 48px,#2b8750 48px 96px);border:3px solid #fff;transform:rotateX(54deg);transform-origin:50% 100%;box-shadow:0 25px 45px #0008,inset 0 0 55px #0004;overflow:visible}
+.fallback-field:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px solid #ffffffd9}.fallback-field:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px #ffffff33;pointer-events:none}
+.fb-circle{position:absolute;width:22%;aspect-ratio:1;border:2px solid #ffffffd9;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
+.fb-box{position:absolute;left:24%;width:52%;height:15%;border:2px solid #ffffffd9}.fb-top{top:-2%;border-top:0}.fb-bottom{bottom:-2%;border-bottom:0}
+.fb-player{position:absolute;transform:translate(-50%,-50%) rotateX(-54deg);transform-origin:50% 100%;width:92px;text-align:center;z-index:3}
+.fb-person{position:relative;margin:auto;width:38px;height:54px;filter:drop-shadow(0 6px 4px #0009)}
+.fb-person:before{content:"";position:absolute;left:10px;top:-12px;width:18px;height:18px;border-radius:50%;background:#c99570}
+.fb-person:after{content:"";position:absolute;inset:7px 0 0;clip-path:polygon(24% 0,38% 8%,62% 8%,76% 0,100% 20%,83% 38%,76% 30%,72% 100%,28% 100%,24% 30%,17% 38%,0 20%);border-radius:5px}
+.fb-person.red:after{background:linear-gradient(100deg,#7d1610,#df3a2f,#8d1711)}.fb-person.yellow:after{background:linear-gradient(100deg,#9d7600,#ffd632,#ad8300)}.fb-person.gk:after{background:linear-gradient(100deg,#111,#4d514f,#111)}
+.fb-person span{position:absolute;z-index:2;left:0;right:0;top:19px;color:#fff;font-size:13px;font-weight:900}.fb-person.yellow span{color:#171717}
+.fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
+@media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
+
+/* v0.4.16 real 3D reliability + role-aware formation */
+.three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
+.three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
+@keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
+.pitch-player{width:88px}.pname{max-width:86px}
+@media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
+
+/* v0.4.16 refined 3D footballers */
+.three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
+
+/* v0.4.16 finishing controls */
+.camera-controls{margin:8px 0 10px;padding:9px;background:#f2f5f1;border:1px solid #dbe3dc;border-radius:14px}
+.camera-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.camera-row+.camera-row{margin-top:6px}
+.camera-controls button{padding:9px 5px;background:#fff;border:1px solid #d5ddd6;color:#244b36;border-radius:9px;font-size:10px;min-height:39px}.camera-controls .camera-whatsapp{background:#173f2c;color:#fff;border-color:#173f2c}
+.team-player.swap-selected{background:#fff3bf;border-radius:8px;padding-inline:6px}.team-player .move.swap-ready{background:#173f2c;color:#fff}
+@media(max-width:430px){.camera-controls button{font-size:9px;padding:8px 3px}.camera-row{gap:4px}}
+
+/* v0.4.16 visual polish */
+.camera-row-wide{grid-template-columns:1fr 1fr}.camera-row-wide button{font-size:10px}
+#formationCard.studio-fullscreen{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;padding:14px 14px calc(22px + env(safe-area-inset-bottom));background:#f4f1e8}
+#formationCard.studio-fullscreen .three-stage{height:calc(100vh - 235px)!important;min-height:520px}
+#formationCard.studio-fullscreen .pitch{min-height:calc(100vh - 235px)}
+#formationCard.studio-fullscreen .poster-actions,#formationCard.studio-fullscreen .public-note{display:none}
+.three-stage{box-shadow:inset 0 0 70px #0005}
+.three-hud{box-shadow:0 6px 18px #0004}
+.pitch-shell{border:1px solid #d9dfda}
+@media(max-width:430px){#formationCard.studio-fullscreen{padding-top:calc(8px + env(safe-area-inset-top))}.camera-row-wide button{font-size:9px}}
+
+/* v0.4.16 mobile dock + payment day-3 clarity */
+main{padding-bottom:126px}
+.tabs{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:560px;margin:auto;border:1px solid #d9dfda;border-radius:24px;padding:6px;background:#fffffff2;box-shadow:0 12px 38px #102c2226;backdrop-filter:blur(18px);overflow:hidden}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:58px;border-radius:18px;padding:5px 3px;color:#69756f;transition:transform .18s ease,background .18s ease,color .18s ease}
+.tab:active{transform:scale(.96)}.tab.active{background:#e8f1ea;color:#1f603b}
+.tab-icon{width:28px;height:28px;border-radius:10px;display:grid;place-items:center;transition:.18s}.tab.active .tab-icon{background:#245c38;color:#fff;box-shadow:0 5px 12px #245c3838}
+.tab-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.tab-label{font-size:10px;font-weight:800}
+.money-cycle-card{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(145deg,#173f2c,#245c38);color:#fff;border:0}
+.money-cycle-card small{display:block;opacity:.72;font-size:11px}.money-cycle-card b{display:block;margin-top:4px;font-size:18px}.next-sunday-badge{background:#ffffff1f;border:1px solid #ffffff38;border-radius:999px;padding:8px 11px;font-size:11px;font-weight:900;white-space:nowrap}
+.ledger th.next-day-col,.ledger td.next-day-col{background:#fff7cf!important;box-shadow:inset 0 0 0 1px #e4c84d66}.ledger th.next-day-col{color:#765f00}.ledger th small{display:block;font-size:8px;font-weight:800;margin-top:2px}.upcoming-day{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:24px;padding:0 6px;border-radius:999px;background:#f1d75a;color:#4f4200;font-size:10px;font-weight:900}
+@media(max-width:390px){.tabs{left:8px;right:8px}.tab{min-height:55px}.tab-icon{width:26px;height:26px}.tab-label{font-size:9px}}
+
+.formation-candidates-card{border:1px solid #d9e3db;background:linear-gradient(180deg,#fff,#f8faf7)}
+.formation-candidates-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.formation-candidates-head h2{margin-bottom:4px}.candidate-count{min-width:32px;height:32px;padding:0 9px;border-radius:999px;background:#e8f1ea;color:#245c38;display:grid;place-items:center;font-weight:900;font-size:12px}
+.candidate-player{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #edf0ec}.candidate-player:first-child{margin-top:6px}
+.candidate-player-info{flex:1;min-width:0}.candidate-player-info b{display:block;font-size:14px}.candidate-player-info small{color:#68736d;font-size:11px}
+.candidate-add{padding:8px 10px;border-radius:10px;background:#245c38;color:#fff;font-size:11px;white-space:nowrap}
+.storage-ok{margin:10px 0 2px;padding:9px 11px;border-radius:11px;background:#edf5ef;color:#245c38;font-size:12px;font-weight:800}
+.storage-ok.warn{background:#fff4df;color:#8a5a00}
+</style>
+</head>
+<body>
+<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.16</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<main>
+<section id="home" class="active">
+ <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
+ <div class="card"><h2>حضور الأحد</h2><textarea id="attendanceInput" placeholder="الصق أسماء الحاضرين هنا، كل اسم في سطر&#10;مثال:&#10;محمود اليحيائي&#10;أحمد الوهيبي"></textarea><div id="unknown" class="unknown"></div><div class="actions"><button class="secondary" onclick="previewAttendance()">فحص الأسماء</button><button class="primary" onclick="prepareSunday()">تجهيز القائمة والتوزيع</button></div><p class="note"><b>قبل التمرين:</b> استخدم «تجهيز القائمة والتوزيع» فقط لإعداد ونشر التشكيلة. <b>بعد انتهاء التمرين</b> راجع من حضر فعليًا، ثم اعتمد الحضور النهائي حتى يُسجَّل اليوم وتُحسب الرسوم.</p></div><div id="confirmCard" class="card" style="display:none"><h2>اعتماد الحضور بعد التمرين</h2><p class="note"><b>بعد انتهاء التمرين فقط:</b> راجع القائمة النهائية. أبقِ علامة الصح لمن حضر ولو متأخرًا، وأزلها فقط عمن لم يحضر نهائيًا. بعدها اعتمد الحضور الفعلي ليُسجَّل اليوم وتُحسب الرسوم.</p><div id="confirmList"></div><div class="actions"><button class="secondary" onclick="rebuildConfirmed()">تحديث القائمة وإعادة التوازن</button><button class="primary" onclick="confirmSunday()">اعتماد الحضور الفعلي بعد التمرين</button></div></div>
+</section>
+<section id="teams">
+ <div class="card"><h2>توزيع الفريقين</h2><p class="note">التقييمات سرية وتُستخدم داخليًا فقط. لا تظهر في قائمة الفريق العامة.</p><button class="primary" style="width:100%" onclick="buildTeams()">إنشاء توزيع متوازن</button></div>
+ <div id="teamsOut" class="teamgrid"></div><div id="teamActions" class="card" style="display:none"><button class="secondary" style="width:100%" onclick="buildTeams()">إعادة التوزيع تلقائيًا</button><p class="note">استخدم زر ↔ بجانب أي لاعب لتبديله للفريق الآخر. التقييم يبقى سريًا ولا يظهر في المخرجات العامة.</p></div><div id="formationCandidatesCard" class="card formation-candidates-card" style="display:none"><div class="formation-candidates-head"><div><h2>لاعبون خارج التشكيلة الحالية</h2><p class="note">أضف أي لاعب ثم تُعاد موازنة الفريقين كاملين. لا يُعتمد حضور فعلي ولا تُحسب رسوم من هذه العملية.</p></div><span id="formationCandidatesCount" class="candidate-count">0</span></div><div id="formationCandidates"></div></div>
+<div id="formationCard" class="card pitch-wrap" style="display:none"><div class="formation-head"><div><h2 class="formation-title">اللوحة التكتيكية</h2><p>رتّب اللاعبين كما تريد، ثم اختر العرض المناسب للمشاركة.</p></div><span class="live-badge">LIVE FORMATION</span></div><div class="tactical-toolbar"><button id="v2d" class="view-btn on" onclick="setPitchView(false)">2D تكتيكي</button><button id="v3d" class="view-btn" onclick="setPitchView(true)">3D ملعب</button><button id="threeMoveBtn" class="view-btn" onclick="toggle3DMove()" style="display:none">تحريك لاعب 3D</button><button class="view-btn" onclick="resetLayout()">إعادة ترتيب</button></div><div id="camControls" class="camera-controls" style="display:none"><div class="camera-row"><button onclick="cameraPreset('broadcast')">بث تلفزيوني</button><button onclick="cameraPreset('top')">علوي</button><button onclick="cameraPreset('goal')">خلف المرمى</button><button onclick="cameraPreset('side')">جانبي</button></div><div class="camera-row"><button onclick="cameraZoom(-4)">＋ تقريب</button><button onclick="cameraZoom(4)">− إبعاد</button><button onclick="cameraPreset('fit')">احتواء الكل</button><button class="camera-whatsapp" onclick="cameraPreset('whatsapp')">واتساب</button></div><div class="camera-row camera-row-wide"><button id="labels3DBtn" onclick="toggle3DLabels()">الأسماء: ظاهرة</button><button id="fullscreen3DBtn" onclick="toggle3DFullscreen()">ملء الشاشة</button></div></div><div id="pitchShell" class="pitch-shell"><div id="pitch" class="pitch"><div class="center-circle"></div></div><div id="threeStage" class="three-stage" style="display:none"><div class="three-hud"><b>3D</b><span id="threeHint">اسحب لتدوير الكاميرا</span></div></div></div><div class="drag-tip">في 2D اسحب اللاعب مباشرة. في 3D: حرّك الكاميرا بحرية، أو استخدم الزوايا الجاهزة. فعّل «تحريك لاعب 3D» فقط عند تعديل مكان لاعب.</div><div class="poster-actions"><button class="secondary" onclick="sharePoster()">مشاركة التشكيلة</button><button class="primary" onclick="savePoster()">حفظ الصورة</button></div><p class="public-note">مشاركة 3D تنشئ ملصقًا مستقلًا عالي الدقة للواتساب، فلا تعتمد على لقطة الشاشة أو نسخ WebGL في Safari.</p></div>
+</section>
+<section id="money">
+ <div class="card money-cycle-card"><div><small>الدورة الحالية</small><b id="moneyCycleLabel">0/5 أيام مثبتة</b></div><span id="nextSundayBadge" class="next-sunday-badge">الأحد القادم</span></div>
+ <div class="card"><h2>الحضور والدفع</h2><p class="note">اليومان 1 و2 مثبتان. الأحد القادم هو اليوم الثالث، ولا يُسجل في القائمة إلا بعد اعتماد الحضور الفعلي.</p><div id="ledger" class="ledger"></div><div class="actions"><button class="secondary full" onclick="openCorrection()">تعديل سجل الحضور</button></div></div><div id="correctionCard" class="card" style="display:none"><h2>تعديل سجل الحضور</h2><p class="note">للتصحيح فقط: اختر اللاعب وعدّل حالة أي يوم سابق. تسجيل الأموال يتم من بطاقة «تسجيل دفعة» بشكل مستقل.</p><select id="corrPlayer"></select><div id="corrDays" style="margin-top:10px"></div><div class="actions" style="margin-top:10px"><button class="primary full" onclick="applyCorrection()">حفظ تعديل الحضور</button></div></div>
+ <div class="card"><h2>تسجيل دفعة</h2><p class="note">استخدم هذه البطاقة فقط عندما تستلم مبلغًا من اللاعب، سواء دفع في أول الدورة أو آخرها.</p><div class="row"><select id="payPlayer"></select><input id="payAmount" type="number" min=".5" step=".5" value="5" placeholder="المبلغ المدفوع (ر.ع)"></div><div class="actions"><button class="primary full" onclick="addPayment()">تسجيل الدفعة</button></div><p class="note">تُسدد أقدم المشاركات غير المدفوعة تلقائيًا، ثم يُحفظ المتبقي كرصد دائن. الغياب ⭕ لا يستهلك الرصيد، والرصيد يُرحّل بين الدورات.</p></div>
+ <div class="card"><h2>مشاركة قائمة الدفع</h2><p class="note">صورة مستقلة للدورة الحالية؛ الأخضر الفاتح = رصيد دائن، الأحمر الفاتح = مبلغ مستحق.</p><div class="actions"><button class="secondary" onclick="shareLedger()">مشاركة الصورة</button><button class="primary" onclick="saveLedger()">حفظ الصورة</button><button class="secondary full" onclick="shareLedgerText()">نسخ/مشاركة ملخص واتساب النصي</button></div></div><div class="card"><button class="danger" style="width:100%" onclick="newCycle()">بدء دورة جديدة من 5 أيام</button></div>
+</section>
+<section id="players">
+ <div class="card"><h2>إضافة لاعب</h2><input id="pName" placeholder="اسم اللاعب"><div class="row" style="margin-top:8px"><select id="pPos"><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select><select id="pSecond"><option value="">بدون مركز ثانوي</option><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select></div><div class="row" style="margin-top:8px"><select id="pRating"><option>5</option><option>4.5</option><option selected>4</option><option>3.5</option><option>3</option><option>2.5</option><option>2</option><option>1.5</option><option>1</option></select><select id="pExempt"><option value="0">دفع عادي</option><option value="1">معفى من الدفع</option></select></div><div class="actions"><button class="primary full" onclick="addPlayer()">إضافة اللاعب</button></div></div>
+ <div class="card"><h2>قاعدة اللاعبين</h2><div id="playersList"></div><div id="editPlayerPanel" class="edit-panel" style="display:none"><h3>تعديل بيانات اللاعب</h3><input id="editName" placeholder="اسم اللاعب"><div class="row" style="margin-top:8px"><select id="editPos"><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select><select id="editSecond"><option value="">بدون مركز ثانوي</option><option>وسط</option><option>دفاع</option><option>مهاجم</option><option>حارس مرمى</option></select></div><div class="row" style="margin-top:8px"><select id="editRating"><option>5</option><option>4.5</option><option>4</option><option>3.5</option><option>3</option><option>2.5</option><option>2</option><option>1.5</option><option>1</option></select><select id="editExempt"><option value="0">دفع عادي</option><option value="1">معفى من الدفع</option></select></div><div class="row" style="margin-top:8px"><select id="editActive"><option value="1">نشط</option><option value="0">متوقف مؤقتًا</option></select><button class="primary" onclick="savePlayerEdit()">حفظ التعديل</button></div><input type="hidden" id="editId"></div></div>
+ <div class="card"><h2>حماية البيانات</h2><p class="note">الحفظ تلقائي داخل المتصفح بطبقتين مستقلتين. احتفظ أيضًا بنسخة ملف قبل تغيير الجهاز أو حذف بيانات الموقع.</p><p class="storage-ok" id="storageStatus">جارٍ فحص الحفظ الدائم…</p><div class="actions"><button class="secondary" onclick="exportBackup()">تصدير نسخة احتياطية</button><button class="primary" onclick="document.getElementById('backupFile').click()">استرجاع نسخة</button></div><input id="backupFile" type="file" accept="application/json,.json" style="display:none" onchange="importBackup(event)"><p class="note" id="backupStatus"></p></div>
+</section>
+</main>
+<nav class="tabs"><button class="tab active" onclick="showTab('home',this)"><span class="tab-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8v9.7a.5.5 0 0 1-.5.5h-5.7v-6.4H9.2V21H3.5a.5.5 0 0 1-.5-.5z"/></svg></span><span class="tab-label">الرئيسية</span></button><button class="tab" onclick="showTab('teams',this)"><span class="tab-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2.8 20c.2-4 2.2-6.1 5.2-6.1s5 2.1 5.2 6.1M10.8 20c.2-3.5 2-5.4 5.2-5.4 3 0 4.8 1.9 5.2 5.4"/></svg></span><span class="tab-label">الفريقان</span></button><button class="tab" onclick="showTab('money',this)"><span class="tab-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 10h5v5h-5a2.5 2.5 0 0 1 0-5Z"/><path d="M6 6V4.7A1.7 1.7 0 0 1 7.7 3h9.6A1.7 1.7 0 0 1 19 4.7V6"/></svg></span><span class="tab-label">الدفع</span></button><button class="tab" onclick="showTab('players',this)"><span class="tab-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.2" r="3.4"/><path d="M5 21c.3-5 2.8-7.6 7-7.6s6.7 2.6 7 7.6"/></svg></span><span class="tab-label">اللاعبون</span></button></nav>
+<script>
+const seed=[
+["محمود اليحيائي","وسط","حارس مرمى",5],["أحمد الوهيبي","وسط","",5],["يوسف اليحمدي","دفاع","حارس مرمى",4],["سعود المبيحسي","وسط","",5],["خالد البلوشي","وسط","",3.5],["سعود المعولي","مهاجم","",3],["عبدالله الشبيبي","دفاع","",4],["نايف المبيحسي","دفاع","",4],["أحمد الريامي","وسط","",4],["حسين الحسني","وسط","",3.5],["معاذ العويسي","دفاع","",4],["محمود العويسي","وسط","",5],["سلطان الحضرمي","دفاع","مهاجم",3.5]
+].map((x,i)=>({id:Date.now()+i,name:x[0],pos:x[1],second:x[2],rating:x[3],exempt:false,active:true,balance:0}));
+const STATE_KEY="sf_v1",STATE_DB="raklat_al_ahad_state",STATE_STORE="app_state";
+function readLocalState(){try{return JSON.parse(localStorage.getItem(STATE_KEY)||"null")}catch(e){return null}}
+function persistLocalSnapshot(){try{localStorage.setItem(STATE_KEY,JSON.stringify(S));return true}catch(e){return false}}
+function openStateDB(){
+ return new Promise((resolve,reject)=>{
+   if(!("indexedDB" in window))return reject(new Error("indexeddb-unavailable"));
+   let q=indexedDB.open(STATE_DB,1);
+   q.onupgradeneeded=()=>{let db=q.result;if(!db.objectStoreNames.contains(STATE_STORE))db.createObjectStore(STATE_STORE)};
+   q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error||new Error("indexeddb-open-failed"))
+ })
+}
+async function readStateIDB(){
+ let db=await openStateDB();
+ try{return await new Promise((resolve,reject)=>{let tx=db.transaction(STATE_STORE,"readonly"),q=tx.objectStore(STATE_STORE).get(STATE_KEY);q.onsuccess=()=>resolve(q.result||null);q.onerror=()=>reject(q.error)})}
+ finally{db.close()}
+}
+async function writeStateIDB(state){
+ let snapshot=JSON.parse(JSON.stringify(state)),db=await openStateDB();
+ try{await new Promise((resolve,reject)=>{let tx=db.transaction(STATE_STORE,"readwrite");tx.objectStore(STATE_STORE).put(snapshot,STATE_KEY);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error("indexeddb-write-aborted"))})}
+ finally{db.close()}
+}
+function validState(v){return !!(v&&Array.isArray(v.players)&&Array.isArray(v.days)&&Array.isArray(v.payments))}
+function stateScore(v){if(!validState(v))return -1;return v.players.length*100+v.days.length*10000+v.payments.length*10+Number(v.cycle||0)}
+function seedLike(v){return validState(v)&&v.players.length===13&&v.days.length===0&&v.payments.length===0}
+function normalizeState(v){
+ if(!validState(v))return v;
+ if(!v.pendingAttendees)v.pendingAttendees=[];
+ if(!v.lastAttendees)v.lastAttendees=[];
+ if(!v.cycle)v.cycle=1;
+ v.players.forEach(p=>{if(p.joinCycle==null)p.joinCycle=v.cycle;if(p.joinDay==null)p.joinDay=1});
+ return v
+}
+function persistState(touch=true){
+ if(touch)S._savedAt=Date.now();
+ let localOK=persistLocalSnapshot();
+ writeStateIDB(S).then(()=>setStorageStatus(localOK?"الحفظ المزدوج نشط ✓":"الحفظ الدائم نشط ✓")).catch(()=>setStorageStatus(localOK?"الحفظ المحلي نشط، وتعذر فتح طبقة الحفظ الثانية.":"تعذر الحفظ داخل المتصفح.",true));
+}
+function setStorageStatus(msg,warn=false){let el=document.getElementById("storageStatus");if(el){el.textContent=msg;el.classList.toggle("warn",!!warn)}}
+let S=normalizeState(readLocalState())||{players:seed,cycle:1,days:[],payments:[],lastAttendees:[],pendingAttendees:[]}; let currentTeams={A:[],B:[]};
+function ensureSundayDay3Baseline(){
+ if(S.day3BaselineFixed_v044)return;
+ if(Array.isArray(S.days)&&S.days.length>2){
+   let extras=S.days.slice(2);
+   extras.forEach(d=>S.players.forEach(p=>{let e=d&&d.entries&&d.entries[p.id];if(e&&e.present&&!p.exempt)p.balance=(Number(p.balance)||0)+1}));
+   S.days=S.days.slice(0,2);S.pendingAttendees=[];S.lastAttendees=[];
+ }
+ S.day3BaselineFixed_v044=true;persistLocalSnapshot()
+}
+ensureSundayDay3Baseline();
+function ensureCurrentCycle14(){
+ if(S.cycle14Fixed_v046)return;
+ // Current live data belongs to cycle 14. Keep all attendance, balances and players intact.
+ if(Number(S.cycle)!==14)S.cycle=14;
+ S.players.forEach(p=>{if(p.joinCycle==null||Number(p.joinCycle)<14)p.joinCycle=14});
+ if(Array.isArray(S.payments))S.payments.forEach(x=>{if(x.cycle==null||Number(x.cycle)<14)x.cycle=14});
+ S.cycle14Fixed_v046=true;persistLocalSnapshot()
+}
+ensureCurrentCycle14();
+function save(){persistState(true);render()}
+function cleanAttendanceName(s){return String(s||"").trim().replace(/^\s*[\d٠-٩۰-۹]+\s*[-–—.)،:]\s*/,"").trim()}
+function namesFromInput(){return attendanceInput.value.split(/[\n،,]+/).map(cleanAttendanceName).filter(Boolean)}
+function playerByInputName(n){let key=normalizeName(cleanAttendanceName(n));return S.players.find(p=>normalizeName(p.name)===key)}
+function showTab(id,b){document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}
+function previewAttendance(){let list=namesFromInput(),u=list.filter(n=>!playerByInputName(n));unknown.textContent=u.length?"غير مسجل: "+u.join("، "):"جميع الأسماء مسجلة ✓"}
+function prepareSunday(){if(S.days.length>=5)return alert("اكتملت الدورة. ابدأ دورة جديدة أولًا.");let list=namesFromInput();if(!list.length)return alert("ألصق أسماء المسجلين أولًا.");let u=list.filter(n=>!playerByInputName(n));if(u.length)return alert("يوجد أسماء غير مسجلة: "+u.join("، "));let a=list.map(n=>playerByInputName(n).name);S.pendingAttendees=[...new Set(a)];S.lastAttendees=[...S.pendingAttendees];save();buildTeams()}
+function renderConfirm(){let a=S.pendingAttendees||[];if(!a.length){confirmCard.style.display="none";return}confirmCard.style.display="block";confirmList.innerHTML=a.map(n=>'<label style="display:flex;gap:8px;align-items:center;padding:9px;border-bottom:1px solid #eee"><input style="width:auto" type="checkbox" checked value="'+n+'"><b>'+n+'</b></label>').join("")}
+function confirmedNames(){return [...confirmList.querySelectorAll("input:checked")].map(x=>x.value)}
+function rebuildConfirmed(){S.lastAttendees=confirmedNames();save();buildTeams()}
+function localDateKey(v){let d=new Date(v);return isNaN(d)?null:[d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-")}
+function confirmSunday(){let a=confirmedNames();if(!a.length)return alert("لا يوجد حضور فعلي لاعتماده.");let today=localDateKey(new Date().toISOString());if(S.days.some(d=>localDateKey(d.date)===today))return alert("تم اعتماد حضور هذا اليوم بالفعل. للتجربة استخدم «تجهيز القائمة والتوزيع» فقط، أو عدّل سجل الحضور بدل إضافة يوم جديد.");if(!confirm("تأكد أن التمرين انتهى وأن القائمة تعكس من حضر فعليًا. هذا الاعتماد سيزيد عداد الدورة ويحسب الرسوم. هل تريد المتابعة؟"))return;let entries={};S.players.filter(p=>p.active).forEach(p=>{let present=a.includes(p.name),paid=false;if(present){if(p.exempt)paid=true;else if(p.balance>=1){p.balance-=1;paid=true}else p.balance-=1}entries[p.id]={present,paid};});S.days.push({date:new Date().toISOString(),entries});S.lastAttendees=a;S.pendingAttendees=[];attendanceInput.value="";save();buildTeams();alert("تم اعتماد الحضور الفعلي")}
+function undoLastConfirmedDay(){if(S.days.length<=2)return alert("اليومان الأول والثاني هما بيانات البداية ولا يمكن حذفهما من هنا.");let d=S.days[S.days.length-1];if(!confirm("سيتم حذف آخر يوم معتمد وإرجاع أثر رسومه على أرصدة اللاعبين. استخدم هذا فقط للتراجع عن اعتماد تجريبي أو خاطئ. متابعة؟"))return;S.players.forEach(p=>{let e=d.entries&&d.entries[p.id];if(e&&e.present&&!p.exempt)p.balance+=1});S.days.pop();save();alert("تم التراجع عن آخر اعتماد. العداد الآن "+S.days.length+"/5.")}
+function historyStateSelect(pid,day){return '<select id="hist_'+pid+'_'+day+'"><option value="absent">⭕ غائب</option><option value="paid">حضر ومدفوع ✅</option><option value="unpaid">حضر وغير مدفوع ❌</option></select>'}
+function renderHistorySetup(){if(S.days.length>0){historySetup.style.display="none";return}historySetup.style.display="block";historyGrid.innerHTML=S.players.filter(p=>p.active).map(p=>'<div style="padding:10px 0;border-bottom:1px solid #eee"><b style="display:block;margin-bottom:7px">'+p.name+'</b><div class="row">'+historyStateSelect(p.id,1)+historyStateSelect(p.id,2)+'</div><div class="meta">اليوم 1 &nbsp;&nbsp;&nbsp;&nbsp; اليوم 2</div><div style="margin-top:8px"><input id="histpay_'+p.id+'" type="number" min="0" step=".5" value="0" placeholder="دفعة/رصيد سابق (ر.ع)"></div></div>').join("")}
+function saveHistorySetup(){if(S.days.length)return alert("تمت تهيئة الدورة بالفعل.");if(!confirm("سيتم تثبيت اليومين 1 و2 والدفعات السابقة كبيانات حقيقية للدورة الحالية. متابعة؟"))return;let d1={date:"سابق - اليوم 1",entries:{}},d2={date:"سابق - اليوم 2",entries:{}};S.players.filter(p=>p.active).forEach(p=>{let prepaid=Number((document.getElementById("histpay_"+p.id)||{}).value||0);if(prepaid>0){p.balance+=prepaid;S.payments.push({playerId:p.id,amount:prepaid,date:new Date().toISOString(),note:"رصيد سابق عند تهيئة الدورة"})}[1,2].forEach(day=>{let v=document.getElementById("hist_"+p.id+"_"+day).value,present=v!=="absent",paid=v==="paid"||p.exempt;if(present&&!p.exempt&&v==="unpaid")p.balance-=1;let target=day===1?d1:d2;target.entries[p.id]={present,paid}})});S.days=[d1,d2];S.lastAttendees=[];save();alert("تم حفظ اليومين السابقين والدفعات. المنظومة الآن جاهزة لليوم الثالث.")}
+function isGK(p){return p.pos==="حارس مرمى"||p.second==="حارس مرمى"}
+function roleCount(t,role){return t.filter(p=>p.pos===role||p.second===role).length}
+function teamCost(A,B){
+ let ra=A.reduce((s,p)=>s+p.rating,0),rb=B.reduce((s,p)=>s+p.rating,0),cost=Math.abs(ra-rb)*6+Math.abs(A.length-B.length)*20;
+ ["دفاع","وسط","مهاجم"].forEach(r=>cost+=Math.abs(roleCount(A,r)-roleCount(B,r))*1.5);
+ if(!A.some(isGK))cost+=12;if(!B.some(isGK))cost+=12;return cost;
+}
+function playersOutsideCurrentFormation(){
+ if(!Array.isArray(S.lastAttendees)||S.lastAttendees.length<2)return [];
+ let selected=new Set(S.lastAttendees.map(normalizeName));
+ return S.players.filter(p=>p.active&&!selected.has(normalizeName(p.name)))
+}
+function renderFormationCandidates(){
+ let card=document.getElementById("formationCandidatesCard"),box=document.getElementById("formationCandidates"),count=document.getElementById("formationCandidatesCount");
+ if(!card||!box||!count)return;
+ let list=playersOutsideCurrentFormation();
+ if(!list.length){card.style.display="none";box.innerHTML="";count.textContent="0";return}
+ card.style.display="block";count.textContent=String(list.length);
+ box.innerHTML=list.map(p=>'<div class="candidate-player"><div class="candidate-player-info"><b>'+p.name+'</b><small>'+p.pos+(p.second?' • '+p.second:'')+'</small></div><button class="candidate-add" onclick="addPlayerAndRebalance(\''+p.id+'\')">إضافة وإعادة التوازن</button></div>').join("")
+}
+function addPlayerAndRebalance(id){
+ let p=S.players.find(x=>String(x.id)===String(id)&&x.active);if(!p)return;
+ if(!S.lastAttendees.some(n=>normalizeName(n)===normalizeName(p.name)))S.lastAttendees.push(p.name);
+ if(Array.isArray(S.pendingAttendees)&&S.pendingAttendees.length&&!S.pendingAttendees.some(n=>normalizeName(n)===normalizeName(p.name)))S.pendingAttendees.push(p.name);
+ swapSelection=null;persistState(true);buildTeams();renderConfirm()
+}
+function buildTeams(){let ps=S.players.filter(p=>S.lastAttendees.includes(p.name));if(ps.length<2){teamsOut.innerHTML='<div class="card">سجّل حضور الأحد أولًا.</div>';teamActions.style.display="none";return}
+ ps=[...ps].sort((a,b)=>b.rating-a.rating);let best=null;
+ for(let k=0;k<120;k++){let A=[],B=[];[...ps].sort((a,b)=>b.rating-a.rating+(Math.random()-.5)*1.2).forEach(p=>{let ca=teamCost([...A,p],B),cb=teamCost(A,[...B,p]);if(A.length>B.length)B.push(p);else if(B.length>A.length)A.push(p);else (ca<=cb?A:B).push(p)});let cost=teamCost(A,B);if(!best||cost<best.cost)best={A,B,cost}}
+ currentTeams={A:best.A,B:best.B};renderTeams();
+}
+let swapSelection=null;
+function renderTeams(){let A=currentTeams.A,B=currentTeams.B;if(!A.length&&!B.length)return;let box=(t,key,n,cls)=>{return '<div class="team '+cls+'"><h3>الفريق '+n+'</h3><div class="team-summary"><span>'+t.length+' لاعبين</span><span>'+(t.some(isGK)?'حارس متوفر':'يحتاج حارس')+'</span></div>'+t.map(p=>{let selected=swapSelection&&String(swapSelection.id)===String(p.id),ready=swapSelection&&swapSelection.from!==key;return '<div class="team-player '+(selected?'swap-selected':'')+'"><span>'+p.name+' <small>('+p.pos+')</small></span><button class="move '+(ready?'swap-ready':'')+'" onclick="movePlayer(\''+p.id+'\',\''+key+'\')">'+(selected?'إلغاء':ready?'بدّل':'↔')+'</button></div>'}).join("")+'</div>'};teamsOut.innerHTML=box(A,"A","أ","red")+box(B,"B","ب","yellow");teamActions.style.display="block";renderFormationCandidates();renderPitch()}
+let tacticalLayout=S.tacticalLayout||{},pitch3d=false,threeMoveMode=false;
+let threeScene=null,threeCamera=null,threeRenderer=null,threePlayersRoot=null,threeAnim=null,threePlayerGroups={},threeHitMeshes=[],threeRay=null,threeGround=null;
+let camYaw=0,camElev=.88,camDist=49,orbitState=null,drag3DId=null;
+function persistTacticalLayout(){S.tacticalLayout=tacticalLayout;persistState(true)}
+function splitRoleRows(arr){
+ if(arr.length<=4)return [arr];
+ let cut=Math.ceil(arr.length/2);return [arr.slice(0,cut),arr.slice(cut)]
+}
+function spreadRow(row,y,out){
+ row.forEach((p,j)=>out.push([p,8+84*(j+1)/(row.length+1),y]))
+}
+function formationPoints(t,side){
+ let gk=t.find(isGK),field=t.filter(p=>p!==gk),out=[];
+ let defenders=field.filter(p=>p.pos==="دفاع"),mids=field.filter(p=>p.pos==="وسط"),attackers=field.filter(p=>p.pos==="مهاجم");
+ let used=new Set([...defenders,...mids,...attackers].map(p=>String(p.id))),other=field.filter(p=>!used.has(String(p.id)));
+ mids.push(...other);
+ if(gk)out.push([gk,50,side==="A"?94:6]);
+ let base=side==="A"?{def:82,mid:69,att:56}:{def:18,mid:31,att:44},dir=side==="A"?-1:1;
+ [[defenders,base.def],[mids,base.mid],[attackers,base.att]].forEach(([group,y])=>{
+   splitRoleRows(group).forEach((row,ri)=>spreadRow(row,y+ri*6*dir,out))
+ });
+ return out
+}
+function ensureLayout(force=false){
+ if(S.tacticalLayoutVersion!==2){tacticalLayout={};S.tacticalLayout={};S.tacticalLayoutVersion=2;persistState(true)}
+ if(force)tacticalLayout={};
+ [{t:currentTeams.A,side:"A"},{t:currentTeams.B,side:"B"}].forEach(g=>formationPoints(g.t,g.side).forEach(([p,x,y])=>{
+   let k=String(p.id),q=tacticalLayout[k];
+   if(!q||q.side!==g.side)tacticalLayout[k]={x,y,side:g.side};
+ }));
+ S.tacticalLayout=tacticalLayout
+}
+function resetLayout(){ensureLayout(true);persistTacticalLayout();renderPitch()}
+let threeLoadPromise=null,threeFallback=false;
+function ensureThreeLibrary(){
+ if(window.THREE)return Promise.resolve(true);
+ if(threeLoadPromise)return threeLoadPromise;
+ threeLoadPromise=new Promise(resolve=>{
+   let settled=false,finish=v=>{if(settled)return;settled=true;resolve(v)};
+   let s=document.createElement("script");s.src="./three.min.js?v=r128";s.async=true;
+   s.onload=()=>finish(!!window.THREE);s.onerror=()=>finish(false);document.head.appendChild(s);
+   setTimeout(()=>finish(!!window.THREE),2500)
+ });
+ return threeLoadPromise
+}
+function renderFallback3D(){
+ threeFallback=true;
+ let stage=document.getElementById("threeStage");
+ let hud='<div class="three-hud"><b>3D</b><span id="threeHint">منظور ملعب ثلاثي الأبعاد — حرّك اللاعبين بدقة من وضع 2D</span></div>';
+ let field='<div class="fallback-stadium"><div class="fallback-crowd"></div><div class="fallback-field" id="fallbackField"><div class="fb-half"></div><div class="fb-circle"></div><div class="fb-box fb-top"></div><div class="fb-box fb-bottom"></div>';
+ [{t:currentTeams.A,color:"red"},{t:currentTeams.B,color:"yellow"}].forEach(g=>g.t.forEach((p,i)=>{
+   let q=tacticalLayout[String(p.id)]||{x:50,y:50};
+   field+='<div class="fb-player" style="left:'+q.x+'%;top:'+q.y+'%"><div class="fb-person '+(isGK(p)?'gk':g.color)+'"><span>'+(i+1)+'</span></div><div class="fb-name">'+p.name+'</div></div>'
+ }));
+ field+='</div></div>';
+ stage.innerHTML=hud+field
+}
+async function setPitchView(v){
+ pitch3d=!!v;
+ document.getElementById("pitch").style.display=pitch3d?"none":"block";
+ document.getElementById("threeStage").style.display=pitch3d?"block":"none";
+ document.getElementById("v2d").classList.toggle("on",!pitch3d);
+ document.getElementById("v3d").classList.toggle("on",pitch3d);
+ document.getElementById("threeMoveBtn").style.display=pitch3d?"block":"none";document.getElementById("camControls").style.display=pitch3d?"block":"none";
+ if(!pitch3d)return;
+ let stage=document.getElementById("threeStage");
+ stage.innerHTML='<div class="three-loading"><div class="three-ball">⚽</div><b>جاري تجهيز الملعب ثلاثي الأبعاد</b><span>تحميل المحرك المحلي…</span></div>';
+ let ok=await ensureThreeLibrary();
+ if(!pitch3d)return;
+ if(!ok){renderFallback3D();return}
+ try{
+   let probe=document.createElement("canvas");
+   let gl=probe.getContext("webgl")||probe.getContext("experimental-webgl");
+   if(!gl)throw new Error("WebGL unavailable");
+   stage.innerHTML='<div class="three-hud"><b>3D</b><span id="threeHint">اسحب لتدوير الكاميرا</span></div>';
+   if(threeAnim){cancelAnimationFrame(threeAnim);threeAnim=null}
+   if(threeRenderer){try{threeRenderer.dispose()}catch(e){}}
+   threeRenderer=null;threeScene=null;threeCamera=null;threePlayersRoot=null;threePlayerGroups={};threeHitMeshes=[];
+   initThree();syncThreePlayers();resizeThree();threeFallback=false;requestAnimationFrame(()=>resizeThree())
+ }catch(err){
+   console.warn("3D fallback:",err);renderFallback3D()
+ }
+}
+function toggle3DMove(){
+ if(threeFallback){alert("على هذا المتصفح يعمل منظور 3D الاحتياطي للعرض. حرّك اللاعبين من 2D وستتحدث مواقعهم في 3D تلقائيًا.");return}
+ threeMoveMode=!threeMoveMode;
+ let b=document.getElementById("threeMoveBtn"),h=document.getElementById("threeHint");
+ b.classList.toggle("on",threeMoveMode);
+ b.textContent=threeMoveMode?"تحريك 3D: مفعّل":"تحريك لاعب 3D";
+ if(h)h.textContent=threeMoveMode?"المس لاعبًا واسحبه داخل الملعب":"اسحب لتدوير الكاميرا"
+}
+function dragTactical(ev,id){
+ ev.preventDefault();let el=ev.currentTarget,rect=pitch.getBoundingClientRect();el.setPointerCapture(ev.pointerId);el.classList.add("dragging");
+ let move=e=>{let x=(e.clientX-rect.left)/rect.width*100,y=(e.clientY-rect.top)/rect.height*100;x=Math.max(7,Math.min(93,x));y=Math.max(5,Math.min(95,y));tacticalLayout[String(id)]={...tacticalLayout[String(id)],x,y};el.style.left=x+"%";el.style.top=y+"%"};
+ let up=()=>{el.classList.remove("dragging");el.removeEventListener("pointermove",move);el.removeEventListener("pointerup",up);el.removeEventListener("pointercancel",up);persistTacticalLayout();if(pitch3d&&threeFallback)renderFallback3D();else syncThreePlayers()};
+ el.addEventListener("pointermove",move);el.addEventListener("pointerup",up);el.addEventListener("pointercancel",up)
+}
+function renderPitch(){
+ formationCard.style.display="block";ensureLayout();
+ let html='<div class="center-circle"></div><div class="team-tag b">الفريق الأصفر</div><div class="team-tag a">الفريق الأحمر</div>';
+ [{t:currentTeams.A,side:"A",color:"red"},{t:currentTeams.B,side:"B",color:"yellow"}].forEach(g=>g.t.forEach((p,i)=>{
+   let q=tacticalLayout[String(p.id)]||{x:50,y:50},num=i+1;
+   html+='<div class="pitch-player" data-pid="'+p.id+'" onpointerdown="dragTactical(event,\''+p.id+'\')" style="left:'+q.x+'%;top:'+q.y+'%"><div class="kit '+(isGK(p)?'gk':g.color)+'"><span class="kit-no">'+num+'</span></div><div class="pname">'+p.name+'</div></div>'
+ }));
+ pitch.innerHTML=html;setPitchView(pitch3d)
+}
+function roundedRect(ctx,x,y,w,h,r){
+ ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()
+}
+function labelSprite(text){
+ let probe=document.createElement("canvas").getContext("2d");probe.font="bold 42px Arial";let measured=Math.ceil(probe.measureText(text).width);
+ let cw=Math.max(260,Math.min(720,measured+82)),cv=document.createElement("canvas");cv.width=cw;cv.height=116;let x=cv.getContext("2d");
+ x.clearRect(0,0,cw,116);x.fillStyle="rgba(3,12,8,.91)";roundedRect(x,8,14,cw-16,88,24);x.fill();
+ x.strokeStyle="rgba(255,255,255,.34)";x.lineWidth=2;roundedRect(x,8,14,cw-16,88,24);x.stroke();
+ x.direction="rtl";x.textAlign="center";x.textBaseline="middle";x.fillStyle="#fff";x.font="bold 42px Arial";x.fillText(text,cw/2,58);
+ let tx=new THREE.CanvasTexture(cv);tx.minFilter=THREE.LinearFilter;tx.magFilter=THREE.LinearFilter;
+ let s=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,depthTest:false,depthWrite:false}));
+ let baseX=Math.max(1.65,Math.min(3.25,cw/205));s.scale.set(baseX,.56,1);
+ s.userData={text,baseScaleX:baseX,pixelWidth:Math.max(78,Math.min(175,measured*.28+34))};return s
+}
+function numberSprite(n,dark){
+ let cv=document.createElement("canvas");cv.width=128;cv.height=128;let x=cv.getContext("2d");x.clearRect(0,0,128,128);x.fillStyle=dark?"#111":"#fff";x.font="900 72px Arial";x.textAlign="center";x.textBaseline="middle";x.fillText(String(n),64,66);let tx=new THREE.CanvasTexture(cv);let s=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,depthTest:false}));s.scale.set(.62,.62,1);return s
+}
+function addFieldLine(points,closed=false){
+ let pts=points.map(p=>new THREE.Vector3(p[0],.035,p[1]));if(closed)pts.push(pts[0].clone());let g=new THREE.BufferGeometry().setFromPoints(pts),m=new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.92});threeScene.add(new THREE.Line(g,m))
+}
+function initThree(){
+ if(threeRenderer||!window.THREE)return;
+ let stage=document.getElementById("threeStage");
+ threeScene=new THREE.Scene();threeScene.background=new THREE.Color(0x07110c);threeScene.fog=new THREE.Fog(0x07110c,34,72);
+ threeCamera=new THREE.PerspectiveCamera(42,1,.1,120);
+ threeRenderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,powerPreference:"high-performance"});
+ threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));threeRenderer.shadowMap.enabled=true;threeRenderer.shadowMap.type=THREE.PCFSoftShadowMap;stage.appendChild(threeRenderer.domElement);
+ threeScene.add(new THREE.HemisphereLight(0xcff6df,0x102319,1.45));let sun=new THREE.DirectionalLight(0xffffff,1.2);sun.position.set(-14,24,10);sun.castShadow=true;threeScene.add(sun);
+ let field=new THREE.Mesh(new THREE.PlaneGeometry(24,38),new THREE.MeshStandardMaterial({color:0x237b45,roughness:.9}));field.rotation.x=-Math.PI/2;field.receiveShadow=true;threeScene.add(field);
+ for(let i=0;i<10;i++){let strip=new THREE.Mesh(new THREE.PlaneGeometry(2.4,38),new THREE.MeshBasicMaterial({color:i%2?0x267f48:0x1f7541,transparent:true,opacity:.62}));strip.rotation.x=-Math.PI/2;strip.position.set(-10.8+i*2.4,.012,0);threeScene.add(strip)}
+ addFieldLine([[-11,-18],[-11,18],[11,18],[11,-18]],true);addFieldLine([[-11,0],[11,0]]);
+ let circlePts=[];for(let i=0;i<=64;i++){let a=i/64*Math.PI*2;circlePts.push([Math.cos(a)*3,Math.sin(a)*3])}addFieldLine(circlePts);
+ addFieldLine([[-5.5,-18],[-5.5,-13],[5.5,-13],[5.5,-18]]);addFieldLine([[-5.5,18],[-5.5,13],[5.5,13],[5.5,18]]);
+ addFieldLine([[-2.8,-18],[-2.8,-16],[2.8,-16],[2.8,-18]]);addFieldLine([[-2.8,18],[-2.8,16],[2.8,16],[2.8,18]]);
+ let postMat=new THREE.MeshStandardMaterial({color:0xffffff,metalness:.1,roughness:.45});
+ function goal(z,dir){let bar=new THREE.Mesh(new THREE.BoxGeometry(6,.16,.16),postMat);bar.position.set(0,2,z+dir*1.15);threeScene.add(bar);[-3,3].forEach(xx=>{let p=new THREE.Mesh(new THREE.BoxGeometry(.16,4,.16),postMat);p.position.set(xx,1,z+dir*1.15);threeScene.add(p)});let back=new THREE.Mesh(new THREE.BoxGeometry(6,.12,2.3),new THREE.MeshBasicMaterial({color:0xdce8e2,wireframe:true,transparent:true,opacity:.28}));back.position.set(0,1,z+dir*1.15);threeScene.add(back)}goal(-18,-1);goal(18,1);
+ let standMat=new THREE.MeshStandardMaterial({color:0x222a26,roughness:.8});[[-14,0,3,42],[14,0,3,42],[0,-22,30,4],[0,22,30,4]].forEach(s=>{let m=new THREE.Mesh(new THREE.BoxGeometry(s[2],4,s[3]),standMat);m.position.set(s[0],1.4,s[1]);threeScene.add(m)});
+ let crowdPos=[],crowdCol=[];let colors=[[.92,.22,.14],[.98,.78,.12],[.82,.85,.83],[.20,.48,.31]];for(let i=0;i<950;i++){let side=Math.floor(Math.random()*4),x,z;if(side<2){x=side?13.2:-13.2;z=-19+Math.random()*38}else{x=-12+Math.random()*24;z=side===2?-20.5:20.5}crowdPos.push(x,2.2+Math.random()*2.2,z);let cc=colors[Math.floor(Math.random()*colors.length)];crowdCol.push(...cc)}let cg=new THREE.BufferGeometry();cg.setAttribute("position",new THREE.Float32BufferAttribute(crowdPos,3));cg.setAttribute("color",new THREE.Float32BufferAttribute(crowdCol,3));let cp=new THREE.Points(cg,new THREE.PointsMaterial({size:.13,vertexColors:true}));threeScene.add(cp);
+ threePlayersRoot=new THREE.Group();threeScene.add(threePlayersRoot);threeRay=new THREE.Raycaster();threeGround=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+ threeRenderer.domElement.addEventListener("pointerdown",threePointerDown);threeRenderer.domElement.addEventListener("pointermove",threePointerMove);threeRenderer.domElement.addEventListener("pointerup",threePointerUp);threeRenderer.domElement.addEventListener("pointercancel",threePointerUp);
+ threeRenderer.domElement.addEventListener("wheel",e=>{e.preventDefault();camDist=Math.max(28,Math.min(58,camDist+e.deltaY*.025));updateThreeCamera()},{passive:false});
+ window.addEventListener("resize",resizeThree);updateThreeCamera();
+ let loop=()=>{threeAnim=requestAnimationFrame(loop);if(threeRenderer&&pitch3d){update3DLabels();threeRenderer.render(threeScene,threeCamera)}};loop()
+}
+function mkMesh(geo,mat,id){let m=new THREE.Mesh(geo,mat);m.castShadow=true;m.userData.playerId=String(id);threeHitMeshes.push(m);return m}
+function playerMaterial(hex,rough=.62,metal=.02){return new THREE.MeshStandardMaterial({color:hex,roughness:rough,metalness:metal})}
+function partMesh(geo,mat,id){let m=mkMesh(geo,mat,id);m.castShadow=true;m.receiveShadow=false;return m}
+function create3DPlayer(p,color,num){
+ let id=p.id,g=new THREE.Group(),gk=isGK(p);
+ let skin=playerMaterial(0xc98f68,.72),skinDark=playerMaterial(0xad7655,.78),hair=playerMaterial(0x171513,.86),eye=playerMaterial(0x161616,.7);
+ let jersey=playerMaterial(gk?0x202523:color,.46),jerseyDark=playerMaterial(gk?0x111412:(color===0xe3b313?0xb98700:0x8d1812),.56);
+ let shorts=playerMaterial(gk?0x171b19:0xf1f2ed,.65),sock=playerMaterial(gk?0x2a2d2b:0xf3f3ef,.67),boot=playerMaterial(0x101211,.5),glove=playerMaterial(0xf4f4ef,.44);
+
+ // legs, socks, boots
+ [-.205,.205].forEach((xx,i)=>{
+   let thigh=partMesh(new THREE.CylinderGeometry(.14,.125,.52,12),skin,id);thigh.position.set(xx,.69,0);g.add(thigh);
+   let sockLeg=partMesh(new THREE.CylinderGeometry(.115,.095,.47,12),sock,id);sockLeg.position.set(xx,.30,0);g.add(sockLeg);
+   let bootM=partMesh(new THREE.BoxGeometry(.25,.14,.43),boot,id);bootM.position.set(xx,.07,.10);bootM.rotation.x=-.05;g.add(bootM)
+ });
+
+ // split football shorts instead of one rectangular block
+ [-.205,.205].forEach(xx=>{let sh=partMesh(new THREE.BoxGeometry(.36,.38,.46),shorts,id);sh.position.set(xx,.95,0);sh.rotation.z=xx<0?.04:-.04;g.add(sh)});
+
+ // athletic tapered shirt
+ let torso=partMesh(new THREE.CylinderGeometry(.43,.34,.88,14),jersey,id);torso.position.y=1.48;torso.scale.z=.78;g.add(torso);
+ let chest=partMesh(new THREE.BoxGeometry(.78,.30,.48),jersey,id);chest.position.set(0,1.77,0);chest.scale.z=.86;g.add(chest);
+
+ // neck
+ let neck=partMesh(new THREE.CylinderGeometry(.115,.13,.20,12),skin,id);neck.position.y=2.04;g.add(neck);
+
+ // shoulders, sleeves, articulated arms and hands
+ [-1,1].forEach(side=>{
+   let sx=side*.48;
+   let sleeve=partMesh(new THREE.CylinderGeometry(.16,.135,.34,12),jerseyDark,id);sleeve.position.set(sx,1.72,0);sleeve.rotation.z=side*.78;g.add(sleeve);
+   let upper=partMesh(new THREE.CylinderGeometry(.105,.09,.49,12),gk?jersey:skin,id);upper.position.set(side*.61,1.43,0);upper.rotation.z=side*.25;g.add(upper);
+   let fore=partMesh(new THREE.CylinderGeometry(.09,.075,.42,12),skin,id);fore.position.set(side*.67,1.07,.02);fore.rotation.z=side*.04;g.add(fore);
+   let hand=partMesh(new THREE.SphereGeometry(gk?.145:.105,14,12),gk?glove:skin,id);hand.position.set(side*.68,.84,.03);g.add(hand)
+ });
+
+ // shaped head
+ let head=partMesh(new THREE.SphereGeometry(.28,22,18),skin,id);head.position.set(0,2.33,0);head.scale.set(.86,1.03,.91);g.add(head);
+ // ears
+ [-1,1].forEach(side=>{let ear=partMesh(new THREE.SphereGeometry(.065,12,10),skinDark,id);ear.position.set(side*.245,2.34,0);ear.scale.set(.65,1,1);g.add(ear)});
+ // hair cap and fringe
+ let cap=partMesh(new THREE.SphereGeometry(.286,22,16,0,Math.PI*2,0,Math.PI*.48),hair,id);cap.position.set(0,2.40,0);cap.scale.set(.87,.95,.92);g.add(cap);
+ let fringe=partMesh(new THREE.BoxGeometry(.31,.055,.06),hair,id);fringe.position.set(0,2.49,.238);fringe.rotation.z=.04;g.add(fringe);
+ // simple face, deliberately subtle rather than cartoon dots the size of headlights
+ [-.083,.083].forEach(xx=>{let e=partMesh(new THREE.SphereGeometry(.024,10,8),eye,id);e.position.set(xx,2.38,.247);g.add(e)});
+ let nose=partMesh(new THREE.ConeGeometry(.028,.09,10),skinDark,id);nose.position.set(0,2.31,.274);nose.rotation.x=Math.PI/2;g.add(nose);
+ let mouth=partMesh(new THREE.BoxGeometry(.10,.018,.018),playerMaterial(0x6f3b31,.8),id);mouth.position.set(0,2.245,.255);g.add(mouth);
+
+ // shirt number on the chest
+ let ns=numberSprite(num,color===0xe3b313&&!gk);ns.position.set(0,1.55,.43);ns.scale.set(.55,.55,1);g.add(ns);
+
+ // player name above the head only; number already appears on shirt
+ let label=labelSprite(p.name);label.position.set(0,2.92,0);g.add(label);
+
+ g.userData.playerId=String(id);g.userData.nameLabel=label;
+ return g
+}
+function syncThreePlayers(){
+ if(!threeRenderer)return;while(threePlayersRoot.children.length)threePlayersRoot.remove(threePlayersRoot.children[0]);threeHitMeshes=[];threePlayerGroups={};
+ [{t:currentTeams.A,color:0xc82f25},{t:currentTeams.B,color:0xe3b313}].forEach(team=>team.t.forEach((p,i)=>{let q=tacticalLayout[String(p.id)]||{x:50,y:50},g=create3DPlayer(p,isGK(p)?0x202321:team.color,i+1);g.position.set((q.x-50)*.22,0,(q.y-50)*.36);g.rotation.y=q.side==="A"?0:Math.PI;threePlayersRoot.add(g);threePlayerGroups[String(p.id)]=g}))
+}
+let threeLabelsVisible=true,threePointers=new Map(),pinchStartDist=0,pinchStartCam=0;
+function updateThreeCamera(){if(!threeCamera)return;let h=camDist*Math.cos(camElev),y=camDist*Math.sin(camElev);threeCamera.position.set(Math.sin(camYaw)*h,y,Math.cos(camYaw)*h);threeCamera.lookAt(0,.55,0)}
+function cameraZoom(delta){camDist=Math.max(27,Math.min(62,camDist+delta));updateThreeCamera()}
+function cameraPreset(name){
+ if(!threeCamera)return;
+ const p={
+   broadcast:{yaw:0,elev:.94,dist:49},
+   top:{yaw:0,elev:1.43,dist:47},
+   goal:{yaw:0,elev:.61,dist:43},
+   side:{yaw:Math.PI/2,elev:.78,dist:48},
+   fit:{yaw:0,elev:1.09,dist:54},
+   whatsapp:{yaw:0,elev:1.16,dist:51}
+ }[name]||{yaw:0,elev:.94,dist:49};
+ camYaw=p.yaw;camElev=p.elev;camDist=p.dist;updateThreeCamera()
+}
+function toggle3DLabels(){
+ threeLabelsVisible=!threeLabelsVisible;let b=document.getElementById("labels3DBtn");if(b)b.textContent="الأسماء: "+(threeLabelsVisible?"ظاهرة":"مخفية");
+ Object.values(threePlayerGroups).forEach(g=>{if(g.userData.nameLabel)g.userData.nameLabel.visible=threeLabelsVisible})
+}
+function toggle3DFullscreen(){
+ let card=document.getElementById("formationCard"),b=document.getElementById("fullscreen3DBtn"),on=!card.classList.contains("studio-fullscreen");
+ card.classList.toggle("studio-fullscreen",on);document.body.style.overflow=on?"hidden":"";
+ if(b)b.textContent=on?"خروج من ملء الشاشة":"ملء الشاشة";setTimeout(resizeThree,80)
+}
+function projectToStage(world,w,h){
+ let v=world.clone().project(threeCamera);return{x:(v.x*.5+.5)*w,y:(-v.y*.5+.5)*h,z:v.z}
+}
+function boxesOverlap(a,b,m=5){return !(a.r+m<b.l||a.l>b.r+m||a.b+m<b.t||a.t>b.b+m)}
+function update3DLabels(){
+ if(!threeCamera||!threeRenderer)return;
+ let el=threeRenderer.domElement,w=el.clientWidth||el.width,h=el.clientHeight||el.height,items=[];
+ Object.values(threePlayerGroups).forEach(g=>{
+   let label=g.userData.nameLabel;if(!label)return;label.visible=threeLabelsVisible;if(!threeLabelsVisible)return;
+   label.position.y=2.92;label.material.opacity=1;
+   let world=new THREE.Vector3(g.position.x,2.92,g.position.z),pr=projectToStage(world,w,h),dist=threeCamera.position.distanceTo(world),factor=Math.max(.86,Math.min(1.16,dist/48));
+   label.scale.set(label.userData.baseScaleX*factor,.56*factor,1);
+   items.push({g,label,base:pr,dist})
+ });
+ items.sort((a,b)=>a.base.y-b.base.y);
+ let occupied=[];
+ items.forEach(item=>{
+   let label=item.label,chosen=null;
+   for(let k=0;k<5;k++){
+     let ly=2.92+k*.34;label.position.y=ly;
+     let pr=projectToStage(new THREE.Vector3(item.g.position.x,ly,item.g.position.z),w,h),bw=label.userData.pixelWidth,bh=24;
+     let box={l:pr.x-bw/2,r:pr.x+bw/2,t:pr.y-bh/2,b:pr.y+bh/2};
+     if(!occupied.some(o=>boxesOverlap(box,o))){chosen={ly,box};break}
+     chosen={ly,box}
+   }
+   label.position.y=chosen.ly;occupied.push(chosen.box)
+ })
+}
+function threePointerXY(e){let r=threeRenderer.domElement.getBoundingClientRect();return{x:(e.clientX-r.left)/r.width*2-1,y:-(e.clientY-r.top)/r.height*2+1}}
+function pick3DPlayer(e){let p=threePointerXY(e);threeRay.setFromCamera(p,threeCamera);let hits=threeRay.intersectObjects(threeHitMeshes,false);return hits.length?hits[0].object.userData.playerId:null}
+function pointerDistance(){let a=[...threePointers.values()];if(a.length<2)return 0;return Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)}
+function threePointerDown(e){
+ e.preventDefault();threeRenderer.domElement.setPointerCapture(e.pointerId);threePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(!threeMoveMode&&threePointers.size===2){pinchStartDist=pointerDistance();pinchStartCam=camDist;orbitState=null;return}
+ if(threeMoveMode){let id=pick3DPlayer(e);if(id){drag3DId=id;return}}
+ if(threePointers.size===1)orbitState={x:e.clientX,y:e.clientY}
+}
+function threePointerMove(e){
+ if(threePointers.has(e.pointerId))threePointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(!threeMoveMode&&threePointers.size>=2){
+   let d=pointerDistance();if(pinchStartDist>10&&d>10){camDist=Math.max(27,Math.min(62,pinchStartCam*(pinchStartDist/d)));updateThreeCamera()}return
+ }
+ if(drag3DId){let p=threePointerXY(e);threeRay.setFromCamera(p,threeCamera);let hit=new THREE.Vector3();if(threeRay.ray.intersectPlane(threeGround,hit)){hit.x=Math.max(-10.4,Math.min(10.4,hit.x));hit.z=Math.max(-17.1,Math.min(17.1,hit.z));let q=tacticalLayout[String(drag3DId)]||{};q.x=50+hit.x/.22;q.y=50+hit.z/.36;tacticalLayout[String(drag3DId)]=q;let g=threePlayerGroups[String(drag3DId)];if(g)g.position.set(hit.x,0,hit.z);let el=document.querySelector('.pitch-player[data-pid="'+drag3DId+'"]');if(el){el.style.left=q.x+"%";el.style.top=q.y+"%"}}return}
+ if(orbitState&&threePointers.size===1){let dx=e.clientX-orbitState.x,dy=e.clientY-orbitState.y;orbitState={x:e.clientX,y:e.clientY};camYaw-=dx*.008;camElev=Math.max(.34,Math.min(1.43,camElev+dy*.006));updateThreeCamera()}
+}
+function threePointerUp(e){
+ threePointers.delete(e.pointerId);
+ if(drag3DId){persistTacticalLayout();drag3DId=null}
+ if(threePointers.size<2){pinchStartDist=0;pinchStartCam=0}
+ if(threePointers.size===1){let p=[...threePointers.values()][0];orbitState={x:p.x,y:p.y}}else orbitState=null
+}
+function resizeThree(){if(!threeRenderer)return;let stage=document.getElementById("threeStage"),w=Math.max(280,stage.clientWidth),h=Math.max(420,stage.clientHeight);threeRenderer.setSize(w,h,false);threeCamera.aspect=w/h;threeCamera.updateProjectionMatrix()}
+function draw2DPoster(cv){
+ let x=cv.getContext("2d"),w=cv.width,h=cv.height;x.fillStyle="#06110c";x.fillRect(0,0,w,h);
+ x.fillStyle="#fff";x.textAlign="center";x.font="900 62px Arial";x.fillText("ركلة الأحد الترجيحية",w/2,70);x.font="26px Arial";x.fillStyle="#c4d1ca";x.fillText("التشكيلة الرسمية • الدورة "+S.cycle+" • "+(currentTeams.A.length+currentTeams.B.length)+" لاعبًا",w/2,112);
+ let L=80,T=155,W=w-160,H=h-245;for(let i=0;i<10;i++){x.fillStyle=i%2?"#287f49":"#207440";x.fillRect(L+i*W/10,T,W/10,H)}
+ x.strokeStyle="#fff";x.lineWidth=5;x.strokeRect(L+24,T+24,W-48,H-48);x.beginPath();x.moveTo(L+24,T+H/2);x.lineTo(L+W-24,T+H/2);x.stroke();
+ x.beginPath();x.arc(L+W/2,T+H/2,125,0,Math.PI*2);x.stroke();x.fillStyle="#fff";x.beginPath();x.arc(L+W/2,T+H/2,6,0,Math.PI*2);x.fill();
+ x.strokeRect(L+W*.23,T+24,W*.54,H*.145);x.strokeRect(L+W*.23,T+H*.831,W*.54,H*.145);
+ x.strokeRect(L+W*.36,T+24,W*.28,H*.065);x.strokeRect(L+W*.36,T+H*.911,W*.28,H*.065);
+ [{t:currentTeams.A,color:"#c82f25"},{t:currentTeams.B,color:"#e3b313"}].forEach(g=>g.t.forEach((p,i)=>{
+   let q=tacticalLayout[String(p.id)]||{x:50,y:50},px=L+q.x/100*W,py=T+q.y/100*H,num=i+1;
+   x.save();x.shadowColor="#0009";x.shadowBlur=14;x.shadowOffsetY=8;x.fillStyle=isGK(p)?"#202321":g.color;x.beginPath();
+   x.moveTo(px-42,py-27);x.lineTo(px-20,py-44);x.lineTo(px-8,py-35);x.lineTo(px+8,py-35);x.lineTo(px+20,py-44);x.lineTo(px+42,py-27);x.lineTo(px+31,py-6);x.lineTo(px+22,py-14);x.lineTo(px+27,py+39);x.lineTo(px-27,py+39);x.lineTo(px-22,py-14);x.lineTo(px-31,py-6);x.closePath();x.fill();x.restore();
+   x.fillStyle=(g.color==="#e3b313"&&!isGK(p))?"#161616":"#fff";x.font="900 27px Arial";x.fillText(String(num),px,py+9);
+   x.font="bold 24px Arial";let tw=Math.min(250,x.measureText(p.name).width+38);x.fillStyle="#06100cef";roundedRect(x,px-tw/2,py+51,tw,44,12);x.fill();x.strokeStyle="#ffffff55";x.lineWidth=1.5;x.stroke();x.fillStyle="#fff";x.fillText(p.name,px,py+81)
+ }));
+ x.font="bold 25px Arial";x.fillStyle="#c82f25";roundedRect(x,330,h-66,250,48,16);x.fill();x.fillStyle="#fff";x.fillText("الفريق الأحمر",455,h-34);
+ x.fillStyle="#e3b313";roundedRect(x,860,h-66,250,48,16);x.fill();x.fillStyle="#151515";x.fillText("الفريق الأصفر",985,h-34)
+}
+function perspectivePoint(qx,qy){
+ let topY=285,bottomY=1635,t=qy/100,topL=255,topR=1185,bottomL=70,bottomR=1370;
+ let left=topL+(bottomL-topL)*t,right=topR+(bottomR-topR)*t;
+ return{x:left+(right-left)*(qx/100),y:topY+(bottomY-topY)*t,t}
+}
+function drawPerspectiveSegment(ctx,a,b){
+ let p1=perspectivePoint(a[0],a[1]),p2=perspectivePoint(b[0],b[1]);ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.stroke()
+}
+function drawPerspectiveRect(ctx,x1,y1,x2,y2){
+ drawPerspectiveSegment(ctx,[x1,y1],[x2,y1]);drawPerspectiveSegment(ctx,[x2,y1],[x2,y2]);drawPerspectiveSegment(ctx,[x2,y2],[x1,y2]);drawPerspectiveSegment(ctx,[x1,y2],[x1,y1])
+}
+function drawPerspectiveCircle(ctx,cx,cy,rx,ry){
+ ctx.beginPath();for(let i=0;i<=64;i++){let a=i/64*Math.PI*2,p=perspectivePoint(cx+Math.cos(a)*rx,cy+Math.sin(a)*ry);if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)}ctx.stroke()
+}
+function drawSharePlayer(ctx,p,teamColor,num){
+ let q=tacticalLayout[String(p.id)]||{x:50,y:50},pt=perspectivePoint(q.x,q.y),s=.62+pt.t*.52,gk=isGK(p),col=gk?"#202523":teamColor;
+ ctx.save();ctx.translate(pt.x,pt.y);
+ ctx.fillStyle="rgba(0,0,0,.22)";ctx.beginPath();ctx.ellipse(0,10*s,28*s,9*s,0,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle="#c98f68";ctx.beginPath();ctx.arc(0,-58*s,15*s,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle="#171513";ctx.beginPath();ctx.arc(0,-62*s,15*s,Math.PI,Math.PI*2);ctx.fill();
+ ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(-26*s,-39*s);ctx.lineTo(-15*s,-48*s);ctx.lineTo(-7*s,-43*s);ctx.lineTo(7*s,-43*s);ctx.lineTo(15*s,-48*s);ctx.lineTo(26*s,-39*s);ctx.lineTo(20*s,-24*s);ctx.lineTo(14*s,-29*s);ctx.lineTo(15*s,5*s);ctx.lineTo(-15*s,5*s);ctx.lineTo(-14*s,-29*s);ctx.lineTo(-20*s,-24*s);ctx.closePath();ctx.fill();
+ ctx.fillStyle="#f1f2ed";ctx.fillRect(-15*s,5*s,30*s,17*s);
+ ctx.fillStyle="#c98f68";ctx.fillRect(-13*s,22*s,8*s,27*s);ctx.fillRect(5*s,22*s,8*s,27*s);
+ ctx.fillStyle="#f3f3ef";ctx.fillRect(-14*s,42*s,10*s,18*s);ctx.fillRect(4*s,42*s,10*s,18*s);
+ ctx.fillStyle="#101211";ctx.fillRect(-16*s,57*s,13*s,7*s);ctx.fillRect(3*s,57*s,13*s,7*s);
+ ctx.fillStyle="#fff";ctx.font="900 "+Math.max(14,22*s)+"px Arial";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(num),0,-17*s);
+ if(gk){ctx.fillStyle="#f4f4ef";ctx.beginPath();ctx.arc(-28*s,-18*s,6*s,0,Math.PI*2);ctx.arc(28*s,-18*s,6*s,0,Math.PI*2);ctx.fill()}
+ ctx.restore();
+ return{p,x:pt.x,y:pt.y-76*s,t:pt.t}
+}
+function placeShareNameBadges(ctx,items){
+ ctx.direction="rtl";ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="bold 25px Arial";
+ let boxes=[];items.sort((a,b)=>a.y-b.y);
+ items.forEach(it=>{
+   let w=Math.min(250,Math.max(118,ctx.measureText(it.p.name).width+38)),h=40,cands=[[0,0],[0,-44],[-78,-18],[78,-18],[-92,-54],[92,-54]],chosen=null;
+   for(let [dx,dy] of cands){let x=Math.max(w/2+18,Math.min(1440-w/2-18,it.x+dx)),y=Math.max(205,Math.min(1685,it.y+dy)),box={l:x-w/2,r:x+w/2,t:y-h/2,b:y+h/2};if(!boxes.some(b=>boxesOverlap(box,b,7))){chosen={x,y,box};break}chosen={x,y,box}}
+   boxes.push(chosen.box);ctx.fillStyle="rgba(4,14,9,.94)";roundedRect(ctx,chosen.x-w/2,chosen.y-h/2,w,h,12);ctx.fill();ctx.strokeStyle="rgba(255,255,255,.38)";ctx.lineWidth=2;ctx.stroke();ctx.fillStyle="#fff";ctx.fillText(it.p.name,chosen.x,chosen.y+1)
+ })
+}
+function draw3DSharePoster(cv){
+ let ctx=cv.getContext("2d"),w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);
+ let grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,"#06100c");grad.addColorStop(.22,"#0c1d15");grad.addColorStop(1,"#07110c");ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);
+ ctx.fillStyle="#fff";ctx.textAlign="center";ctx.direction="rtl";ctx.font="900 62px Arial";ctx.fillText("ركلة الأحد الترجيحية",w/2,72);
+ ctx.font="25px Arial";ctx.fillStyle="#c5d2cb";ctx.fillText("التشكيلة الرسمية • الدورة "+S.cycle+" • "+(currentTeams.A.length+currentTeams.B.length)+" لاعبًا",w/2,114);
+ ctx.fillStyle="#17231d";ctx.fillRect(0,145,w,145);for(let i=0;i<520;i++){let xx=(i*73)%w,yy=155+((i*47)%115);ctx.fillStyle=["#d8ddd9","#d8b627","#b63a31","#467259"][i%4];ctx.fillRect(xx,yy,3,3)}
+ ctx.beginPath();ctx.moveTo(255,285);ctx.lineTo(1185,285);ctx.lineTo(1370,1635);ctx.lineTo(70,1635);ctx.closePath();let fg=ctx.createLinearGradient(0,285,0,1635);fg.addColorStop(0,"#1d6b3c");fg.addColorStop(1,"#2e9a59");ctx.fillStyle=fg;ctx.fill();
+ for(let i=0;i<10;i++){let xa1=255+(1185-255)*i/10,xa2=255+(1185-255)*(i+1)/10,xb1=70+(1370-70)*i/10,xb2=70+(1370-70)*(i+1)/10;ctx.beginPath();ctx.moveTo(xa1,285);ctx.lineTo(xa2,285);ctx.lineTo(xb2,1635);ctx.lineTo(xb1,1635);ctx.closePath();ctx.fillStyle=i%2?"rgba(255,255,255,.025)":"rgba(0,0,0,.045)";ctx.fill()}
+ ctx.strokeStyle="rgba(255,255,255,.92)";ctx.lineWidth=4;drawPerspectiveSegment(ctx,[0,0],[100,0]);drawPerspectiveSegment(ctx,[100,0],[100,100]);drawPerspectiveSegment(ctx,[100,100],[0,100]);drawPerspectiveSegment(ctx,[0,100],[0,0]);drawPerspectiveSegment(ctx,[0,50],[100,50]);drawPerspectiveCircle(ctx,50,50,12,8);
+ drawPerspectiveRect(ctx,23,0,77,16);drawPerspectiveRect(ctx,36,0,64,7);drawPerspectiveRect(ctx,23,84,77,100);drawPerspectiveRect(ctx,36,93,64,100);
+ ctx.strokeStyle="#fff";ctx.lineWidth=5;let gtL=perspectivePoint(40,0),gtR=perspectivePoint(60,0);ctx.strokeRect(gtL.x,246,gtR.x-gtL.x,39);let gbL=perspectivePoint(40,100),gbR=perspectivePoint(60,100);ctx.strokeRect(gbL.x,1635,gbR.x-gbL.x,46);
+ let players=[];currentTeams.B.forEach((p,i)=>players.push({p,color:"#e3b313",num:i+1,q:tacticalLayout[String(p.id)]||{y:0}}));currentTeams.A.forEach((p,i)=>players.push({p,color:"#c82f25",num:i+1,q:tacticalLayout[String(p.id)]||{y:100}}));players.sort((a,b)=>(a.q.y||0)-(b.q.y||0));
+ let badges=[];players.forEach(o=>badges.push(drawSharePlayer(ctx,o.p,o.color,o.num)));placeShareNameBadges(ctx,badges);
+ ctx.font="bold 26px Arial";ctx.textBaseline="middle";ctx.fillStyle="#c82f25";roundedRect(ctx,300,1718,270,54,18);ctx.fill();ctx.fillStyle="#fff";ctx.fillText("الفريق الأحمر",435,1745);
+ ctx.fillStyle="#e3b313";roundedRect(ctx,870,1718,270,54,18);ctx.fill();ctx.fillStyle="#171717";ctx.fillText("الفريق الأصفر",1005,1745)
+}
+function posterCanvas(){
+ ensureLayout();let cv=document.createElement("canvas");cv.width=1440;cv.height=1800;
+ if(pitch3d){draw3DSharePoster(cv);return cv}
+ draw2DPoster(cv);return cv
+}
+function savePoster(){let a=document.createElement("a");a.download="raklat-al-ahad.png";a.href=posterCanvas().toDataURL("image/png");a.click()}
+async function sharePoster(){let canvas=posterCanvas();canvas.toBlob(async blob=>{let file=new File([blob],"raklat-al-ahad.png",{type:"image/png"});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"ركلة الأحد الترجيحية"});return}catch(e){}}savePoster()},"image/png")}
+
+function movePlayer(id,from){
+ id=String(id);
+ if(!swapSelection){swapSelection={id,from};renderTeams();return}
+ if(String(swapSelection.id)===id){swapSelection=null;renderTeams();return}
+ if(swapSelection.from===from){swapSelection={id,from};renderTeams();return}
+ let aTeam=currentTeams[swapSelection.from],bTeam=currentTeams[from],ai=aTeam.findIndex(p=>String(p.id)===String(swapSelection.id)),bi=bTeam.findIndex(p=>String(p.id)===id);
+ if(ai<0||bi<0){swapSelection=null;renderTeams();return}
+ let a=aTeam[ai],b=bTeam[bi];aTeam[ai]=b;bTeam[bi]=a;
+ // Force each swapped player to receive a fresh position in the correct half.
+ delete tacticalLayout[String(a.id)];delete tacticalLayout[String(b.id)];
+ swapSelection=null;ensureLayout();persistTacticalLayout();renderTeams()
+}
+function unpaidEntriesFor(p){let out=[];S.days.forEach((d,i)=>{let e=d.entries&&d.entries[p.id];if(e&&e.present&&!e.paid&&!p.exempt)out.push({e,day:i})});return out}
+function allocatePayment(p,amount){let left=Number(amount)||0;for(let item of unpaidEntriesFor(p)){if(left<1)break;item.e.paid=true;p.balance+=1;left-=1}p.balance+=left}
+function openCorrection(){correctionCard.style.display="block";corrPlayer.innerHTML=S.players.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join("");corrPlayer.onchange=renderCorrectionDays;renderCorrectionDays();correctionCard.scrollIntoView({behavior:"smooth",block:"start"})}
+function renderCorrectionDays(){let p=S.players.find(x=>String(x.id)===String(corrPlayer.value));if(!p)return;corrDays.innerHTML=S.days.map((d,i)=>{let e=d.entries&&d.entries[p.id],present=!!(e&&e.present);return '<div class="row" style="align-items:center;margin:6px 0"><b>اليوم '+(i+1)+'</b><select id="corrDay_'+i+'"><option value="absent" '+(!present?"selected":"")+'>⭕ غائب</option><option value="present" '+(present?"selected":"")+'>حضر</option></select></div>'}).join("")}
+function applyCorrection(){
+ let p=S.players.find(x=>String(x.id)===String(corrPlayer.value));if(!p)return;
+ S.days.forEach((d,i)=>{
+   let sel=document.getElementById("corrDay_"+i);if(!sel)return;
+   if(!d.entries)d.entries={};
+   let hasEntry=Object.prototype.hasOwnProperty.call(d.entries,p.id),old=d.entries[p.id]||{present:false,paid:false},oldPresent=!!old.present,newPresent=sel.value==="present";
+   // Important: "لم يحضر" must become an explicit stored absence.
+   // Without this, a player who joined later has no entry at all and the ledger keeps showing — instead of ⭕.
+   if(oldPresent===newPresent){
+     if(!newPresent&&!hasEntry)d.entries[p.id]={present:false,paid:false};
+     return
+   }
+   if(p.exempt){d.entries[p.id]={present:newPresent,paid:newPresent};return}
+   if(oldPresent&&!newPresent){p.balance+=1;d.entries[p.id]={present:false,paid:false};return}
+   if(!oldPresent&&newPresent){let hadCredit=p.balance>=1;p.balance-=1;d.entries[p.id]={present:true,paid:hadCredit}}
+ });
+ save();renderCorrectionDays();alert("تم حفظ تعديل الحضور وتحديث قائمة الدفع وإعادة احتساب أثر المشاركة على الرصيد.")
+}
+function addOpeningBalance(){let p=S.players.find(x=>String(x.id)===String(openingPlayer.value)),a=Number(openingAmount.value);if(!p||!a||a<=0)return alert("أدخل رصيدًا صحيحًا.");if(p.openingImported)return alert("تم إدخال الرصيد المرحّل لهذا اللاعب سابقًا.");p.balance+=a;p.openingImported=true;p.openingImportedAmount=a;S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString(),cycle:S.cycle,note:"رصيد مرحّل سابق — إدخال انتقالي"});openingAmount.value="";save();alert("تمت إضافة الرصيد المرحّل المتبقي حاليًا. لن يُطلب إدخاله يدويًا في الدورات القادمة.")}
+function ledgerCanvas(){
+ let players=S.players.filter(p=>p.active),rowH=66,w=1180,h=180+players.length*rowH,cv=document.createElement("canvas");cv.width=w;cv.height=h;
+ let x=cv.getContext("2d");x.direction="rtl";x.fillStyle="#f4f1e8";x.fillRect(0,0,w,h);
+ x.fillStyle="#173f2c";x.fillRect(0,0,w,110);x.fillStyle="white";x.textAlign="center";x.font="bold 36px Arial";x.fillText("ركلة الأحد الترجيحية — قائمة الدفع للدورة "+S.cycle,w/2,48);
+ x.font="22px Arial";let nextDay=S.days.length<5?S.days.length+1:null;x.fillText("الحضور والدفع • "+S.days.length+"/5 أيام"+(nextDay?" • الأحد القادم: اليوم "+nextDay:""),w/2,82);
+ // RTL حقيقي: أول عمود في المصفوفة يُرسم من أقصى اليمين.
+ let cols=[220,130,130,130,130,130,180],labels=["اللاعب","1","2",nextDay===3?"3 الأحد":"3","4","5","الرصيد"],tableW=cols.reduce((a,b)=>a+b,0),tableX=(w-tableW)/2,tableRight=tableX+tableW,y=125;
+ function cellX(i){let right=tableRight;for(let k=0;k<=i;k++)right-=cols[k];return right}
+ x.font="bold 20px Arial";
+ labels.forEach((l,i)=>{let px=cellX(i);x.fillStyle=(nextDay&&i===nextDay)?"#fff2ad":"#e9eee9";x.fillRect(px,y,cols[i],45);x.strokeStyle="#dfe4df";x.lineWidth=1;x.strokeRect(px,y,cols[i],45);x.fillStyle="#17211c";x.textAlign="center";x.fillText(l,px+cols[i]/2,y+29)});
+ players.forEach((p,ri)=>{
+   y=170+ri*rowH;let rowBg=p.exempt?"#ffffff":p.balance>0?"#e5f6e9":p.balance<0?"#fde8e7":"#ffffff";
+   x.fillStyle=rowBg;x.fillRect(tableX,y,tableW,rowH-4);
+   let attendNo=0,vals=[p.name];
+   for(let i=0;i<5;i++){let d=S.days[i],day=i+1;if(!d){vals.push(day===nextDay?"⏳":"—");continue}let e=d.entries&&d.entries[p.id],hasEntry=!!(d.entries&&Object.prototype.hasOwnProperty.call(d.entries,p.id));if(!hasEntry&&p.joinCycle===S.cycle&&day<p.joinDay){vals.push("—");continue}if(!e||!e.present){vals.push("⭕");continue}attendNo++;let keys=["","1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"];vals.push((keys[attendNo]||String(attendNo))+(e.paid?"✅":"❌"))}
+   vals.push((p.exempt?0:Number(p.balance||0)).toFixed(1)+" ر.ع");
+   vals.forEach((v,i)=>{let px=cellX(i);if(nextDay&&i===nextDay&&S.days.length<nextDay){x.fillStyle="rgba(255,242,173,.55)";x.fillRect(px,y,cols[i],rowH-4)}x.strokeStyle="#ecefec";x.strokeRect(px,y,cols[i],rowH-4);x.fillStyle="#17211c";x.font=i===0?"bold 19px Arial":"19px Arial";if(i===0){x.textAlign="right";x.fillText(v,px+cols[i]-14,y+39)}else{x.textAlign="center";x.fillText(v,px+cols[i]/2,y+39)}});
+ });
+ return cv
+}
+function saveLedger(){let a=document.createElement("a");a.download="raklat-al-ahad-payments-cycle-"+S.cycle+".png";a.href=ledgerCanvas().toDataURL("image/png");a.click()}
+async function shareLedger(){let cv=ledgerCanvas();cv.toBlob(async blob=>{let file=new File([blob],"raklat-al-ahad-payments.png",{type:"image/png"});if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"قائمة دفع ركلة الأحد الترجيحية"});return}catch(e){}}saveLedger()},"image/png")}
+function ledgerText(){
+ let nextDay=S.days.length<5?S.days.length+1:null,lines=["⚽ ركلة الأحد الترجيحية","الدورة "+S.cycle+" • "+S.days.length+"/5 أيام"+(nextDay?" • الأحد القادم: اليوم "+nextDay:""),""];
+ S.players.filter(p=>p.active).forEach(p=>{
+   let state=p.exempt?"✅ متوازن":p.balance>0?"🟢 له رصيد "+p.balance.toFixed(1)+" ر.ع":p.balance<0?"🔴 عليه "+Math.abs(p.balance).toFixed(1)+" ر.ع":"✅ متوازن";
+   lines.push(p.name+" — "+state)
+ });
+ return lines.join("\n")
+}
+async function shareLedgerText(){
+ let txt=ledgerText();
+ if(navigator.share){try{await navigator.share({title:"ركلة الأحد الترجيحية — قائمة الدفع",text:txt});return}catch(e){}}
+ try{await navigator.clipboard.writeText(txt);alert("تم نسخ ملخص الدفع. الصقه مباشرة في واتساب.")}catch(e){prompt("انسخ النص التالي:",txt)}
+}
+function addPayment(){let p=S.players.find(x=>String(x.id)===payPlayer.value),a=Number(payAmount.value);if(!p||!a||a<=0)return;allocatePayment(p,a);S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString(),cycle:S.cycle});save();alert("تم تسجيل الدفعة. سُددت أقدم المشاركات غير المدفوعة أولًا، وحُفظ المتبقي كرصد دائن.")}
+function newCycle(){
+ let msg=S.days.length<5?"الدورة الحالية لم تصل إلى 5 أيام بعد. هل تريد إغلاقها مبكرًا وبدء دورة جديدة؟":"إغلاق الدورة الحالية وبدء دورة جديدة؟ ستُرحّل الأرصدة والمستحقات تلقائيًا.";
+ if(!confirm(msg))return;
+ if(!Array.isArray(S.cycleHistory))S.cycleHistory=[];
+ S.cycleHistory.push({cycle:S.cycle,closedAt:new Date().toISOString(),days:JSON.parse(JSON.stringify(S.days)),players:S.players.map(p=>({id:p.id,name:p.name,balance:p.balance,active:p.active,exempt:p.exempt})),payments:S.payments.filter(x=>x.cycle==null||x.cycle===S.cycle).map(x=>({...x}))});
+ if(S.cycleHistory.length>24)S.cycleHistory=S.cycleHistory.slice(-24);
+ S.players.forEach(p=>{p.carriedFromCycle=S.cycle;p.carriedBalance=p.balance});
+ S.cycle++;S.days=[];S.lastAttendees=[];S.pendingAttendees=[];S.players.forEach(p=>{if(p.active){p.joinCycle=S.cycle;p.joinDay=1}});
+ save()
+}
+function exportBackup(){
+ let payload={app:"ركلة الأحد الترجيحية",schema:1,exportedAt:new Date().toISOString(),data:S};
+ let blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="raklat-al-ahad-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ let st=document.getElementById("backupStatus");if(st)st.textContent="تم إنشاء نسخة احتياطية من اللاعبين والحضور والدفع والأرصدة والتشكيلة."
+}
+function importBackup(ev){
+ let file=ev.target.files&&ev.target.files[0];if(!file)return;
+ let rd=new FileReader();rd.onload=()=>{
+   try{
+     let raw=JSON.parse(rd.result),data=raw&&raw.data?raw.data:raw;
+     if(!data||!Array.isArray(data.players)||!Array.isArray(data.days)||!Array.isArray(data.payments))throw new Error("invalid");
+     if(!confirm("سيتم استبدال بيانات ركلة الأحد الترجيحية الحالية بالنسخة المختارة. متابعة؟")){ev.target.value="";return}
+     S=data;if(!S.pendingAttendees)S.pendingAttendees=[];S.players.forEach(p=>{if(p.joinCycle==null)p.joinCycle=S.cycle||1;if(p.joinDay==null)p.joinDay=1});
+     S=normalizeState(S);ensureSundayDay3Baseline();ensureCurrentCycle14();tacticalLayout=S.tacticalLayout||{};currentTeams={A:[],B:[]};persistState(true);ev.target.value="";render();alert("تم استرجاع النسخة الاحتياطية وحفظها في طبقتي التخزين بنجاح.")
+   }catch(e){ev.target.value="";alert("الملف ليس نسخة احتياطية صالحة لـ ركلة الأحد الترجيحية.")}
+ };rd.readAsText(file)
+}
+function normalizeName(s){return String(s||"").trim().replace(/\s+/g," ").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي")}
+function openPlayerEdit(id){let p=S.players.find(x=>String(x.id)===String(id));if(!p)return;editId.value=p.id;editName.value=p.name;editPos.value=p.pos;editSecond.value=p.second||"";editRating.value=String(p.rating);editExempt.value=p.exempt?"1":"0";editActive.value=p.active?"1":"0";editPlayerPanel.style.display="block";editPlayerPanel.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function savePlayerEdit(){let p=S.players.find(x=>String(x.id)===String(editId.value));if(!p)return;let name=editName.value.trim();if(!name)return alert("اكتب اسم اللاعب.");let duplicate=S.players.some(x=>String(x.id)!==String(p.id)&&normalizeName(x.name)===normalizeName(name));if(duplicate)return alert("يوجد لاعب بهذا الاسم بالفعل.");let wasExempt=p.exempt;p.name=name;p.pos=editPos.value;p.second=editSecond.value;p.rating=Number(editRating.value);p.exempt=editExempt.value==="1";p.active=editActive.value==="1";if(!wasExempt&&p.exempt&&p.balance<0){if(confirm("لدى اللاعب رصيد مستحق سابق. هل تريد إبقاء الدين السابق كما هو؟ اضغط موافق للإبقاء عليه، أو إلغاء لتصفيره عند تفعيل الإعفاء.")){}else p.balance=0}editPlayerPanel.style.display="none";save()}
+function addPlayer(){let name=pName.value.trim();if(!name)return;if(S.players.some(p=>normalizeName(p.name)===normalizeName(name)))return alert("اللاعب موجود بالفعل");S.players.push({id:Date.now(),name,pos:pPos.value,second:pSecond.value,rating:Number(pRating.value),exempt:pExempt.value==="1",active:true,balance:0,joinCycle:S.cycle,joinDay:Math.min(5,S.days.length+1)});pName.value="";save()}
+function render(){
+ renderConfirm();renderHistorySetup();renderFormationCandidates();dayNo.textContent=S.days.length+"/5";activeCount.textContent=S.players.filter(p=>p.active).length;todayCount.textContent=S.lastAttendees.length;undoDayBox.style.display=S.days.length>2?"block":"none";
+ playersList.innerHTML=S.players.map(p=>'<div class="player"><div class="player-info"><b>'+p.name+'</b><div class="meta">'+p.pos+(p.second?" • "+p.second:"")+' • <span class="stars">'+p.rating+' ★</span>'+(p.active?'':' • متوقف')+'</div></div>'+(p.exempt?'<span class="badge">معفى</span>':'')+'<button class="edit-btn" onclick="openPlayerEdit(\''+p.id+'\')">تعديل</button></div>').join("");
+ payPlayer.innerHTML=S.players.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join("");
+ let nextDay=S.days.length<5?S.days.length+1:null;
+ moneyCycleLabel.textContent=S.days.length+"/5 أيام مثبتة";nextSundayBadge.textContent=nextDay?"الأحد القادم: اليوم "+nextDay:"الدورة مكتملة";
+ let head='<table><thead><tr><th>اللاعب</th>'+[1,2,3,4,5].map(i=>'<th class="'+(i===nextDay?'next-day-col':'')+'">'+i+(i===nextDay?'<small>الأحد القادم</small>':'')+'</th>').join("")+'<th>الرصيد</th></tr></thead><tbody>';
+ let rows=S.players.filter(p=>p.active).map(p=>{let attendNo=0,cells=[0,1,2,3,4].map(i=>{let day=i+1,d=S.days[i];if(!d){return '<td class="'+(day===nextDay?'next-day-col':'')+'">'+(day===nextDay?'<span class="upcoming-day">⏳</span>':'—')+'</td>'}let e=d.entries&&d.entries[p.id],hasEntry=!!(d.entries&&Object.prototype.hasOwnProperty.call(d.entries,p.id));if(!hasEntry&&p.joinCycle===S.cycle&&day<p.joinDay)return '<td>—</td>';if(!e||!e.present)return '<td>⭕</td>';attendNo++;let keycaps=['','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];let mark=keycaps[attendNo]||String(attendNo);return '<td>'+mark+(e.paid?'✅':'❌')+'</td>'}).join("");let cls=p.balance>0?"credit":p.balance<0?"debt":"neutral",rowcls=p.balance>0?"credit-row":p.balance<0?"debt-row":"";return '<tr class="'+rowcls+'"><td>'+p.name+'</td>'+cells+'<td class="'+cls+'">'+(p.exempt?"معفى":p.balance.toFixed(1))+'</td></tr>'}).join("");ledger.innerHTML=head+rows+'</tbody></table>';
+}
+async function bootstrapPersistentState(){
+ let localState=S,durable=null,usedDurable=false;
+ try{durable=normalizeState(await readStateIDB())}catch(e){}
+ if(validState(durable)){
+   let lt=Number(localState&&localState._savedAt||0),dt=Number(durable._savedAt||0);
+   if(dt>lt||(seedLike(localState)&&!seedLike(durable))||(!lt&&!dt&&stateScore(durable)>stateScore(localState))){
+     S=durable;usedDurable=true
+   }
+ }
+ S=normalizeState(S);
+ // Re-run one-time migrations on whichever state won reconciliation.
+ ensureSundayDay3Baseline();ensureCurrentCycle14();
+ if(typeof tacticalLayout!=="undefined")tacticalLayout=S.tacticalLayout||{};
+ if(!S._savedAt)S._savedAt=Date.now();
+ let localOK=persistLocalSnapshot();
+ try{await writeStateIDB(S);setStorageStatus(usedDurable?"تم استعادة أحدث نسخة من الحفظ الدائم ✓":(localOK?"الحفظ المزدوج نشط ✓":"الحفظ الدائم نشط ✓"))}
+ catch(e){setStorageStatus(localOK?"الحفظ المحلي نشط، وتعذر فتح طبقة الحفظ الثانية.":"تعذر الحفظ داخل المتصفح.",true)}
+ render()
+}
+bootstrapPersistentState();
+</script></body></html>
