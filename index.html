@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>ركلة الأحد الترجيحية v0.4.17</title>
+<title>ركلة الأحد الترجيحية v0.4.18</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.4.17 formation spacing + guaranteed 3D fallback */
+/* v0.4.18 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -74,24 +74,24 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 
-/* v0.4.17 real 3D reliability + role-aware formation */
+/* v0.4.18 real 3D reliability + role-aware formation */
 .three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
 .three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
 @keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
 .pitch-player{width:88px}.pname{max-width:86px}
 @media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
 
-/* v0.4.17 refined 3D footballers */
+/* v0.4.18 refined 3D footballers */
 .three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
 
-/* v0.4.17 finishing controls */
+/* v0.4.18 finishing controls */
 .camera-controls{margin:8px 0 10px;padding:9px;background:#f2f5f1;border:1px solid #dbe3dc;border-radius:14px}
 .camera-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.camera-row+.camera-row{margin-top:6px}
 .camera-controls button{padding:9px 5px;background:#fff;border:1px solid #d5ddd6;color:#244b36;border-radius:9px;font-size:10px;min-height:39px}.camera-controls .camera-whatsapp{background:#173f2c;color:#fff;border-color:#173f2c}
 .team-player.swap-selected{background:#fff3bf;border-radius:8px;padding-inline:6px}.team-player .move.swap-ready{background:#173f2c;color:#fff}
 @media(max-width:430px){.camera-controls button{font-size:9px;padding:8px 3px}.camera-row{gap:4px}}
 
-/* v0.4.17 visual polish */
+/* v0.4.18 visual polish */
 .camera-row-wide{grid-template-columns:1fr 1fr}.camera-row-wide button{font-size:10px}
 #formationCard.studio-fullscreen{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;padding:14px 14px calc(22px + env(safe-area-inset-bottom));background:#f4f1e8}
 #formationCard.studio-fullscreen .three-stage{height:calc(100vh - 235px)!important;min-height:520px}
@@ -102,7 +102,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .pitch-shell{border:1px solid #d9dfda}
 @media(max-width:430px){#formationCard.studio-fullscreen{padding-top:calc(8px + env(safe-area-inset-top))}.camera-row-wide button{font-size:9px}}
 
-/* v0.4.17 mobile dock + payment day-3 clarity */
+/* v0.4.18 mobile dock + payment day-3 clarity */
 main{padding-bottom:126px}
 .tabs{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:560px;margin:auto;border:1px solid #d9dfda;border-radius:24px;padding:6px;background:#fffffff2;box-shadow:0 12px 38px #102c2226;backdrop-filter:blur(18px);overflow:hidden}
 .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:58px;border-radius:18px;padding:5px 3px;color:#69756f;transition:transform .18s ease,background .18s ease,color .18s ease}
@@ -123,7 +123,7 @@ main{padding-bottom:126px}
 .storage-ok{margin:10px 0 2px;padding:9px 11px;border-radius:11px;background:#edf5ef;color:#245c38;font-size:12px;font-weight:800}
 .storage-ok.warn{background:#fff4df;color:#8a5a00}
 
-/* v0.4.17: color-coded Safari-compatible payment picker */
+/* v0.4.18: color-coded Safari-compatible payment picker */
 .pay-picker{position:relative;min-width:0;z-index:6}
 .pay-picker.is-open{z-index:24}
 .pay-source-select{display:none!important}
@@ -146,7 +146,7 @@ main{padding-bottom:126px}
 </style>
 </head>
 <body>
-<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.17</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.18</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -159,7 +159,7 @@ main{padding-bottom:126px}
 </section>
 <section id="money">
  <div class="card money-cycle-card"><div><small>الدورة الحالية</small><b id="moneyCycleLabel">0/5 أيام مثبتة</b></div><span id="nextSundayBadge" class="next-sunday-badge">الأحد القادم</span></div>
- <div class="card"><h2>الحضور والدفع</h2><p class="note">اليومان 1 و2 مثبتان. الأحد القادم هو اليوم الثالث، ولا يُسجل في القائمة إلا بعد اعتماد الحضور الفعلي.</p><div id="ledger" class="ledger"></div><div class="actions"><button class="secondary full" onclick="openCorrection()">تعديل سجل الحضور</button></div></div><div id="correctionCard" class="card" style="display:none"><h2>تعديل سجل الحضور</h2><p class="note">للتصحيح فقط: اختر اللاعب وعدّل حالة أي يوم سابق. تسجيل الأموال يتم من بطاقة «تسجيل دفعة» بشكل مستقل.</p><select id="corrPlayer"></select><div id="corrDays" style="margin-top:10px"></div><div class="actions" style="margin-top:10px"><button class="primary full" onclick="applyCorrection()">حفظ تعديل الحضور</button></div></div>
+ <div class="card"><h2>الحضور والدفع</h2><p class="note" id="moneyStatusNote">جارٍ عرض حالة الدورة الحالية…</p><div id="ledger" class="ledger"></div><div class="actions"><button class="secondary full" onclick="openCorrection()">تعديل سجل الحضور</button></div></div><div id="correctionCard" class="card" style="display:none"><h2>تعديل سجل الحضور</h2><p class="note">للتصحيح فقط: اختر اللاعب وعدّل حالة أي يوم سابق. تسجيل الأموال يتم من بطاقة «تسجيل دفعة» بشكل مستقل.</p><select id="corrPlayer"></select><div id="corrDays" style="margin-top:10px"></div><div class="actions" style="margin-top:10px"><button class="primary full" onclick="applyCorrection()">حفظ تعديل الحضور</button></div></div>
  <div class="card"><h2>تسجيل دفعة</h2><p class="note">استخدم هذه البطاقة فقط عندما تستلم مبلغًا من اللاعب، سواء دفع في أول الدورة أو آخرها.</p><div class="row"><div class="pay-picker" id="payPicker"><select id="payPlayer" class="pay-source-select" tabindex="-1" aria-hidden="true"></select><button type="button" id="payPickerTrigger" class="pay-picker-trigger" aria-haspopup="listbox" aria-expanded="false" onclick="togglePayPicker()"><span id="payPickerName" class="pay-picker-name">اختر اللاعب</span><span class="pay-picker-chevron" aria-hidden="true">⌄</span></button><div id="payPickerMenu" class="pay-picker-menu" role="listbox" aria-label="اختر لاعبًا لتسجيل دفعة" hidden></div></div><input id="payAmount" type="number" min=".5" step=".5" value="5" placeholder="المبلغ المدفوع (ر.ع)"></div><div class="actions"><button class="primary full" onclick="addPayment()">تسجيل الدفعة</button></div><p class="note">تُسدد أقدم المشاركات غير المدفوعة تلقائيًا، ثم يُحفظ المتبقي كرصد دائن. الغياب ⭕ لا يستهلك الرصيد، والرصيد يُرحّل بين الدورات.</p></div>
  <div class="card"><h2>مشاركة قائمة الدفع</h2><p class="note">صورة مستقلة للدورة الحالية؛ الأخضر الفاتح = رصيد دائن، الأحمر الفاتح = مبلغ مستحق.</p><div class="actions"><button class="secondary" onclick="shareLedger()">مشاركة الصورة</button><button class="primary" onclick="saveLedger()">حفظ الصورة</button><button class="secondary full" onclick="shareLedgerText()">نسخ/مشاركة ملخص واتساب النصي</button></div></div><div class="card"><button class="danger" style="width:100%" onclick="newCycle()">بدء دورة جديدة من 5 أيام</button></div>
 </section>
@@ -799,12 +799,18 @@ function normalizeName(s){return String(s||"").trim().replace(/\s+/g," ").replac
 function openPlayerEdit(id){let p=S.players.find(x=>String(x.id)===String(id));if(!p)return;editId.value=p.id;editName.value=p.name;editPos.value=p.pos;editSecond.value=p.second||"";editRating.value=String(p.rating);editExempt.value=p.exempt?"1":"0";editActive.value=p.active?"1":"0";editPlayerPanel.style.display="block";editPlayerPanel.scrollIntoView({behavior:"smooth",block:"nearest"})}
 function savePlayerEdit(){let p=S.players.find(x=>String(x.id)===String(editId.value));if(!p)return;let name=editName.value.trim();if(!name)return alert("اكتب اسم اللاعب.");let duplicate=S.players.some(x=>String(x.id)!==String(p.id)&&normalizeName(x.name)===normalizeName(name));if(duplicate)return alert("يوجد لاعب بهذا الاسم بالفعل.");let wasExempt=p.exempt;p.name=name;p.pos=editPos.value;p.second=editSecond.value;p.rating=Number(editRating.value);p.exempt=editExempt.value==="1";p.active=editActive.value==="1";if(!wasExempt&&p.exempt&&p.balance<0){if(confirm("لدى اللاعب رصيد مستحق سابق. هل تريد إبقاء الدين السابق كما هو؟ اضغط موافق للإبقاء عليه، أو إلغاء لتصفيره عند تفعيل الإعفاء.")){}else p.balance=0}editPlayerPanel.style.display="none";save()}
 function addPlayer(){let name=pName.value.trim();if(!name)return;if(S.players.some(p=>normalizeName(p.name)===normalizeName(name)))return alert("اللاعب موجود بالفعل");S.players.push({id:Date.now(),name,pos:pPos.value,second:pSecond.value,rating:Number(pRating.value),exempt:pExempt.value==="1",active:true,balance:0,joinCycle:S.cycle,joinDay:Math.min(5,S.days.length+1)});pName.value="";save()}
+function paymentLedgerStatus(dayCount){
+ const count=Math.max(0,Math.min(5,Number(dayCount)||0));
+ if(count===5)return "اكتملت الدورة الحالية (5 من 5 تمارين). لبدء تمرين جديد افتح دورة جديدة؛ الأرصدة تُرحّل تلقائيًا.";
+ const ordinals=["الأول","الثاني","الثالث","الرابع","الخامس"];
+ return (count===0?"لم يُعتمد أي تمرين في هذه الدورة بعد. ":"تم اعتماد "+count+" من 5 تمارين. ")+"التمرين القادم هو "+ordinals[count]+"، ولا يُسجّل في قائمة الدفع إلا بعد اعتماد الحضور الفعلي عقب التمرين."
+}
 function render(){
  renderConfirm();renderHistorySetup();renderFormationCandidates();dayNo.textContent=S.days.length+"/5";activeCount.textContent=S.players.filter(p=>p.active).length;todayCount.textContent=S.lastAttendees.length;undoDayBox.style.display=S.days.length>2?"block":"none";
  playersList.innerHTML=S.players.map(p=>'<div class="player"><div class="player-info"><b>'+p.name+'</b><div class="meta">'+p.pos+(p.second?" • "+p.second:"")+' • <span class="stars">'+p.rating+' ★</span>'+(p.active?'':' • متوقف')+'</div></div>'+(p.exempt?'<span class="badge">معفى</span>':'')+'<button class="edit-btn" onclick="openPlayerEdit(\''+p.id+'\')">تعديل</button></div>').join("");
  let previousPayPlayer=payPlayer.value;payPlayer.innerHTML=S.players.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join("");if(S.players.some(p=>String(p.id)===previousPayPlayer))payPlayer.value=previousPayPlayer;renderPayPlayerPicker();
  let nextDay=S.days.length<5?S.days.length+1:null;
- moneyCycleLabel.textContent=S.days.length+"/5 أيام مثبتة";nextSundayBadge.textContent=nextDay?"الأحد القادم: اليوم "+nextDay:"الدورة مكتملة";
+ moneyCycleLabel.textContent=S.days.length+"/5 أيام مثبتة";nextSundayBadge.textContent=nextDay?"الأحد القادم: اليوم "+nextDay:"الدورة مكتملة";moneyStatusNote.textContent=paymentLedgerStatus(S.days.length);
  let head='<table><thead><tr><th>اللاعب</th>'+[1,2,3,4,5].map(i=>'<th class="'+(i===nextDay?'next-day-col':'')+'">'+i+(i===nextDay?'<small>الأحد القادم</small>':'')+'</th>').join("")+'<th>الرصيد</th></tr></thead><tbody>';
  let rows=S.players.filter(p=>p.active).map(p=>{let attendNo=0,cells=[0,1,2,3,4].map(i=>{let day=i+1,d=S.days[i];if(!d){return '<td class="'+(day===nextDay?'next-day-col':'')+'">'+(day===nextDay?'<span class="upcoming-day">⏳</span>':'—')+'</td>'}let e=d.entries&&d.entries[p.id],hasEntry=!!(d.entries&&Object.prototype.hasOwnProperty.call(d.entries,p.id));if(!hasEntry&&p.joinCycle===S.cycle&&day<p.joinDay)return '<td>—</td>';if(!e||!e.present)return '<td>⭕</td>';attendNo++;let keycaps=['','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];let mark=keycaps[attendNo]||String(attendNo);return '<td>'+mark+(e.paid?'✅':'❌')+'</td>'}).join("");let cls=p.balance>0?"credit":p.balance<0?"debt":"neutral",rowcls=p.balance>0?"credit-row":p.balance<0?"debt-row":"";return '<tr class="'+rowcls+'"><td>'+p.name+'</td>'+cells+'<td class="'+cls+'">'+(p.exempt?"معفى":p.balance.toFixed(1))+'</td></tr>'}).join("");ledger.innerHTML=head+rows+'</tbody></table>';
 }
