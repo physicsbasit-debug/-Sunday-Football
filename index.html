@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>ركلة الأحد الترجيحية v0.4.16</title>
+<title>ركلة الأحد الترجيحية v0.4.17</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.4.16 formation spacing + guaranteed 3D fallback */
+/* v0.4.17 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -74,24 +74,24 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 
-/* v0.4.16 real 3D reliability + role-aware formation */
+/* v0.4.17 real 3D reliability + role-aware formation */
 .three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
 .three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
 @keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
 .pitch-player{width:88px}.pname{max-width:86px}
 @media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
 
-/* v0.4.16 refined 3D footballers */
+/* v0.4.17 refined 3D footballers */
 .three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
 
-/* v0.4.16 finishing controls */
+/* v0.4.17 finishing controls */
 .camera-controls{margin:8px 0 10px;padding:9px;background:#f2f5f1;border:1px solid #dbe3dc;border-radius:14px}
 .camera-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.camera-row+.camera-row{margin-top:6px}
 .camera-controls button{padding:9px 5px;background:#fff;border:1px solid #d5ddd6;color:#244b36;border-radius:9px;font-size:10px;min-height:39px}.camera-controls .camera-whatsapp{background:#173f2c;color:#fff;border-color:#173f2c}
 .team-player.swap-selected{background:#fff3bf;border-radius:8px;padding-inline:6px}.team-player .move.swap-ready{background:#173f2c;color:#fff}
 @media(max-width:430px){.camera-controls button{font-size:9px;padding:8px 3px}.camera-row{gap:4px}}
 
-/* v0.4.16 visual polish */
+/* v0.4.17 visual polish */
 .camera-row-wide{grid-template-columns:1fr 1fr}.camera-row-wide button{font-size:10px}
 #formationCard.studio-fullscreen{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;padding:14px 14px calc(22px + env(safe-area-inset-bottom));background:#f4f1e8}
 #formationCard.studio-fullscreen .three-stage{height:calc(100vh - 235px)!important;min-height:520px}
@@ -102,7 +102,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .pitch-shell{border:1px solid #d9dfda}
 @media(max-width:430px){#formationCard.studio-fullscreen{padding-top:calc(8px + env(safe-area-inset-top))}.camera-row-wide button{font-size:9px}}
 
-/* v0.4.16 mobile dock + payment day-3 clarity */
+/* v0.4.17 mobile dock + payment day-3 clarity */
 main{padding-bottom:126px}
 .tabs{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:560px;margin:auto;border:1px solid #d9dfda;border-radius:24px;padding:6px;background:#fffffff2;box-shadow:0 12px 38px #102c2226;backdrop-filter:blur(18px);overflow:hidden}
 .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:58px;border-radius:18px;padding:5px 3px;color:#69756f;transition:transform .18s ease,background .18s ease,color .18s ease}
@@ -122,10 +122,31 @@ main{padding-bottom:126px}
 .candidate-add{padding:8px 10px;border-radius:10px;background:#245c38;color:#fff;font-size:11px;white-space:nowrap}
 .storage-ok{margin:10px 0 2px;padding:9px 11px;border-radius:11px;background:#edf5ef;color:#245c38;font-size:12px;font-weight:800}
 .storage-ok.warn{background:#fff4df;color:#8a5a00}
+
+/* v0.4.17: color-coded Safari-compatible payment picker */
+.pay-picker{position:relative;min-width:0;z-index:6}
+.pay-picker.is-open{z-index:24}
+.pay-source-select{display:none!important}
+.pay-picker-trigger{width:100%;height:100%;min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:7px;text-align:right;background:#fff;color:var(--ink);border:1px solid #ccd1cc;padding:10px 12px;border-radius:12px;font-weight:500}
+.pay-picker-trigger.is-credit{background:#e5f6e9;border-color:#c3dfc9}
+.pay-picker-trigger.is-debt{background:#fde8e7;border-color:#edc4c0}
+.pay-picker-trigger:focus-visible{outline:2px solid #245c38;outline-offset:2px}
+.pay-picker-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pay-picker-chevron{font-size:22px;line-height:1;color:#627169}
+.pay-picker-menu{position:absolute;top:calc(100% + 6px);right:0;width:min(330px,calc(100vw - 58px));max-height:min(52vh,440px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:#fff;border:1px solid #d9dfda;border-radius:16px;box-shadow:0 15px 38px #102c2230;padding:6px;z-index:30}
+.pay-picker-menu[hidden]{display:none!important}
+.pay-picker-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:right;padding:11px 10px;margin:2px 0;border-radius:10px;background:#fff;color:#17211c;border:1px solid transparent;font-size:13px;font-weight:650;min-height:45px}
+.pay-picker-option.is-credit{background:#e5f6e9}
+.pay-picker-option.is-debt{background:#fde8e7}
+.pay-picker-option.is-selected{border-color:#6b9c7b}
+.pay-option-name{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pay-option-balance{white-space:nowrap;direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums;font-size:11px;font-weight:750}
+.pay-picker-option.is-credit .pay-option-balance{color:#16794a}
+.pay-picker-option.is-debt .pay-option-balance{color:#b42318}
 </style>
 </head>
 <body>
-<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.16</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.17</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -139,7 +160,7 @@ main{padding-bottom:126px}
 <section id="money">
  <div class="card money-cycle-card"><div><small>الدورة الحالية</small><b id="moneyCycleLabel">0/5 أيام مثبتة</b></div><span id="nextSundayBadge" class="next-sunday-badge">الأحد القادم</span></div>
  <div class="card"><h2>الحضور والدفع</h2><p class="note">اليومان 1 و2 مثبتان. الأحد القادم هو اليوم الثالث، ولا يُسجل في القائمة إلا بعد اعتماد الحضور الفعلي.</p><div id="ledger" class="ledger"></div><div class="actions"><button class="secondary full" onclick="openCorrection()">تعديل سجل الحضور</button></div></div><div id="correctionCard" class="card" style="display:none"><h2>تعديل سجل الحضور</h2><p class="note">للتصحيح فقط: اختر اللاعب وعدّل حالة أي يوم سابق. تسجيل الأموال يتم من بطاقة «تسجيل دفعة» بشكل مستقل.</p><select id="corrPlayer"></select><div id="corrDays" style="margin-top:10px"></div><div class="actions" style="margin-top:10px"><button class="primary full" onclick="applyCorrection()">حفظ تعديل الحضور</button></div></div>
- <div class="card"><h2>تسجيل دفعة</h2><p class="note">استخدم هذه البطاقة فقط عندما تستلم مبلغًا من اللاعب، سواء دفع في أول الدورة أو آخرها.</p><div class="row"><select id="payPlayer"></select><input id="payAmount" type="number" min=".5" step=".5" value="5" placeholder="المبلغ المدفوع (ر.ع)"></div><div class="actions"><button class="primary full" onclick="addPayment()">تسجيل الدفعة</button></div><p class="note">تُسدد أقدم المشاركات غير المدفوعة تلقائيًا، ثم يُحفظ المتبقي كرصد دائن. الغياب ⭕ لا يستهلك الرصيد، والرصيد يُرحّل بين الدورات.</p></div>
+ <div class="card"><h2>تسجيل دفعة</h2><p class="note">استخدم هذه البطاقة فقط عندما تستلم مبلغًا من اللاعب، سواء دفع في أول الدورة أو آخرها.</p><div class="row"><div class="pay-picker" id="payPicker"><select id="payPlayer" class="pay-source-select" tabindex="-1" aria-hidden="true"></select><button type="button" id="payPickerTrigger" class="pay-picker-trigger" aria-haspopup="listbox" aria-expanded="false" onclick="togglePayPicker()"><span id="payPickerName" class="pay-picker-name">اختر اللاعب</span><span class="pay-picker-chevron" aria-hidden="true">⌄</span></button><div id="payPickerMenu" class="pay-picker-menu" role="listbox" aria-label="اختر لاعبًا لتسجيل دفعة" hidden></div></div><input id="payAmount" type="number" min=".5" step=".5" value="5" placeholder="المبلغ المدفوع (ر.ع)"></div><div class="actions"><button class="primary full" onclick="addPayment()">تسجيل الدفعة</button></div><p class="note">تُسدد أقدم المشاركات غير المدفوعة تلقائيًا، ثم يُحفظ المتبقي كرصد دائن. الغياب ⭕ لا يستهلك الرصيد، والرصيد يُرحّل بين الدورات.</p></div>
  <div class="card"><h2>مشاركة قائمة الدفع</h2><p class="note">صورة مستقلة للدورة الحالية؛ الأخضر الفاتح = رصيد دائن، الأحمر الفاتح = مبلغ مستحق.</p><div class="actions"><button class="secondary" onclick="shareLedger()">مشاركة الصورة</button><button class="primary" onclick="saveLedger()">حفظ الصورة</button><button class="secondary full" onclick="shareLedgerText()">نسخ/مشاركة ملخص واتساب النصي</button></div></div><div class="card"><button class="danger" style="width:100%" onclick="newCycle()">بدء دورة جديدة من 5 أيام</button></div>
 </section>
 <section id="players">
@@ -697,6 +718,54 @@ async function shareLedgerText(){
  if(navigator.share){try{await navigator.share({title:"ركلة الأحد الترجيحية — قائمة الدفع",text:txt});return}catch(e){}}
  try{await navigator.clipboard.writeText(txt);alert("تم نسخ ملخص الدفع. الصقه مباشرة في واتساب.")}catch(e){prompt("انسخ النص التالي:",txt)}
 }
+
+function paymentPlayerTone(p){
+ if(!p||p.exempt)return "neutral";
+ let balance=Number(p.balance)||0;
+ return balance<0?"debt":balance>0?"credit":"neutral"
+}
+function closePayPicker(){
+ let picker=document.getElementById("payPicker"),menu=document.getElementById("payPickerMenu"),trigger=document.getElementById("payPickerTrigger");
+ if(!picker||!menu||!trigger)return;
+ menu.hidden=true;picker.classList.remove("is-open");trigger.setAttribute("aria-expanded","false")
+}
+function togglePayPicker(){
+ let picker=document.getElementById("payPicker"),menu=document.getElementById("payPickerMenu"),trigger=document.getElementById("payPickerTrigger");
+ if(!picker||!menu||!trigger)return;
+ if(!menu.hidden){closePayPicker();return}
+ renderPayPlayerPicker();menu.hidden=false;picker.classList.add("is-open");trigger.setAttribute("aria-expanded","true")
+}
+function selectPayPlayer(id){
+ let select=document.getElementById("payPlayer");
+ if(!select||!S.players.some(p=>String(p.id)===String(id)))return;
+ select.value=String(id);closePayPicker();renderPayPlayerPicker()
+}
+function renderPayPlayerPicker(){
+ let source=document.getElementById("payPlayer"),trigger=document.getElementById("payPickerTrigger"),name=document.getElementById("payPickerName"),menu=document.getElementById("payPickerMenu");
+ if(!source||!trigger||!name||!menu)return;
+ let selected=S.players.find(p=>String(p.id)===source.value);
+ name.textContent=selected?selected.name:"اختر اللاعب";
+ let tone=paymentPlayerTone(selected);
+ trigger.classList.toggle("is-credit",tone==="credit");trigger.classList.toggle("is-debt",tone==="debt");
+ trigger.disabled=!S.players.length;menu.replaceChildren();
+ S.players.forEach(p=>{
+   let item=document.createElement("button");item.type="button";item.className="pay-picker-option";
+   let status=paymentPlayerTone(p);
+   if(status!=="neutral")item.classList.add("is-"+status);
+   if(selected&&String(p.id)===String(selected.id))item.classList.add("is-selected");
+   item.setAttribute("role","option");item.setAttribute("aria-selected",selected&&String(p.id)===String(selected.id)?"true":"false");
+   let title=document.createElement("span");title.className="pay-option-name";title.textContent=p.name;item.appendChild(title);
+   if(status!=="neutral"){
+     let value=document.createElement("span");value.className="pay-option-balance";value.textContent=Number(p.balance).toFixed(1)+" ر.ع";item.appendChild(value)
+   }
+   item.addEventListener("click",()=>selectPayPlayer(p.id));menu.appendChild(item)
+ })
+}
+document.addEventListener("pointerdown",event=>{
+ let picker=document.getElementById("payPicker");
+ if(picker&&!picker.contains(event.target))closePayPicker()
+});
+document.addEventListener("keydown",event=>{if(event.key==="Escape")closePayPicker()});
 function addPayment(){let p=S.players.find(x=>String(x.id)===payPlayer.value),a=Number(payAmount.value);if(!p||!a||a<=0)return;allocatePayment(p,a);S.payments.push({playerId:p.id,amount:a,date:new Date().toISOString(),cycle:S.cycle});save();alert("تم تسجيل الدفعة. سُددت أقدم المشاركات غير المدفوعة أولًا، وحُفظ المتبقي كرصد دائن.")}
 function newCycle(){
  let msg=S.days.length<5?"الدورة الحالية لم تصل إلى 5 أيام بعد. هل تريد إغلاقها مبكرًا وبدء دورة جديدة؟":"إغلاق الدورة الحالية وبدء دورة جديدة؟ ستُرحّل الأرصدة والمستحقات تلقائيًا.";
@@ -733,7 +802,7 @@ function addPlayer(){let name=pName.value.trim();if(!name)return;if(S.players.so
 function render(){
  renderConfirm();renderHistorySetup();renderFormationCandidates();dayNo.textContent=S.days.length+"/5";activeCount.textContent=S.players.filter(p=>p.active).length;todayCount.textContent=S.lastAttendees.length;undoDayBox.style.display=S.days.length>2?"block":"none";
  playersList.innerHTML=S.players.map(p=>'<div class="player"><div class="player-info"><b>'+p.name+'</b><div class="meta">'+p.pos+(p.second?" • "+p.second:"")+' • <span class="stars">'+p.rating+' ★</span>'+(p.active?'':' • متوقف')+'</div></div>'+(p.exempt?'<span class="badge">معفى</span>':'')+'<button class="edit-btn" onclick="openPlayerEdit(\''+p.id+'\')">تعديل</button></div>').join("");
- payPlayer.innerHTML=S.players.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join("");
+ let previousPayPlayer=payPlayer.value;payPlayer.innerHTML=S.players.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join("");if(S.players.some(p=>String(p.id)===previousPayPlayer))payPlayer.value=previousPayPlayer;renderPayPlayerPicker();
  let nextDay=S.days.length<5?S.days.length+1:null;
  moneyCycleLabel.textContent=S.days.length+"/5 أيام مثبتة";nextSundayBadge.textContent=nextDay?"الأحد القادم: اليوم "+nextDay:"الدورة مكتملة";
  let head='<table><thead><tr><th>اللاعب</th>'+[1,2,3,4,5].map(i=>'<th class="'+(i===nextDay?'next-day-col':'')+'">'+i+(i===nextDay?'<small>الأحد القادم</small>':'')+'</th>').join("")+'<th>الرصيد</th></tr></thead><tbody>';
