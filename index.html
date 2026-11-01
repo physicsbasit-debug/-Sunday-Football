@@ -302,7 +302,7 @@ function buildTeams(){
  const backups=ps.filter(p=>p.pos!=="حارس مرمى"&&p.second==="حارس مرمى");
  // Special case: the lone primary keeper is on the red team, while the two
  // rotational backup keepers stay together on yellow for easy substitution.
- const rotationMode=primary.length===1&&backups.length>=2&&ps.length>=4;
+ const rotationMode=primary.length===1&&backups.length>=2&&ps.length>=3;
  let fixedA=[],fixedB=[];
  if(rotationMode){
    let priority=[...backups].sort((a,b)=>{
