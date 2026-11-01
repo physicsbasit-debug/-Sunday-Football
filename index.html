@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>ركلة الأحد الترجيحية v0.4.18</title>
+<title>ركلة الأحد الترجيحية v0.4.19</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.4.18 formation spacing + guaranteed 3D fallback */
+/* v0.4.19 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -74,24 +74,24 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 
-/* v0.4.18 real 3D reliability + role-aware formation */
+/* v0.4.19 real 3D reliability + role-aware formation */
 .three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
 .three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
 @keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
 .pitch-player{width:88px}.pname{max-width:86px}
 @media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
 
-/* v0.4.18 refined 3D footballers */
+/* v0.4.19 refined 3D footballers */
 .three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
 
-/* v0.4.18 finishing controls */
+/* v0.4.19 finishing controls */
 .camera-controls{margin:8px 0 10px;padding:9px;background:#f2f5f1;border:1px solid #dbe3dc;border-radius:14px}
 .camera-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.camera-row+.camera-row{margin-top:6px}
 .camera-controls button{padding:9px 5px;background:#fff;border:1px solid #d5ddd6;color:#244b36;border-radius:9px;font-size:10px;min-height:39px}.camera-controls .camera-whatsapp{background:#173f2c;color:#fff;border-color:#173f2c}
 .team-player.swap-selected{background:#fff3bf;border-radius:8px;padding-inline:6px}.team-player .move.swap-ready{background:#173f2c;color:#fff}
 @media(max-width:430px){.camera-controls button{font-size:9px;padding:8px 3px}.camera-row{gap:4px}}
 
-/* v0.4.18 visual polish */
+/* v0.4.19 visual polish */
 .camera-row-wide{grid-template-columns:1fr 1fr}.camera-row-wide button{font-size:10px}
 #formationCard.studio-fullscreen{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;padding:14px 14px calc(22px + env(safe-area-inset-bottom));background:#f4f1e8}
 #formationCard.studio-fullscreen .three-stage{height:calc(100vh - 235px)!important;min-height:520px}
@@ -102,7 +102,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .pitch-shell{border:1px solid #d9dfda}
 @media(max-width:430px){#formationCard.studio-fullscreen{padding-top:calc(8px + env(safe-area-inset-top))}.camera-row-wide button{font-size:9px}}
 
-/* v0.4.18 mobile dock + payment day-3 clarity */
+/* v0.4.19 mobile dock + payment day-3 clarity */
 main{padding-bottom:126px}
 .tabs{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:560px;margin:auto;border:1px solid #d9dfda;border-radius:24px;padding:6px;background:#fffffff2;box-shadow:0 12px 38px #102c2226;backdrop-filter:blur(18px);overflow:hidden}
 .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:58px;border-radius:18px;padding:5px 3px;color:#69756f;transition:transform .18s ease,background .18s ease,color .18s ease}
@@ -123,7 +123,7 @@ main{padding-bottom:126px}
 .storage-ok{margin:10px 0 2px;padding:9px 11px;border-radius:11px;background:#edf5ef;color:#245c38;font-size:12px;font-weight:800}
 .storage-ok.warn{background:#fff4df;color:#8a5a00}
 
-/* v0.4.18: color-coded Safari-compatible payment picker */
+/* v0.4.19: color-coded Safari-compatible payment picker */
 .pay-picker{position:relative;min-width:0;z-index:6}
 .pay-picker.is-open{z-index:24}
 .pay-source-select{display:none!important}
@@ -146,7 +146,7 @@ main{padding-bottom:126px}
 </style>
 </head>
 <body>
-<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.18</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.19</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
@@ -249,6 +249,16 @@ function historyStateSelect(pid,day){return '<select id="hist_'+pid+'_'+day+'"><
 function renderHistorySetup(){if(S.days.length>0){historySetup.style.display="none";return}historySetup.style.display="block";historyGrid.innerHTML=S.players.filter(p=>p.active).map(p=>'<div style="padding:10px 0;border-bottom:1px solid #eee"><b style="display:block;margin-bottom:7px">'+p.name+'</b><div class="row">'+historyStateSelect(p.id,1)+historyStateSelect(p.id,2)+'</div><div class="meta">اليوم 1 &nbsp;&nbsp;&nbsp;&nbsp; اليوم 2</div><div style="margin-top:8px"><input id="histpay_'+p.id+'" type="number" min="0" step=".5" value="0" placeholder="دفعة/رصيد سابق (ر.ع)"></div></div>').join("")}
 function saveHistorySetup(){if(S.days.length)return alert("تمت تهيئة الدورة بالفعل.");if(!confirm("سيتم تثبيت اليومين 1 و2 والدفعات السابقة كبيانات حقيقية للدورة الحالية. متابعة؟"))return;let d1={date:"سابق - اليوم 1",entries:{}},d2={date:"سابق - اليوم 2",entries:{}};S.players.filter(p=>p.active).forEach(p=>{let prepaid=Number((document.getElementById("histpay_"+p.id)||{}).value||0);if(prepaid>0){p.balance+=prepaid;S.payments.push({playerId:p.id,amount:prepaid,date:new Date().toISOString(),note:"رصيد سابق عند تهيئة الدورة"})}[1,2].forEach(day=>{let v=document.getElementById("hist_"+p.id+"_"+day).value,present=v!=="absent",paid=v==="paid"||p.exempt;if(present&&!p.exempt&&v==="unpaid")p.balance-=1;let target=day===1?d1:d2;target.entries[p.id]={present,paid}})});S.days=[d1,d2];S.lastAttendees=[];save();alert("تم حفظ اليومين السابقين والدفعات. المنظومة الآن جاهزة لليوم الثالث.")}
 function isGK(p){return p.pos==="حارس مرمى"||p.second==="حارس مرمى"}
+function teamGoalkeeper(team){
+ // A secondary keeper is only eligible, not automatically the assigned goalkeeper.
+ return team.find(p=>p.pos==="حارس مرمى")||team.find(p=>p.second==="حارس مرمى")||null
+}
+function isAssignedGoalkeeper(p){
+ return ["A","B"].some(side=>{
+   const keeper=teamGoalkeeper(currentTeams[side]||[]);
+   return keeper&&String(keeper.id)===String(p.id)
+ })
+}
 function roleCount(t,role){return t.filter(p=>p.pos===role||p.second===role).length}
 function teamCost(A,B){
  let ra=A.reduce((s,p)=>s+p.rating,0),rb=B.reduce((s,p)=>s+p.rating,0),cost=Math.abs(ra-rb)*6+Math.abs(A.length-B.length)*20;
@@ -275,9 +285,25 @@ function addPlayerAndRebalance(id){
  swapSelection=null;persistState(true);buildTeams();renderConfirm()
 }
 function buildTeams(){let ps=S.players.filter(p=>S.lastAttendees.includes(p.name));if(ps.length<2){teamsOut.innerHTML='<div class="card">سجّل حضور الأحد أولًا.</div>';teamActions.style.display="none";return}
- ps=[...ps].sort((a,b)=>b.rating-a.rating);let best=null;
- for(let k=0;k<120;k++){let A=[],B=[];[...ps].sort((a,b)=>b.rating-a.rating+(Math.random()-.5)*1.2).forEach(p=>{let ca=teamCost([...A,p],B),cb=teamCost(A,[...B,p]);if(A.length>B.length)B.push(p);else if(B.length>A.length)A.push(p);else (ca<=cb?A:B).push(p)});let cost=teamCost(A,B);if(!best||cost<best.cost)best={A,B,cost}}
- currentTeams={A:best.A,B:best.B};renderTeams();
+ ps=[...ps].sort((a,b)=>b.rating-a.rating);
+ // Reserve an eligible goalkeeper for each team whenever at least two are available.
+ // Primary goalkeepers take priority; secondary goalkeepers fill gaps only.
+ let candidates=ps.filter(isGK).sort((a,b)=>Number(b.pos==="حارس مرمى")-Number(a.pos==="حارس مرمى"));
+ let keeperSeeds=candidates.slice(0,2),seedIds=new Set(keeperSeeds.map(p=>String(p.id))),outfield=ps.filter(p=>!seedIds.has(String(p.id))),best=null;
+ for(let k=0;k<120;k++){
+   let A=[],B=[];
+   if(keeperSeeds[0])((k%2)?B:A).push(keeperSeeds[0]);
+   if(keeperSeeds[1])((k%2)?A:B).push(keeperSeeds[1]);
+   [...outfield].sort((a,b)=>b.rating-a.rating+(Math.random()-.5)*1.2).forEach(p=>{
+     let ca=teamCost([...A,p],B),cb=teamCost(A,[...B,p]);
+     if(A.length>B.length)B.push(p);else if(B.length>A.length)A.push(p);else (ca<=cb?A:B).push(p)
+   });
+   let cost=teamCost(A,B);if(!best||cost<best.cost)best={A,B,cost}
+ }
+ // Reposition only goalkeeper-eligible players; preserve other manual tactical positions.
+ let affected=[...currentTeams.A,...currentTeams.B,...best.A,...best.B].filter(isGK);
+ affected.forEach(p=>delete tacticalLayout[String(p.id)]);
+ currentTeams={A:best.A,B:best.B};renderTeams();persistState(true)
 }
 let swapSelection=null;
 function renderTeams(){let A=currentTeams.A,B=currentTeams.B;if(!A.length&&!B.length)return;let box=(t,key,n,cls)=>{return '<div class="team '+cls+'"><h3>الفريق '+n+'</h3><div class="team-summary"><span>'+t.length+' لاعبين</span><span>'+(t.some(isGK)?'حارس متوفر':'يحتاج حارس')+'</span></div>'+t.map(p=>{let selected=swapSelection&&String(swapSelection.id)===String(p.id),ready=swapSelection&&swapSelection.from!==key;return '<div class="team-player '+(selected?'swap-selected':'')+'"><span>'+p.name+' <small>('+p.pos+')</small></span><button class="move '+(ready?'swap-ready':'')+'" onclick="movePlayer(\''+p.id+'\',\''+key+'\')">'+(selected?'إلغاء':ready?'بدّل':'↔')+'</button></div>'}).join("")+'</div>'};teamsOut.innerHTML=box(A,"A","أ","red")+box(B,"B","ب","yellow");teamActions.style.display="block";renderFormationCandidates();renderPitch()}
@@ -293,7 +319,7 @@ function spreadRow(row,y,out){
  row.forEach((p,j)=>out.push([p,8+84*(j+1)/(row.length+1),y]))
 }
 function formationPoints(t,side){
- let gk=t.find(isGK),field=t.filter(p=>p!==gk),out=[];
+ let gk=teamGoalkeeper(t),field=t.filter(p=>p!==gk),out=[];
  let defenders=field.filter(p=>p.pos==="دفاع"),mids=field.filter(p=>p.pos==="وسط"),attackers=field.filter(p=>p.pos==="مهاجم");
  let used=new Set([...defenders,...mids,...attackers].map(p=>String(p.id))),other=field.filter(p=>!used.has(String(p.id)));
  mids.push(...other);
@@ -333,7 +359,7 @@ function renderFallback3D(){
  let field='<div class="fallback-stadium"><div class="fallback-crowd"></div><div class="fallback-field" id="fallbackField"><div class="fb-half"></div><div class="fb-circle"></div><div class="fb-box fb-top"></div><div class="fb-box fb-bottom"></div>';
  [{t:currentTeams.A,color:"red"},{t:currentTeams.B,color:"yellow"}].forEach(g=>g.t.forEach((p,i)=>{
    let q=tacticalLayout[String(p.id)]||{x:50,y:50};
-   field+='<div class="fb-player" style="left:'+q.x+'%;top:'+q.y+'%"><div class="fb-person '+(isGK(p)?'gk':g.color)+'"><span>'+(i+1)+'</span></div><div class="fb-name">'+p.name+'</div></div>'
+   field+='<div class="fb-player" style="left:'+q.x+'%;top:'+q.y+'%"><div class="fb-person '+(isAssignedGoalkeeper(p)?'gk':g.color)+'"><span>'+(i+1)+'</span></div><div class="fb-name">'+p.name+'</div></div>'
  }));
  field+='</div></div>';
  stage.innerHTML=hud+field
@@ -383,7 +409,7 @@ function renderPitch(){
  let html='<div class="center-circle"></div><div class="team-tag b">الفريق الأصفر</div><div class="team-tag a">الفريق الأحمر</div>';
  [{t:currentTeams.A,side:"A",color:"red"},{t:currentTeams.B,side:"B",color:"yellow"}].forEach(g=>g.t.forEach((p,i)=>{
    let q=tacticalLayout[String(p.id)]||{x:50,y:50},num=i+1;
-   html+='<div class="pitch-player" data-pid="'+p.id+'" onpointerdown="dragTactical(event,\''+p.id+'\')" style="left:'+q.x+'%;top:'+q.y+'%"><div class="kit '+(isGK(p)?'gk':g.color)+'"><span class="kit-no">'+num+'</span></div><div class="pname">'+p.name+'</div></div>'
+   html+='<div class="pitch-player" data-pid="'+p.id+'" onpointerdown="dragTactical(event,\''+p.id+'\')" style="left:'+q.x+'%;top:'+q.y+'%"><div class="kit '+(isAssignedGoalkeeper(p)?'gk':g.color)+'"><span class="kit-no">'+num+'</span></div><div class="pname">'+p.name+'</div></div>'
  }));
  pitch.innerHTML=html;setPitchView(pitch3d)
 }
@@ -435,7 +461,7 @@ function mkMesh(geo,mat,id){let m=new THREE.Mesh(geo,mat);m.castShadow=true;m.us
 function playerMaterial(hex,rough=.62,metal=.02){return new THREE.MeshStandardMaterial({color:hex,roughness:rough,metalness:metal})}
 function partMesh(geo,mat,id){let m=mkMesh(geo,mat,id);m.castShadow=true;m.receiveShadow=false;return m}
 function create3DPlayer(p,color,num){
- let id=p.id,g=new THREE.Group(),gk=isGK(p);
+ let id=p.id,g=new THREE.Group(),gk=isAssignedGoalkeeper(p);
  let skin=playerMaterial(0xc98f68,.72),skinDark=playerMaterial(0xad7655,.78),hair=playerMaterial(0x171513,.86),eye=playerMaterial(0x161616,.7);
  let jersey=playerMaterial(gk?0x202523:color,.46),jerseyDark=playerMaterial(gk?0x111412:(color===0xe3b313?0xb98700:0x8d1812),.56);
  let shorts=playerMaterial(gk?0x171b19:0xf1f2ed,.65),sock=playerMaterial(gk?0x2a2d2b:0xf3f3ef,.67),boot=playerMaterial(0x101211,.5),glove=playerMaterial(0xf4f4ef,.44);
@@ -489,7 +515,7 @@ function create3DPlayer(p,color,num){
 }
 function syncThreePlayers(){
  if(!threeRenderer)return;while(threePlayersRoot.children.length)threePlayersRoot.remove(threePlayersRoot.children[0]);threeHitMeshes=[];threePlayerGroups={};
- [{t:currentTeams.A,color:0xc82f25},{t:currentTeams.B,color:0xe3b313}].forEach(team=>team.t.forEach((p,i)=>{let q=tacticalLayout[String(p.id)]||{x:50,y:50},g=create3DPlayer(p,isGK(p)?0x202321:team.color,i+1);g.position.set((q.x-50)*.22,0,(q.y-50)*.36);g.rotation.y=q.side==="A"?0:Math.PI;threePlayersRoot.add(g);threePlayerGroups[String(p.id)]=g}))
+ [{t:currentTeams.A,color:0xc82f25},{t:currentTeams.B,color:0xe3b313}].forEach(team=>team.t.forEach((p,i)=>{let q=tacticalLayout[String(p.id)]||{x:50,y:50},g=create3DPlayer(p,isAssignedGoalkeeper(p)?0x202321:team.color,i+1);g.position.set((q.x-50)*.22,0,(q.y-50)*.36);g.rotation.y=q.side==="A"?0:Math.PI;threePlayersRoot.add(g);threePlayerGroups[String(p.id)]=g}))
 }
 let threeLabelsVisible=true,threePointers=new Map(),pinchStartDist=0,pinchStartCam=0;
 function updateThreeCamera(){if(!threeCamera)return;let h=camDist*Math.cos(camElev),y=camDist*Math.sin(camElev);threeCamera.position.set(Math.sin(camYaw)*h,y,Math.cos(camYaw)*h);threeCamera.lookAt(0,.55,0)}
@@ -577,9 +603,9 @@ function draw2DPoster(cv){
  x.strokeRect(L+W*.36,T+24,W*.28,H*.065);x.strokeRect(L+W*.36,T+H*.911,W*.28,H*.065);
  [{t:currentTeams.A,color:"#c82f25"},{t:currentTeams.B,color:"#e3b313"}].forEach(g=>g.t.forEach((p,i)=>{
    let q=tacticalLayout[String(p.id)]||{x:50,y:50},px=L+q.x/100*W,py=T+q.y/100*H,num=i+1;
-   x.save();x.shadowColor="#0009";x.shadowBlur=14;x.shadowOffsetY=8;x.fillStyle=isGK(p)?"#202321":g.color;x.beginPath();
+   x.save();x.shadowColor="#0009";x.shadowBlur=14;x.shadowOffsetY=8;x.fillStyle=isAssignedGoalkeeper(p)?"#202321":g.color;x.beginPath();
    x.moveTo(px-42,py-27);x.lineTo(px-20,py-44);x.lineTo(px-8,py-35);x.lineTo(px+8,py-35);x.lineTo(px+20,py-44);x.lineTo(px+42,py-27);x.lineTo(px+31,py-6);x.lineTo(px+22,py-14);x.lineTo(px+27,py+39);x.lineTo(px-27,py+39);x.lineTo(px-22,py-14);x.lineTo(px-31,py-6);x.closePath();x.fill();x.restore();
-   x.fillStyle=(g.color==="#e3b313"&&!isGK(p))?"#161616":"#fff";x.font="900 27px Arial";x.fillText(String(num),px,py+9);
+   x.fillStyle=(g.color==="#e3b313"&&!isAssignedGoalkeeper(p))?"#161616":"#fff";x.font="900 27px Arial";x.fillText(String(num),px,py+9);
    x.font="bold 24px Arial";let tw=Math.min(250,x.measureText(p.name).width+38);x.fillStyle="#06100cef";roundedRect(x,px-tw/2,py+51,tw,44,12);x.fill();x.strokeStyle="#ffffff55";x.lineWidth=1.5;x.stroke();x.fillStyle="#fff";x.fillText(p.name,px,py+81)
  }));
  x.font="bold 25px Arial";x.fillStyle="#c82f25";roundedRect(x,330,h-66,250,48,16);x.fill();x.fillStyle="#fff";x.fillText("الفريق الأحمر",455,h-34);
@@ -600,7 +626,7 @@ function drawPerspectiveCircle(ctx,cx,cy,rx,ry){
  ctx.beginPath();for(let i=0;i<=64;i++){let a=i/64*Math.PI*2,p=perspectivePoint(cx+Math.cos(a)*rx,cy+Math.sin(a)*ry);if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)}ctx.stroke()
 }
 function drawSharePlayer(ctx,p,teamColor,num){
- let q=tacticalLayout[String(p.id)]||{x:50,y:50},pt=perspectivePoint(q.x,q.y),s=.62+pt.t*.52,gk=isGK(p),col=gk?"#202523":teamColor;
+ let q=tacticalLayout[String(p.id)]||{x:50,y:50},pt=perspectivePoint(q.x,q.y),s=.62+pt.t*.52,gk=isAssignedGoalkeeper(p),col=gk?"#202523":teamColor;
  ctx.save();ctx.translate(pt.x,pt.y);
  ctx.fillStyle="rgba(0,0,0,.22)";ctx.beginPath();ctx.ellipse(0,10*s,28*s,9*s,0,0,Math.PI*2);ctx.fill();
  ctx.fillStyle="#c98f68";ctx.beginPath();ctx.arc(0,-58*s,15*s,0,Math.PI*2);ctx.fill();
