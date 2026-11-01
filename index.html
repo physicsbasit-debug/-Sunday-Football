@@ -232,7 +232,7 @@ function persistState(touch=true){
  writeStateIDB(S).then(()=>setStorageStatus(localOK?"الحفظ المزدوج نشط ✓":"الحفظ الدائم نشط ✓")).catch(()=>setStorageStatus(localOK?"الحفظ المحلي نشط، وتعذر فتح طبقة الحفظ الثانية.":"تعذر الحفظ داخل المتصفح.",true));
 }
 function setStorageStatus(msg,warn=false){let el=document.getElementById("storageStatus");if(el){el.textContent=msg;el.classList.toggle("warn",!!warn)}}
-let S=normalizeState(readLocalState())||{players:seed,cycle:1,days:[],payments:[],lastAttendees:[],pendingAttendees:[]}; let currentTeams={A:[],B:[]};
+let S=normalizeState(readLocalState())||{players:seed,cycle:1,days:[],payments:[],paymentCorrections:[],lastAttendees:[],pendingAttendees:[],checkedAttendees:[]}; let currentTeams={A:[],B:[]};
 function ensureSundayDay3Baseline(){
  if(S.day3BaselineFixed_v044)return;
  if(Array.isArray(S.days)&&S.days.length>2){
@@ -1027,6 +1027,7 @@ function savePaymentCorrection(){
  if(!confirm(msg.replaceAll("\\n","\n")))return;
  paymentCorrectionBusy=true;
  try{
+   if(!Array.isArray(S.paymentCorrections))S.paymentCorrections=[];
    const impact=applyPaymentAmountDifference(p,oldAmount,amount);
    const record={id:"corr-"+Date.now()+"-"+(S.paymentCorrections.length+1),paymentId:payment.id,playerId:p.id,cycle:S.cycle,from:oldAmount,to:amount,reason,date:new Date().toISOString(),beforeBalance:impact.oldBalance,afterBalance:impact.newBalance,changedDays:impact.changes};
    if(!Array.isArray(payment.revisions))payment.revisions=[];
