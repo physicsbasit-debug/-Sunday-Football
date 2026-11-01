@@ -150,7 +150,7 @@ main{padding-bottom:126px}
 .keeper-rotation-choice.selected{border-color:#245c38;background:#e5f2e8;box-shadow:inset 0 0 0 1px #245c38}
 .keeper-rotation-choice strong{font-size:13px}.keeper-rotation-choice small{font-size:10px;font-weight:700;opacity:.77}
 .keeper-rotation-card .note{margin:6px 0;line-height:1.7}
-.payment-history-list{display:grid;gap:9px;margin:12px 0}.payment-record{border:1px solid #e0e5df;border-radius:12px;padding:11px;background:#fcfdfb}.payment-record.cancelled{background:#fbf6f5;opacity:.86}.payment-record-main{display:flex;align-items:center;justify-content:space-between;gap:10px}.payment-record-main b{font-size:14px}.payment-record-amount{font-weight:800;color:#245c38;white-space:nowrap}.payment-record.cancelled .payment-record-amount{color:#a24b41;text-decoration:line-through}.payment-record-meta{color:#68736d;font-size:12px;margin-top:5px;line-height:1.6}.payment-record-actions{display:flex;gap:7px;margin-top:9px}.payment-record-actions button{padding:8px 14px;font-size:12px}.payment-edit-card{border:1px solid #9ab99e}.payment-edit-card label{font-weight:700;font-size:13px;color:#173f2c}.payment-edit-preview{padding:10px;border-radius:10px;background:#edf3ee;line-height:1.7;font-size:13px}.payment-history-empty{font-size:13px;color:#68736d;text-align:center;padding:18px}
+.payment-history-list{display:grid;gap:9px;margin:12px 0}.payment-record{border:1px solid #e0e5df;border-radius:12px;padding:11px;background:#fcfdfb}.payment-record.cancelled{background:#fbf6f5;opacity:.86}.payment-record-main{display:flex;align-items:center;justify-content:space-between;gap:10px}.payment-record-main b{font-size:14px}.payment-record-amount{font-weight:800;color:#245c38;white-space:nowrap}.payment-record.cancelled .payment-record-amount{color:#a24b41;text-decoration:line-through}.payment-record-meta{color:#68736d;font-size:12px;margin-top:5px;line-height:1.6}.payment-record-actions{display:flex;gap:7px;margin-top:9px}.payment-record-actions button{padding:8px 14px;font-size:12px}.payment-edit-card{border:1px solid #9ab99e}.payment-edit-card label{font-weight:700;font-size:13px;color:#173f2c}.payment-edit-preview{padding:10px;border-radius:10px;background:#edf3ee;line-height:1.7;font-size:13px}.payment-history-empty{font-size:13px;color:#68736d;text-align:center;padding:18px}.payment-audit{border-top:1px solid #e5e9e5;margin-top:9px;padding-top:7px;font-size:12px}.payment-audit summary{color:#245c38;font-weight:700;cursor:pointer}.payment-audit-entry{border-top:1px dashed #e3e8e3;padding:8px 0;line-height:1.7;white-space:pre-wrap}.payment-audit-entry:first-of-type{margin-top:7px}
 </style>
 </head>
 <body>
@@ -968,6 +968,18 @@ function renderPaymentHistory(){
      (payment.voided?" • ملغاة":"")+(edits?" • "+edits+" تصحيح":"")+
      (protectedHistoricalPayment(payment)?" • قيد تهيئة محفوظ":"");
    row.appendChild(meta);
+   if(edits){
+     const details=document.createElement("details");details.className="payment-audit";
+     const summary=document.createElement("summary");summary.textContent="عرض سجل التصحيحات ("+edits+")";details.appendChild(summary);
+     payment.revisions.forEach(item=>{
+       const entry=document.createElement("div");entry.className="payment-audit-entry";
+       const when=Date.parse(item.date),whenText=Number.isFinite(when)?new Date(when).toLocaleString("ar-OM"):"تاريخ غير متاح";
+       const dayNote=Array.isArray(item.changedDays)&&item.changedDays.length?" • تحديث سداد الأيام: "+item.changedDays.map(d=>d.day).join("، "):"";
+       entry.textContent=whenText+" • "+formatMoney(item.from)+" ← "+formatMoney(item.to)+"\nالسبب: "+(item.reason||"غير مذكور")+dayNote;
+       details.appendChild(entry)
+     });
+     row.appendChild(details)
+   }
    if(canCorrectPayment(payment)){
      let actions=document.createElement("div");actions.className="payment-record-actions";
      let edit=document.createElement("button");edit.type="button";edit.className="secondary";edit.textContent=payment.voided?"استعادة / تعديل":"تعديل الدفعة";
@@ -1042,6 +1054,8 @@ function addPayment(){
  let p=S.players.find(x=>String(x.id)===payPlayer.value),a=Number(payAmount.value);
  if(!p||!Number.isFinite(a)||a<=0)return alert("اختر لاعبًا وأدخل مبلغًا موجبًا صحيحًا.");
  if(a>10000||Math.abs(Math.round(a*2)-a*2)>1e-7)return alert("استخدم مبلغًا بتدرج 0.5 ر.ع.");
+ const recent=[...S.payments].reverse().find(x=>String(x.playerId)===String(p.id)&&Number(x.cycle)===Number(S.cycle)&&!x.voided&&!protectedHistoricalPayment(x));
+ if(recent&&Number(recent.amount)===a&&Date.now()-(Date.parse(recent.date)||0)<1800)return alert("تم تسجيل دفعة مطابقة لهذا اللاعب قبل لحظات. راجع سجل الدفعات قبل التسجيل مرة أخرى.");
  allocatePayment(p,a);
  S.payments.push({id:"pay-"+Date.now()+"-"+S.payments.length,playerId:p.id,amount:a,date:new Date().toISOString(),cycle:S.cycle});
  save();alert("تم تسجيل الدفعة. سُددت أقدم المشاركات غير المدفوعة أولًا، وحُفظ المتبقي كرصد دائن.")
