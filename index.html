@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102c22">
-<title>ركلة الأحد الترجيحية v0.4.21</title>
+<title>ركلة الأحد الترجيحية v0.4.22</title>
 <style>
 :root{--bg:#f4f1e8;--card:#fff;--ink:#17211c;--green:#245c38;--orange:#d64f21;--muted:#68736d;--line:#dedfd9;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -57,7 +57,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .poster-actions button{min-height:46px}
 @media(max-width:430px){.pitch,.three-stage{min-height:620px;height:620px}.pitch-player{width:96px}.pname{max-width:94px;font-size:9px}.formation-head{align-items:center}.live-badge{font-size:7px}.view-btn{font-size:11px;padding:9px 8px}}
 
-/* v0.4.21 formation spacing + guaranteed 3D fallback */
+/* v0.4.22 formation spacing + guaranteed 3D fallback */
 .pitch-player{width:92px}.pname{max-width:90px;font-size:9px;padding:3px 5px}
 .fallback-stadium{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#17231d 0 19%,#35423c 19% 26%,#102018 26% 100%);perspective:900px}
 .fallback-crowd{position:absolute;left:0;right:0;top:0;height:28%;background:repeating-linear-gradient(105deg,#171b19 0 6px,#67716b 6px 8px,#242a27 8px 13px);opacity:.9}
@@ -74,24 +74,24 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .fb-name{display:inline-block;max-width:92px;margin-top:2px;background:#06100cf0;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:3px 5px;font-size:8.5px;font-weight:800;white-space:nowrap;box-shadow:0 4px 10px #0008}
 @media(max-width:430px){.pitch-player{width:86px}.pname{max-width:84px;font-size:8.5px}.fb-player{width:84px}.fb-name{max-width:84px;font-size:8px}}
 
-/* v0.4.21 real 3D reliability + role-aware formation */
+/* v0.4.22 real 3D reliability + role-aware formation */
 .three-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1e4933,#07110c 70%);color:#fff;text-align:center}
 .three-loading .three-ball{font-size:44px;animation:threePulse 1s ease-in-out infinite alternate}.three-loading b{font-size:15px}.three-loading span{font-size:11px;color:#b9c8c0}
 @keyframes threePulse{from{transform:translateY(0) scale(.96);opacity:.7}to{transform:translateY(-7px) scale(1.04);opacity:1}}
 .pitch-player{width:88px}.pname{max-width:86px}
 @media(max-width:430px){.pitch-player{width:82px}.pname{max-width:80px}}
 
-/* v0.4.21 refined 3D footballers */
+/* v0.4.22 refined 3D footballers */
 .three-stage{background:radial-gradient(circle at 50% 18%,#28463a,#07110c 72%)}
 
-/* v0.4.21 finishing controls */
+/* v0.4.22 finishing controls */
 .camera-controls{margin:8px 0 10px;padding:9px;background:#f2f5f1;border:1px solid #dbe3dc;border-radius:14px}
 .camera-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.camera-row+.camera-row{margin-top:6px}
 .camera-controls button{padding:9px 5px;background:#fff;border:1px solid #d5ddd6;color:#244b36;border-radius:9px;font-size:10px;min-height:39px}.camera-controls .camera-whatsapp{background:#173f2c;color:#fff;border-color:#173f2c}
 .team-player.swap-selected{background:#fff3bf;border-radius:8px;padding-inline:6px}.team-player .move.swap-ready{background:#173f2c;color:#fff}
 @media(max-width:430px){.camera-controls button{font-size:9px;padding:8px 3px}.camera-row{gap:4px}}
 
-/* v0.4.21 visual polish */
+/* v0.4.22 visual polish */
 .camera-row-wide{grid-template-columns:1fr 1fr}.camera-row-wide button{font-size:10px}
 #formationCard.studio-fullscreen{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;padding:14px 14px calc(22px + env(safe-area-inset-bottom));background:#f4f1e8}
 #formationCard.studio-fullscreen .three-stage{height:calc(100vh - 235px)!important;min-height:520px}
@@ -102,7 +102,7 @@ button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:70
 .pitch-shell{border:1px solid #d9dfda}
 @media(max-width:430px){#formationCard.studio-fullscreen{padding-top:calc(8px + env(safe-area-inset-top))}.camera-row-wide button{font-size:9px}}
 
-/* v0.4.21 mobile dock + payment day-3 clarity */
+/* v0.4.22 mobile dock + payment day-3 clarity */
 main{padding-bottom:126px}
 .tabs{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:560px;margin:auto;border:1px solid #d9dfda;border-radius:24px;padding:6px;background:#fffffff2;box-shadow:0 12px 38px #102c2226;backdrop-filter:blur(18px);overflow:hidden}
 .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:58px;border-radius:18px;padding:5px 3px;color:#69756f;transition:transform .18s ease,background .18s ease,color .18s ease}
@@ -123,7 +123,7 @@ main{padding-bottom:126px}
 .storage-ok{margin:10px 0 2px;padding:9px 11px;border-radius:11px;background:#edf5ef;color:#245c38;font-size:12px;font-weight:800}
 .storage-ok.warn{background:#fff4df;color:#8a5a00}
 
-/* v0.4.21: color-coded Safari-compatible payment picker */
+/* v0.4.22: color-coded Safari-compatible payment picker */
 .pay-picker{position:relative;min-width:0;z-index:6}
 .pay-picker.is-open{z-index:24}
 .pay-source-select{display:none!important}
@@ -154,10 +154,13 @@ main{padding-bottom:126px}
 </style>
 </head>
 <body>
-<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.21</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
+<header><h1>⚽ ركلة الأحد الترجيحية <small style="font-size:11px;opacity:.7">v0.4.22</small></h1><p>إدارة الحضور، التوازن، والدفع من الهاتف</p></header>
 <main>
 <section id="home" class="active">
  <div class="card"><h2>الدورة الحالية</h2><div class="stats"><div class="stat"><b id="dayNo">0/5</b><small>أيام مسجلة</small></div><div class="stat"><b id="activeCount">0</b><small>لاعب</small></div><div class="stat"><b id="todayCount">0</b><small>آخر حضور</small></div></div><div id="undoDayBox" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid #eee"><p class="note" style="margin:0 0 8px">إذا اعتمدت الحضور أثناء التجربة بالخطأ، يمكنك حذف آخر اعتماد وإرجاع الرسوم المرتبطة به.</p><button class="danger" style="width:100%" onclick="undoLastConfirmedDay()">↩ التراجع عن آخر اعتماد</button></div></div><div id="historySetup" class="card"><h2>تهيئة اليومين السابقين</h2><p class="note">استخدمها مرة واحدة فقط لبدء المنظومة من اليوم الثالث. حدّد حالة الحضور لليومين السابقين، وأدخل أي مبلغ دفعه اللاعب مسبقًا بشكل مستقل عن الحضور.</p><div id="historyGrid"></div><div class="actions"><button class="primary full" onclick="saveHistorySetup()">حفظ اليومين 1 و2 وبدء اليوم الثالث</button></div></div>
+ <div class="card"><h2>تسجيل الحضور من واتساب</h2><p class="note">لم تعد بحاجة إلى نسخ قوائم الأسماء. افتح التسجيل من لوحة الإدارة، ثم شارك رابط التسجيل في المجموعة. كل لاعب يسجل مشاركته أو اعتذاره برمزه الخاص، وبعدها استورد الموافقين إلى التشكيلة من لوحة الإدارة.</p>
+ <div class="actions"><button class="primary" type="button" onclick="openRegistrationAdmin()">إدارة التسجيل السحابي</button><button class="secondary" type="button" onclick="copyRegistrationLink()">نسخ رابط تسجيل اللاعبين</button></div>
+ <p class="note">التسجيل هنا مبدئي فقط. لا يُحسب حضور فعلي أو رسوم إلا بعد اعتماد الحضور عقب التمرين.</p></div>
  <div class="card"><h2>حضور الأحد</h2><textarea id="attendanceInput" placeholder="الصق أسماء الحاضرين هنا، كل اسم في سطر&#10;مثال:&#10;محمود اليحيائي&#10;أحمد الوهيبي"></textarea><div id="unknown" class="unknown"></div><div class="actions"><button class="secondary" onclick="previewAttendance()">فحص الأسماء</button><button class="primary" onclick="prepareSunday()">تجهيز التشكيلة</button></div><p class="note"><b>قبل التمرين:</b> استخدم «تجهيز التشكيلة» مرة واحدة لإعداد التشكيلة ونشرها. <b>بعد انتهاء التمرين</b> راجع من حضر فعليًا، ثم اعتمد الحضور النهائي حتى يُسجَّل اليوم وتُحسب الرسوم.</p></div><div id="confirmCard" class="card" style="display:none"><h2>تحديث المشاركين واعتماد الحضور</h2><p class="note"><b>قبل التمرين:</b> عدّل علامات الصح إن تغيّرت قائمة المشاركين واضغط «تحديث التشكيلة». <b>بعد انتهاء التمرين فقط:</b> راجع من حضر فعليًا، وأزل علامة من لم يحضر نهائيًا، ثم اعتمد الحضور لتحسب الرسوم.</p><div id="confirmList"></div><div class="actions"><button class="secondary" onclick="rebuildConfirmed()">تحديث التشكيلة</button><button class="primary" onclick="confirmSunday()">اعتماد الحضور الفعلي بعد التمرين</button></div></div>
 </section>
 <section id="teams">
@@ -256,6 +259,12 @@ function save(){persistState(true);render()}
 function cleanAttendanceName(s){return String(s||"").trim().replace(/^\s*[\d٠-٩۰-۹]+\s*[-–—.)،:]\s*/,"").trim()}
 function namesFromInput(){return attendanceInput.value.split(/[\n،,]+/).map(cleanAttendanceName).filter(Boolean)}
 function playerByInputName(n){let key=normalizeName(cleanAttendanceName(n));return S.players.find(p=>normalizeName(p.name)===key)}
+function openRegistrationAdmin(){window.location.href="./registration-admin.html"}
+async function copyRegistrationLink(){
+ const url="https://physicsbasit-debug.github.io/-Sunday-Football/register.html";
+ try{await navigator.clipboard.writeText(url);alert("تم نسخ رابط تسجيل اللاعبين. افتح التسجيل أولًا من لوحة الإدارة ثم أرسله في مجموعة واتساب.")}
+ catch(e){prompt("انسخ رابط التسجيل:",url)}
+}
 function showTab(id,b){document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}
 function previewAttendance(){let list=namesFromInput(),u=list.filter(n=>!playerByInputName(n));unknown.textContent=u.length?"غير مسجل: "+u.join("، "):"جميع الأسماء مسجلة ✓"}
 function prepareSunday(){if(S.days.length>=5)return alert("اكتملت الدورة. ابدأ دورة جديدة أولًا.");let list=namesFromInput();if(!list.length)return alert("ألصق أسماء المسجلين أولًا.");let u=list.filter(n=>!playerByInputName(n));if(u.length)return alert("يوجد أسماء غير مسجلة: "+u.join("، "));let a=list.map(n=>playerByInputName(n).name);S.pendingAttendees=[...new Set(a)];S.checkedAttendees=[...S.pendingAttendees];S.lastAttendees=[...S.pendingAttendees];save();buildTeams()}
@@ -1124,7 +1133,10 @@ async function bootstrapPersistentState(){
  let localOK=persistLocalSnapshot();
  try{await writeStateIDB(S);setStorageStatus(usedDurable?"تم استعادة أحدث نسخة من الحفظ الدائم ✓":(localOK?"الحفظ المزدوج نشط ✓":"الحفظ الدائم نشط ✓"))}
  catch(e){setStorageStatus(localOK?"الحفظ المحلي نشط، وتعذر فتح طبقة الحفظ الثانية.":"تعذر الحفظ داخل المتصفح.",true)}
- render()
+ render();
+ // Rebuild the provisional teams after reopening this browser, including a
+ // cloud-imported registration roster. This never confirms attendance or charges fees.
+ if(Array.isArray(S.lastAttendees)&&S.lastAttendees.length>=2)buildTeams()
 }
 bootstrapPersistentState();
 </script></body></html>
