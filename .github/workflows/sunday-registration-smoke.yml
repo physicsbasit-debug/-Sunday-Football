@@ -1,0 +1,28 @@
+name: Sunday Registration Smoke
+on:
+  push:
+    paths:
+      - '.github/workflows/sunday-registration-smoke.yml'
+      - 'register.html'
+      - 'registration-admin.html'
+      - 'supabase/functions/sunday-registration/index.ts'
+  workflow_dispatch:
+jobs:
+  public-api-and-security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Public status returns valid JSON without credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          CODE="$(curl --connect-timeout 15 --max-time 40 -sSL -o /tmp/registration-status.json -w '%{http_code}' -X POST 'https://cnkxukuisitdfzhcssbt.supabase.co/functions/v1/sunday-registration' -H 'Origin: https://physicsbasit-debug.github.io' -H 'Content-Type: application/json' --data '{"action":"status"}')"
+          test "$CODE" = "200"
+          python3 -c 'import json; d=json.load(open("/tmp/registration-status.json")); assert d.get("ok") is True and isinstance(d.get("players"),list) and isinstance(d.get("attendingCount"),int)'
+      - name: Unauthorized admin request is rejected
+        shell: bash
+        run: |
+          set -euo pipefail
+          CODE="$(curl --connect-timeout 15 --max-time 40 -sSL -o /tmp/registration-auth.json -w '%{http_code}' -X POST 'https://cnkxukuisitdfzhcssbt.supabase.co/functions/v1/sunday-registration' -H 'Origin: https://physicsbasit-debug.github.io' -H 'Content-Type: application/json' --data '{"action":"admin_overview"}')"
+          test "$CODE" = "401"
+          python3 -c 'import json; d=json.load(open("/tmp/registration-auth.json")); assert "error" in d'
