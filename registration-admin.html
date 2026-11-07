@@ -1,0 +1,178 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#194a31">
+<title>إدارة تسجيل الأحد | ركلة الأحد الترجيحية</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;color:#17241b;background:#f2f1e9}*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(135deg,#143d29,#285f3a);color:white;padding:30px 17px}header h1{font-size:24px;margin:0 0 6px}header p{margin:0;font-size:13px;opacity:.85}main{max-width:650px;margin:18px auto 45px;padding:0 14px}.card{border:1px solid #dce5dc;background:#fff;border-radius:19px;padding:18px;margin-bottom:14px;box-shadow:0 4px 15px #11351b09}h2{font-size:18px;margin:0 0 9px}.note{color:#627266;font-size:13px;line-height:1.8;margin:9px 0}.warning{background:#fff2e8;border:1px solid #f0ceb4;color:#824923;padding:11px;border-radius:10px;font-size:13px;line-height:1.8;margin-top:10px}.success{background:#e7f6e9;border:1px solid #c5e2c9;color:#17512c;padding:11px;border-radius:10px;font-size:13px;line-height:1.8;margin-top:10px}label{display:block;font-size:13px;font-weight:700;margin:12px 0 5px}input,select{border:1px solid #cbd7ce;border-radius:12px;padding:12px;min-width:0;width:100%;font:inherit;background:white;color:#18271d}button{border:0;border-radius:12px;padding:12px 13px;background:#27613a;color:white;font:inherit;font-weight:800;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.secondary{background:#e8eee9;color:#205838}.danger{background:#fbeae7;color:#9c3325}.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.actions button.full{grid-column:1/-1}.row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}.pill{background:#e9f5ec;color:#205b36;padding:7px 12px;border-radius:100px;font-size:12px;font-weight:800}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.muted{color:#6d766f}.result{font-size:13px;line-height:1.7;white-space:pre-wrap}.list{display:grid;gap:8px;margin:12px 0}.item{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #e3e8e3;padding:10px;border-radius:10px;background:#fcfdfb;font-size:13px}.item small{font-size:11px;color:#627266}.item button{font-size:11px;padding:7px 8px}.code{font-family:ui-monospace,Menlo,monospace;direction:ltr;font-weight:900;font-size:17px;letter-spacing:1px}.link{word-break:break-word;font-size:12px;direction:ltr;text-align:left;background:#f0f5f1;padding:10px;border-radius:10px}#adminPanel[hidden],#codesCard[hidden]{display:none}.links{margin-top:12px}.links a{color:#245f3a;font-weight:700}.foot{margin:22px 0;font-size:12px;color:#6f7a72;text-align:center}
+</style></head><body>
+<header><h1>⚙️ إدارة تسجيل ركلة الأحد</h1><p>قائمة المشاركين المتوقعة فقط، دون تعديل الحضور الفعلي أو الأرصدة</p></header>
+<main>
+<section class="card"><h2>التحقق الإداري</h2><p class="note">أدخل مفتاح الإدارة الخاص مرة واحدة في هذه الزيارة. لا تحفظه صفحة الإدارة على الهاتف أو في رابط المشاركة.</p>
+<label for="adminSecret">مفتاح الإدارة</label><input id="adminSecret" type="password" autocomplete="off" spellcheck="false" placeholder="المفتاح الإداري الخاص">
+<button id="login" type="button" style="width:100%;margin-top:10px">فتح لوحة الإدارة</button><div id="authMessage" class="result"></div></section>
+<div id="adminPanel" hidden>
+<section class="card"><div class="row"><h2 style="margin:0">البيانات الموجودة على هذا الهاتف</h2><span id="sourceStatus" class="pill">جارٍ الفحص…</span></div>
+<p class="note" id="localSummary"></p><div id="sourceWarning" class="warning" style="display:none"></div>
+<div class="actions"><button class="secondary full" id="refreshLocal" type="button">فحص بيانات الهاتف مجددًا</button></div>
+<p class="note">**مهم:** افتح الإدارة من الهاتف الأصلي الذي يحتوي الدورة واللاعبين الحقيقيين. لن تُرسل الأرصدة أو التقييمات إلى السحابة.</p></section>
+<section class="card"><h2>1. تجهيز اللاعبين ورموزهم</h2><p class="note">ارفع أسماء اللاعبين من هذا الهاتف. يُنشأ رمز خاص مكوّن من 8 أرقام لكل لاعب جديد فقط. أعطِ كل لاعب رمزه على الخاص، ولا تنشر الرموز في المجموعة.</p>
+<div class="actions"><button class="full" id="syncRoster">رفع أسماء اللاعبين</button></div>
+<div id="rosterResult" class="result"></div><div id="rosterList" class="list"></div></section>
+<section class="card" id="codesCard" hidden><h2>رموز اللاعبين الجديدة</h2><div id="newCodes" class="list"></div><div class="actions"><button class="full secondary" id="copyCodes">نسخ الأسماء والرموز</button></div><p class="warning">انسخ هذه الرموز الآن ووزعها بشكل خاص. لن تُعرض الرموز القديمة مرة أخرى، ويمكن تجديد رمز أي لاعب من قائمته.</p></section>
+<section class="card"><h2>2. فتح التسجيل لتمرين الأحد</h2><div class="two"><div><label for="cycle">رقم الدورة</label><input id="cycle" type="number" min="1" step="1"></div><div><label for="day">رقم التمرين</label><select id="day"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div></div>
+<div class="actions"><button id="openEvent">فتح التسجيل</button><button id="closeEvent" class="danger">إغلاق التسجيل</button></div>
+<div id="eventStatus" class="result" style="margin-top:12px"></div><p class="note">إذا فتحت التمرين نفسه مجددًا تبقى الردود السابقة محفوظة. لا تُسجَّل أي رسوم عند فتح أو إغلاق التسجيل.</p>
+<div class="links"><div class="link" id="shareUrl">https://physicsbasit-debug.github.io/-Sunday-Football/register.html</div><div class="actions"><button class="secondary full" id="copyLink">نسخ رابط التسجيل للمجموعة</button></div></div></section>
+<section class="card"><h2>3. متابعة الردود وتحويلها للتشكيلة</h2><p class="note">استعرض من اختار الحضور ومن اعتذر، ثم استورد الموافقين إلى قائمة التجهيز على هاتفك الأصلي. هذا ليس اعتماد حضور فعلي.</p>
+<div class="actions"><button id="refreshReplies" class="secondary full">تحديث قائمة المسجلين</button></div>
+<p id="replySummary" class="note"></p><div id="responseList" class="list"></div>
+<div class="actions"><button id="importReplies" class="full">إدراج الموافقين في التشكيلة المحلية</button></div>
+<div id="importResult" class="result"></div><p class="warning">أغلق أي تبويب قديم للمنظومة قبل الاستيراد. بعد الاستيراد، افتح المنظومة مجددًا من الزر أدناه، ثم راجع الفريقين قبل مشاركة التشكيلة.</p>
+<div class="actions"><button class="secondary full" id="openApp">فتح المنظومة بعد الاستيراد</button></div></section>
+</div><p class="foot">التسجيل السحابي مستقل عن الحسابات المحلية. احتفظ بالنسخ الاحتياطية الأصلية.</p>
+</main><script>
+"use strict";
+const API="https://cnkxukuisitdfzhcssbt.supabase.co/functions/v1/sunday-registration";
+const PUBLIC_URL="https://physicsbasit-debug.github.io/-Sunday-Football/register.html";
+const STATE_KEY="sf_v1",DB_NAME="raklat_al_ahad_state",DB_STORE="app_state";
+const $=id=>document.getElementById(id);
+let secret="",snapshot=null,overview=null,codes=[];
+function message(id,text,good=true){let e=$(id);e.textContent=text;e.className=good?"success":"warning"}
+async function call(action,body={},withAdmin=true){
+ const h={"Content-Type":"application/json"};if(withAdmin)h["x-sunday-admin"]=secret;
+ const r=await fetch(API,{method:"POST",headers:h,body:JSON.stringify({action,...body}),cache:"no-store"});
+ let data;try{data=await r.json()}catch(e){throw Error("تعذر الاتصال بخادم التسجيل.")};
+ if(!r.ok||data.error)throw Error(data.error||"فشل الاتصال بالخدمة.");
+ return data
+}
+function validState(x){return !!(x&&Array.isArray(x.players)&&Array.isArray(x.days)&&Array.isArray(x.payments))}
+function readDB(){
+ return new Promise((resolve,reject)=>{if(!("indexedDB" in window))return resolve(null);
+  const open=indexedDB.open(DB_NAME,1);
+  open.onupgradeneeded=()=>{if(!open.result.objectStoreNames.contains(DB_STORE))open.result.createObjectStore(DB_STORE)};
+  open.onerror=()=>reject(open.error);
+  open.onsuccess=()=>{const db=open.result;const tx=db.transaction(DB_STORE,"readonly");const q=tx.objectStore(DB_STORE).get(STATE_KEY);q.onsuccess=()=>{db.close();resolve(q.result||null)};q.onerror=()=>{db.close();reject(q.error)}}})
+}
+function writeDB(data){
+ return new Promise((resolve,reject)=>{const open=indexedDB.open(DB_NAME,1);
+  open.onupgradeneeded=()=>{if(!open.result.objectStoreNames.contains(DB_STORE))open.result.createObjectStore(DB_STORE)};
+  open.onerror=()=>reject(open.error);
+  open.onsuccess=()=>{const db=open.result,tx=db.transaction(DB_STORE,"readwrite");tx.objectStore(DB_STORE).put(data,STATE_KEY);tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>{db.close();reject(tx.error)};tx.onabort=()=>{db.close();reject(tx.error)}}})
+}
+async function localState(){
+ let local=null,durable=null;
+ try{local=JSON.parse(localStorage.getItem(STATE_KEY)||"null")}catch(e){}
+ try{durable=await readDB()}catch(e){}
+ if(validState(durable)&&(!validState(local)||Number(durable._savedAt||0)>Number(local._savedAt||0)))return durable;
+ return validState(local)?local:validState(durable)?durable:null
+}
+let sourceSafe=false;
+async function refreshLocal(){
+ snapshot=await localState();
+ const s=snapshot;
+ sourceSafe=!!s&&!((s.players.length===13)&&(s.days.length===0)&&(s.payments.length===0));
+ $("sourceWarning").style.display="none";
+ if(!s){$("sourceStatus").textContent="لا توجد بيانات";$("localSummary").textContent="لم أجد قائمة اللاعبين على هذا الهاتف.";sourceSafe=false}
+ else{
+  $("sourceStatus").textContent=s.days.length+"/5 تمارين";
+  $("localSummary").textContent="الدورة "+s.cycle+" • "+s.players.length+" لاعبًا • "+s.days.length+"/5 أيام معتمدة. التمرين القادم: "+(s.days.length<5?s.days.length+1:"الدورة مكتملة");
+  if(!sourceSafe){$("sourceWarning").style.display="block";$("sourceWarning").textContent="هذه تبدو نسخة أولية فارغة من المنظومة. افتح هذا الرابط من الهاتف الأصلي الذي يحتوي اللاعبين والحضور الصحيح، حتى لا تُرفع بيانات خاطئة."}
+  if(s.days.length>=5){$("sourceWarning").style.display="block";$("sourceWarning").textContent="الدورة الحالية مكتملة. ابدأ دورة جديدة من المنظومة قبل فتح تسجيل تمرين جديد."}
+  $("cycle").value=s.cycle||1;$("day").value=Math.min(5,s.days.length+1)
+ }
+ $("syncRoster").disabled=!sourceSafe;$("importReplies").disabled=!sourceSafe;
+}
+function row(name,detail,buttonText,handler){
+ let r=document.createElement("div");r.className="item";
+ let col=document.createElement("div");let strong=document.createElement("strong");strong.textContent=name;col.appendChild(strong);
+ if(detail){let small=document.createElement("small");small.style.display="block";small.textContent=detail;col.appendChild(small)}
+ r.appendChild(col);if(buttonText){let b=document.createElement("button");b.type="button";b.className="secondary";b.textContent=buttonText;b.addEventListener("click",handler);r.appendChild(b)}
+ return r
+}
+async function refreshOverview(){
+ overview=await call("admin_overview");
+ const event=overview.event;
+ $("eventStatus").textContent=event?"الدورة "+event.cycle+" • التمرين "+event.day_num+" • التسجيل "+(event.is_open?"مفتوح":"مغلق"):"لم يُفتح التسجيل بعد.";
+ let roster=$("rosterList");roster.replaceChildren();
+ overview.players.forEach(p=>roster.appendChild(row(p.name,p.active?"مسجل":"غير نشط","تجديد الرمز",async()=>{
+  if(!confirm("سيُلغى رمز اللاعب القديم وينشأ رمز جديد لـ "+p.name+". متابعة؟"))return;
+  try{const j=await call("rotate_pin",{playerId:p.player_id});codes=[{id:p.player_id,name:j.player,pin:j.pin}];showCodes();message("rosterResult","تم تجديد رمز "+p.name+". انسخه وأرسله إليه على الخاص.")}catch(e){message("rosterResult",e.message,false)}
+ })));
+ let replies=$("responseList");replies.replaceChildren();
+ const byId=new Map(overview.responses.map(x=>[String(x.player_id),x]));
+ overview.players.filter(p=>p.active).forEach(p=>{
+  const r=byId.get(String(p.player_id));
+  replies.appendChild(row(p.name,r?(r.attending?"سيحضر ✓":"اعتذر ✕"):"لم يرد بعد"))
+ });
+ const positive=overview.responses.filter(x=>x.attending).length;
+ const negative=overview.responses.filter(x=>!x.attending).length;
+ $("replySummary").textContent="المشاركون: "+positive+" • الاعتذارات: "+negative+" • لم يرد: "+Math.max(0,overview.players.filter(p=>p.active).length-overview.responses.length);
+}
+function showCodes(){
+ const e=$("newCodes");e.replaceChildren();
+ for(const p of codes)e.appendChild(row(p.name,"رمز جديد، للنسخ والإرسال على الخاص: "+p.pin));
+ $("codesCard").hidden=!codes.length
+}
+$("login").addEventListener("click",async()=>{
+ const entered=$("adminSecret").value.trim();
+ if(!entered)return message("authMessage","أدخل المفتاح الإداري.",false);
+ $("login").disabled=true;
+ try{secret=entered;await refreshOverview();$("adminSecret").value="";$("adminPanel").hidden=false;message("authMessage","تم فتح لوحة الإدارة بنجاح.");await refreshLocal()}
+ catch(e){secret="";message("authMessage",e.message,false)}
+ finally{$("login").disabled=false}
+});
+$("refreshLocal").addEventListener("click",()=>refreshLocal().catch(e=>message("rosterResult",e.message,false)));
+$("syncRoster").addEventListener("click",async()=>{
+ await refreshLocal();
+ if(!sourceSafe||!snapshot)return;
+ if(!confirm("رفع أسماء "+snapshot.players.length+" لاعبًا فقط إلى السحابة، دون النجوم أو الأرصدة أو المدفوعات. متابعة؟"))return;
+ $("syncRoster").disabled=true;
+ try{const roster=snapshot.players.map(p=>({id:String(p.id),name:p.name,active:p.active!==false}));
+ const j=await call("sync_roster",{roster});codes=j.codes;showCodes();message("rosterResult","تم رفع "+j.total+" لاعبًا. الرموز الجديدة: "+j.newPlayers+". أرسل كل رمز لصاحبه على الخاص.");await refreshOverview()}
+ catch(e){message("rosterResult",e.message,false)}
+ finally{$("syncRoster").disabled=false}
+});
+$("copyCodes").addEventListener("click",async()=>{
+ const text=codes.map(p=>p.name+" : "+p.pin).join("\n");
+ try{await navigator.clipboard.writeText(text);alert("نُسخت الرموز. أرسل كل رمز للاعبه على الخاص.")}catch(e){prompt("انسخ الرموز:",text)}
+});
+$("openEvent").addEventListener("click",async()=>{
+ const cycle=Number($("cycle").value),day=Number($("day").value);
+ if(!Number.isInteger(cycle)||!Number.isInteger(day)||day<1||day>5)return alert("تحقق من رقم الدورة والتمرين.");
+ if(snapshot&&sourceSafe&&(cycle!==Number(snapshot.cycle)||day!==snapshot.days.length+1))return alert("رقم الدورة أو التمرين لا يطابق بيانات الهاتف. راجع القيم أولًا.");
+ if(!confirm("فتح التسجيل للدورة "+cycle+"، التمرين "+day+"؟ سيُغلق أي تسجيل مفتوح لتمرين آخر."))return;
+ try{await call("open_event",{cycle,day});await refreshOverview();alert("تم فتح التسجيل. انسخ الرابط وأرسله في مجموعة واتساب.")}catch(e){alert(e.message)}
+});
+$("closeEvent").addEventListener("click",async()=>{
+ if(!confirm("إغلاق التسجيل؟ ستبقى الردود محفوظة."))return;
+ try{await call("close_event");await refreshOverview()}catch(e){alert(e.message)}
+});
+$("refreshReplies").addEventListener("click",()=>refreshOverview().catch(e=>message("importResult",e.message,false)));
+$("copyLink").addEventListener("click",async()=>{
+ try{await navigator.clipboard.writeText(PUBLIC_URL);alert("نُسخ رابط التسجيل للمجموعة.")}catch(e){prompt("انسخ رابط التسجيل:",PUBLIC_URL)}
+});
+$("importReplies").addEventListener("click",async()=>{
+ try{
+  await refreshLocal();if(!sourceSafe||!snapshot)throw Error("بيانات هذا الهاتف غير جاهزة للاستيراد.");
+  await refreshOverview();const e=overview.event;
+  if(!e)throw Error("لم يُفتح تسجيل أي تمرين بعد.");
+  if(Number(e.cycle)!==Number(snapshot.cycle)||Number(e.day_num)!==snapshot.days.length+1)throw Error("التمرين السحابي لا يطابق الدورة واليوم التالي على هذا الهاتف. لن أغيّر بياناتك.");
+  if(snapshot.days.length>=5)throw Error("الدورة مكتملة؛ لا يمكن استيراد تمرين جديد.");
+  const wanted=new Set(overview.responses.filter(x=>x.attending).map(x=>String(x.player_id)));
+  if(wanted.size<2)throw Error("يلزم وجود لاعبين اثنين على الأقل مسجلين للحضور.");
+  const active=snapshot.players.filter(p=>p.active!==false);
+  const byId=new Map(active.map(p=>[String(p.id),p]));
+  const missing=[...wanted].filter(id=>!byId.has(id));
+  if(missing.length)throw Error("هناك مسجلون لا يوجدون في بيانات هذا الهاتف. افتح المنظومة على الهاتف الأصلي وأعد التحقق.");
+  const names=[...wanted].map(id=>byId.get(id).name);
+  if(!confirm("هل تريد استيراد "+names.length+" مشاركًا متوقعًا إلى المنظومة؟\nسيتم استبدال قائمة التجهيز الحالية فقط، دون تسجيل حضور أو رسوم.\n\nأغلق تبويبات المنظومة القديمة قبل المتابعة."))return;
+  const mostRecent=await localState();
+  if(!validState(mostRecent)||Number(mostRecent._savedAt||0)!==Number(snapshot._savedAt||0))throw Error("تغيرت البيانات المحلية أثناء الاستيراد. أعد المحاولة.");
+  const copy=JSON.parse(JSON.stringify(mostRecent));
+  try{localStorage.setItem("sf_reg_previous_attendance_v1",JSON.stringify({pendingAttendees:copy.pendingAttendees,lastAttendees:copy.lastAttendees,checkedAttendees:copy.checkedAttendees,savedAt:Date.now()}))}catch(err){}
+  copy.pendingAttendees=[...names];copy.checkedAttendees=[...names];copy.lastAttendees=[...names];copy._savedAt=Date.now()+1;
+  await writeDB(copy);localStorage.setItem(STATE_KEY,JSON.stringify(copy));snapshot=copy;
+  message("importResult","تم استيراد "+names.length+" لاعبًا للتجهيز بنجاح. لم يُعتمد حضور فعلي ولم تتغير الأرصدة. افتح المنظومة من جديد ثم راجع التشكيلة.");
+ }catch(err){message("importResult",err.message,false)}
+});
+$("openApp").addEventListener("click",()=>{location.href="./v0422.html"});
+$("shareUrl").textContent=PUBLIC_URL;
+</script></body></html>
