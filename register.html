@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#194a31"><title>تسجيل حضور الأحد | ركلة الأحد الترجيحية</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;color:#18241d;background:#f3f0e7}*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(135deg,#173f2c,#245f3a);color:#fff;padding:34px 18px 30px;text-align:center}header h1{font-size:25px;margin:0 0 5px}header p{margin:0;opacity:.84;font-size:14px}main{max-width:560px;margin:24px auto 45px;padding:0 15px}.card{background:#fff;border:1px solid #dfe6df;border-radius:20px;padding:22px 19px;margin-bottom:14px;box-shadow:0 6px 22px #16321e0b}h2{font-size:20px;margin:0 0 14px}.note{font-size:13px;color:#667268;line-height:1.85;margin:9px 0}label{font-size:14px;font-weight:700;display:block;margin:16px 0 7px}select,input{width:100%;min-height:49px;border:1px solid #c9d4cc;border-radius:12px;padding:11px;font-size:16px;color:#18241d;background:white}input:focus,select:focus{outline:2px solid #75b88c}button{border:0;background:#245f3a;border-radius:12px;color:white;padding:15px;font-size:16px;font-weight:800;width:100%;cursor:pointer;margin-top:14px}button:disabled{opacity:.5;cursor:not-allowed}.choices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.choices label{margin:0;border:1px solid #d5ddd6;border-radius:12px;padding:12px 6px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;min-height:65px}.choices label:has(input:checked){background:#e5f3e9;border:2px solid #245f3a}.choices input{width:auto;min-height:0}.tag{border-radius:99px;background:#e9f4e9;color:#245f3a;padding:7px 13px;font-weight:800;font-size:13px;display:inline-block}.summary{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.message{font-size:14px;line-height:1.7;margin-top:14px;padding:12px;border-radius:12px;display:none}.message.success{display:block;background:#e4f6e7;color:#174b2d}.message.error{display:block;background:#fceae8;color:#8c2419}.closed{text-align:center}.small{font-size:12px;color:#6c7a70;text-align:center;margin-top:20px}a{color:#245f3a}#formCard[hidden],#closedCard[hidden]{display:none}
+</style></head><body><header><h1>⚽ ركلة الأحد الترجيحية</h1><p>تسجيل المشاركة في تمرين الأحد دون نسخ قوائم واتساب</p></header><main>
+<section class="card"><div class="summary"><h2 style="margin:0">التمرين القادم</h2><span id="status" class="tag">جارٍ التحميل…</span></div><p class="note" id="round">نتحقق من حالة التسجيل</p><p class="note" id="stats"></p></section>
+<section class="card" id="formCard" hidden><h2>سجّل مشاركتك</h2><p class="note">اختر اسمك وأدخل رمزك الخاص المكوّن من 8 أرقام والذي تحصل عليه من مسؤول المجموعة.</p>
+<label for="player">اسم اللاعب</label><select id="player"><option value="">اختر اسمك من القائمة</option></select>
+<label for="pin">رمز اللاعب الخاص</label><input id="pin" autocomplete="one-time-code" inputmode="numeric" maxlength="8" placeholder="8 أرقام" type="password">
+<label>موقفك من التمرين</label><div class="choices"><label><input type="radio" name="attending" value="yes" checked> سأحضر</label><label><input type="radio" name="attending" value="no"> أعتذر</label></div>
+<button type="button" id="submit">تأكيد اختياري</button><div role="status" id="message" class="message"></div>
+<p class="note">يمكنك العودة إلى الرابط نفسه وتغيير قرارك برمزك الخاص ما دام التسجيل مفتوحًا. هذا التسجيل مبدئي، ولا يحسب حضورًا فعليًا أو رسومًا.</p></section>
+<section class="card closed" id="closedCard" hidden><h2>التسجيل غير مفتوح الآن</h2><p class="note">سيفتح مسؤول المجموعة التسجيل قبل التمرين. احتفظ بالرابط نفسه للمرات القادمة.</p><button type="button" id="refresh">تحديث الحالة</button></section>
+<p class="small">لا تُعرض في هذه الصفحة تقييمات اللاعبين أو أرصدتهم أو مدفوعاتهم. احتفظ برمزك الشخصي لنفسك.</p></main>
+<script>
+"use strict";
+const API="https://cnkxukuisitdfzhcssbt.supabase.co/functions/v1/sunday-registration";
+let eventId=null;
+const $=id=>document.getElementById(id);
+const digits=v=>String(v||"").replace(/[٠-٩]/g,x=>String(x.charCodeAt(0)-1632)).replace(/[۰-۹]/g,x=>String(x.charCodeAt(0)-1776)).replace(/\D/g,"");
+async function call(action,more={}){
+ const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,...more}),cache:"no-store"});
+ let j;try{j=await r.json()}catch(e){throw Error("تعذّر الاتصال بالخادم. حاول مجددًا.")};
+ if(!r.ok)throw Error(j.error==="temporarily_locked"?"محاولات رمز كثيرة. انتظر 15 دقيقة ثم أعد المحاولة.":j.error==="invalid_credentials"?"الاسم أو الرمز غير صحيح.":"تعذّرت العملية. حاول مجددًا.");
+ return j;
+}
+function msg(text,good){let e=$("message");e.className="message "+(good?"success":"error");e.textContent=text}
+async function refresh(){
+ $("status").textContent="جارٍ التحميل…";$("formCard").hidden=true;$("closedCard").hidden=true;
+ try{
+  const j=await call("status");eventId=j.event?.id||null;
+  if(!eventId){$("status").textContent="مغلق";$("round").textContent="لا يوجد تمرين مفتوح للتسجيل الآن.";$("stats").textContent="";$("closedCard").hidden=false;return}
+  $("status").textContent="مفتوح";$("round").textContent="الدورة "+j.event.cycle+" • التمرين "+j.event.day_num+" من 5";
+  $("stats").textContent="المسجلون للحضور: "+j.attendingCount+" • إجمالي الردود: "+j.respondedCount;
+  let sel=$("player");sel.replaceChildren();sel.add(new Option("اختر اسمك من القائمة",""));
+  j.players.forEach(p=>sel.add(new Option(p.name,p.player_id)));
+  const last=localStorage.getItem("sf_reg_self_id_v1");if(j.players.some(p=>p.player_id===last))sel.value=last;
+  $("formCard").hidden=false;msg("",true);$("message").className="message";
+ }catch(e){$("status").textContent="تعذّر الاتصال";$("round").textContent=String(e.message||e);$("closedCard").hidden=false}
+}
+$("submit").addEventListener("click",async()=>{
+ if(!eventId)return;const playerId=$("player").value,pin=digits($("pin").value),attending=document.querySelector('input[name="attending"]:checked').value==="yes";
+ if(!playerId){msg("اختر اسمك أولًا.",false);return}if(!/^\d{8}$/.test(pin)){msg("أدخل رمز اللاعب من 8 أرقام.",false);return}
+ const b=$("submit");b.disabled=true;b.textContent="جارٍ تسجيل الاختيار…";
+ try{await call("respond",{eventId,playerId,pin,attending});localStorage.setItem("sf_reg_self_id_v1",playerId);$("pin").value="";msg(attending?"تم تسجيل مشاركتك بنجاح. نراك في تمرين الأحد!":"تم تسجيل اعتذارك. يمكنك تغيير قرارك ما دام التسجيل مفتوحًا.",true);const j=await call("status");if(j.event?.id===eventId)$("stats").textContent="المسجلون للحضور: "+j.attendingCount+" • إجمالي الردود: "+j.respondedCount}
+ catch(e){msg(String(e.message||e),false)}
+ finally{b.disabled=false;b.textContent="تأكيد اختياري"}
+});
+$("refresh").addEventListener("click",refresh);refresh();
+</script></body></html>
