@@ -313,9 +313,10 @@ function roleCount(t,role){return t.filter(p=>p.pos===role||p.second===role).len
 function playerTouchStyle(p){return ["one","two","balanced","carrier"].includes(p?.touchStyle)?p.touchStyle:"unknown"}
 function playerOffBall(p){return ["excellent","good","limited"].includes(p?.offBall)?p.offBall:"unknown"}
 function teamTacticalProfile(team){
- const t={quick:0,carriers:0,movement:0,movers:0,knownTouch:0,knownMovement:0,total:team.length};
+ const t={quick:0,carriers:0,movement:0,movers:0,knownTouch:0,knownMovement:0,unclassified:0,total:team.length};
  team.forEach(p=>{
    let touch=playerTouchStyle(p),off=playerOffBall(p);
+   if(touch==="unknown"&&off==="unknown")t.unclassified++;
    if(touch!=="unknown")t.knownTouch++;
    if(touch==="one"||touch==="two")t.quick++;
    if(touch==="carrier")t.carriers++;
@@ -330,10 +331,10 @@ function touchAndMovementBalanceCost(A,B){
  const speedGap=Math.abs(a.quick-b.quick)*1.25;
  const carrierGap=Math.abs(a.carriers-b.carriers)*.8;
  const movingGap=Math.abs(a.movement-b.movement)*1.15;
- // Reward a combination of quick passes and space creators on both teams,
- // but do not infer missing ratings or let these preferences outrank stars.
+ // Distribute quick passers and space creators, without guessing missing data.
+ // Hard cap 2.5 points keeps this under the 3-point cost of half a star.
  const pairingGap=Number(a.quick>0&&a.movers>0)!==Number(b.quick>0&&b.movers>0)?1:0;
- return speedGap+carrierGap+movingGap+pairingGap
+ return Math.min(2.5,speedGap+carrierGap+movingGap+pairingGap)
 }
 function touchStyleName(code){return {one:"لمسة واحدة",two:"لمستان",balanced:"متوازن",carrier:"حامل للكرة",unknown:"غير محدد"}[code]||"غير محدد"}
 function offBallName(code){return {excellent:"ممتاز",good:"جيد",limited:"محدود",unknown:"غير محدد"}[code]||"غير محدد"}
@@ -343,7 +344,7 @@ function renderTacticalProfile(){
  if(!currentTeams.A.length||!currentTeams.B.length){block.style.display="none";return}
  const a=teamTacticalProfile(currentTeams.A),b=teamTacticalProfile(currentTeams.B);
  block.style.display="block";
- const team=(name,x)=>'<div><b>الفريق '+name+'</b><span>تمرير سريع: '+x.quick+' لاعبين</span><span>حاملو الكرة: '+x.carriers+'</span><span>تحرك جيد أو ممتاز: '+x.movers+'</span><span>غير مصنفين: '+(x.total-Math.min(x.knownTouch,x.knownMovement))+' (قد يكون لديهم تصنيف جزئي)</span></div>';
+ const team=(name,x)=>'<div><b>الفريق '+name+'</b><span>تمرير سريع: '+x.quick+' لاعبين</span><span>حاملو الكرة: '+x.carriers+'</span><span>تحرك جيد أو ممتاز: '+x.movers+'</span><span>لم يُصنّفوا بعد: '+x.unclassified+'</span></div>';
  const note=a.knownTouch+b.knownTouch+a.knownMovement+b.knownMovement===0?
  'لا توجد تصنيفات مسجلة بعد؛ التوزيع يعتمد على النجوم والمراكز والحراس فقط.':
  'قراءة تقديرية من تصنيفاتك اليدوية. لا تُعرض في صورة التشكيلة العامة، ولا تُغيّر تقييمات النجوم.';
